@@ -703,9 +703,9 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#test-agent;0.13.8!test-agent.jar
 [debug] 	[NOT REQUIRED] org.scala-sbt#test-interface;1.0!test-interface.jar
 [debug] 	[NOT REQUIRED] org.scala-sbt#apply-macro;0.13.8!apply-macro.jar
-[debug] :: resolution report :: resolve 724ms :: artifacts dl 22ms
+[debug] :: resolution report :: resolve 162ms :: artifacts dl 8ms
 [debug] 	report for default#spark_hackathon$sbt_2.11;1.0 default produced in /Users/ivanliu/Spark/Spark_Hackathon/target/resolution-cache/reports/default-spark_hackathon$sbt_2.11-default.xml
-[debug] 	resolve done (724ms resolve - 22ms download)
+[debug] 	resolve done (162ms resolve - 8ms download)
 [debug] Using inline dependencies specified in Scala.
 [debug] :: resolving dependencies :: default#spark_hackathon$sources_2.11;1.0
 [debug] 	confs: [default]
@@ -1063,6 +1063,6 @@
 [debug] 	[NOT REQUIRED] org.scala-sbt#precompiled-2_8_2;0.13.8!precompiled-2_8_2.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-sbt#precompiled-2_9_2;0.13.8!precompiled-2_9_2.jar(src)
 [debug] 	[NOT REQUIRED] org.scala-sbt#precompiled-2_9_3;0.13.8!precompiled-2_9_3.jar(src)
-[debug] :: resolution report :: resolve 75ms :: artifacts dl 14ms
+[debug] :: resolution report :: resolve 48ms :: artifacts dl 9ms
 [debug] 	report for default#spark_hackathon$sources_2.11;1.0 default produced in /Users/ivanliu/Spark/Spark_Hackathon/target/resolution-cache/reports/default-spark_hackathon$sources_2.11-default.xml
-[debug] 	resolve done (75ms resolve - 14ms download)
+[debug] 	resolve done (48ms resolve - 9ms download)

@@ -11,3 +11,7 @@ libraryDependencies ++= Seq(
 libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-streaming" % "1.4.0"
 )
+
+libraryDependencies ++= Seq(
+  "org.apache.spark" %% "spark-mllib" % "1.4.0"
+)

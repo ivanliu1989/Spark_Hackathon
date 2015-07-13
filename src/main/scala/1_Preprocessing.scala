@@ -1,5 +1,5 @@
-import com.sun.javafx.scene.control.skin.LabeledText
 import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.mllib.regression.LabeledPoint
 
 /**
  * Created by ivanliu on 12/07/15.
@@ -32,7 +32,7 @@ object Preprocessing {
         LabeledPoint: The line is converted into a `LabeledPoint`, which consists of a label and
             features.*/
 
-    val lines = LabeledPoint
+    val lines = LabeledPoint(line.split(",")(0), line.split(",")(-0))
   }
 }
 

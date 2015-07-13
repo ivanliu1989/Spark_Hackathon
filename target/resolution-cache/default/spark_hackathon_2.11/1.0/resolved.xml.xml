@@ -4,7 +4,7 @@
 		module="spark_hackathon_2.11"
 		revision="1.0"
 		status="integration"
-		publication="20150712211603"
+		publication="20150713234517"
 	>
 		<description>
 		Spark_Hackathon
@@ -34,5 +34,6 @@
 		<dependency org="org.scala-lang" name="scala-library" rev="2.11.7" conf="scala-tool->default,optional(default);compile->default(compile)"/>
 		<dependency org="org.apache.spark" name="spark-core_2.11" rev="1.4.0" conf="compile->default(compile)"/>
 		<dependency org="org.apache.spark" name="spark-streaming_2.11" rev="1.4.0" conf="compile->default(compile)"/>
+		<dependency org="org.apache.spark" name="spark-mllib_2.11" rev="1.4.0" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>
