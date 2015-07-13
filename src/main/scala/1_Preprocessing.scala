@@ -1,3 +1,4 @@
+import com.sun.javafx.scene.control.skin.LabeledText
 import org.apache.spark.{SparkContext, SparkConf}
 
 /**
@@ -15,7 +16,7 @@ object Preprocessing {
     val testHist = sc.textFile("../data/testHistory")
     val trainHist = sc.textFile("../data/trainHistory")
     val transactions = sc.textFile("../data/transactions")
-    val tran_sample = transactions.sample(false, fraction = 0.00001, seed = 123)
+    val tran_sample = transactions.sample(false, fraction = 0.00001, seed = 123).cache()
     print(tran_sample.count())
     //    tran_sample.foreach(println)
   }
@@ -30,8 +31,8 @@ object Preprocessing {
     Returns:
         LabeledPoint: The line is converted into a `LabeledPoint`, which consists of a label and
             features.*/
-    
 
+    val lines = LabeledPoint
   }
 }
 
