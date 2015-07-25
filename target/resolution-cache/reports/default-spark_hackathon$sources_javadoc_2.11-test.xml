@@ -7,7 +7,7 @@
 		revision="1.0"
 		conf="test"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
-		date="20150713234816"/>
+		date="20150725110131"/>
 	<dependencies>
 		<module organisation="org.apache.spark" name="spark-mllib_2.11">
 			<revision name="1.4.0" status="release" pubdate="20150611055819" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://spark.apache.org/" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="105">
@@ -17,10 +17,10 @@
 					<artifact name="spark-mllib_2.11" type="jar" ext="jar" status="no" details="" size="3129369" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-mllib_2.11/jars/spark-mllib_2.11-1.4.0.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/spark/spark-mllib_2.11/1.4.0/spark-mllib_2.11-1.4.0.jar"/>
 					</artifact>
-					<artifact name="spark-mllib_2.11" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="469837" time="4019" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-mllib_2.11/srcs/spark-mllib_2.11-1.4.0-sources.jar">
+					<artifact name="spark-mllib_2.11" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="469837" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-mllib_2.11/srcs/spark-mllib_2.11-1.4.0-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/spark/spark-mllib_2.11/1.4.0/spark-mllib_2.11-1.4.0-sources.jar"/>
 					</artifact>
-					<artifact name="spark-mllib_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="1937980" time="6296" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-mllib_2.11/docs/spark-mllib_2.11-1.4.0-javadoc.jar">
+					<artifact name="spark-mllib_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="1937980" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-mllib_2.11/docs/spark-mllib_2.11-1.4.0-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/spark/spark-mllib_2.11/1.4.0/spark-mllib_2.11-1.4.0-javadoc.jar"/>
 					</artifact>
 				</artifacts>
@@ -177,10 +177,10 @@
 				<metadata-artifact status="no" details="" size="4575" time="0" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze_2.11/ivy-0.11.2.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalanlp/breeze_2.11/0.11.2/breeze_2.11-0.11.2.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="0.11.2" rev-constraint-default="0.11.2" rev-constraint-dynamic="0.11.2" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="breeze_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="6241340" time="16169" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze_2.11/docs/breeze_2.11-0.11.2-javadoc.jar">
+					<artifact name="breeze_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="6241340" time="0" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze_2.11/docs/breeze_2.11-0.11.2-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalanlp/breeze_2.11/0.11.2/breeze_2.11-0.11.2-javadoc.jar"/>
 					</artifact>
-					<artifact name="breeze_2.11" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="447470" time="2625" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze_2.11/srcs/breeze_2.11-0.11.2-sources.jar">
+					<artifact name="breeze_2.11" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="447470" time="0" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze_2.11/srcs/breeze_2.11-0.11.2-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalanlp/breeze_2.11/0.11.2/breeze_2.11-0.11.2-sources.jar"/>
 					</artifact>
 					<artifact name="breeze_2.11" type="jar" ext="jar" status="no" details="" size="13448966" time="0" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze_2.11/jars/breeze_2.11-0.11.2.jar">
@@ -195,13 +195,13 @@
 				<metadata-artifact status="no" details="" size="3037" time="0" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire_2.11/ivy-0.7.4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/spire-math/spire_2.11/0.7.4/spire_2.11-0.7.4.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="0.7.4" rev-constraint-default="0.7.4" rev-constraint-dynamic="0.7.4" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="spire_2.11" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="175888" time="2237" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire_2.11/srcs/spire_2.11-0.7.4-sources.jar">
+					<artifact name="spire_2.11" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="175888" time="0" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire_2.11/srcs/spire_2.11-0.7.4-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/spire-math/spire_2.11/0.7.4/spire_2.11-0.7.4-sources.jar"/>
 					</artifact>
 					<artifact name="spire_2.11" type="jar" ext="jar" status="no" details="" size="7276083" time="0" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire_2.11/jars/spire_2.11-0.7.4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/spire-math/spire_2.11/0.7.4/spire_2.11-0.7.4.jar"/>
 					</artifact>
-					<artifact name="spire_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="2955997" time="10032" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire_2.11/docs/spire_2.11-0.7.4-javadoc.jar">
+					<artifact name="spire_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="2955997" time="0" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire_2.11/docs/spire_2.11-0.7.4-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/spire-math/spire_2.11/0.7.4/spire_2.11-0.7.4-javadoc.jar"/>
 					</artifact>
 				</artifacts>
@@ -213,13 +213,13 @@
 				<metadata-artifact status="no" details="" size="2908" time="0" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire-macros_2.11/ivy-0.7.4.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/spire-math/spire-macros_2.11/0.7.4/spire-macros_2.11-0.7.4.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="0.7.4" rev-constraint-default="0.7.4" rev-constraint-dynamic="0.7.4" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="spire-macros_2.11" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="6151" time="2030" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire-macros_2.11/srcs/spire-macros_2.11-0.7.4-sources.jar">
+					<artifact name="spire-macros_2.11" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="6151" time="0" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire-macros_2.11/srcs/spire-macros_2.11-0.7.4-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/spire-math/spire-macros_2.11/0.7.4/spire-macros_2.11-0.7.4-sources.jar"/>
 					</artifact>
 					<artifact name="spire-macros_2.11" type="jar" ext="jar" status="no" details="" size="86811" time="0" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire-macros_2.11/jars/spire-macros_2.11-0.7.4.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/spire-math/spire-macros_2.11/0.7.4/spire-macros_2.11-0.7.4.jar"/>
 					</artifact>
-					<artifact name="spire-macros_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="375533" time="3103" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire-macros_2.11/docs/spire-macros_2.11-0.7.4-javadoc.jar">
+					<artifact name="spire-macros_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="375533" time="0" location="/Users/ivanliu/.ivy2/cache/org.spire-math/spire-macros_2.11/docs/spire-macros_2.11-0.7.4-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/spire-math/spire-macros_2.11/0.7.4/spire-macros_2.11-0.7.4-javadoc.jar"/>
 					</artifact>
 				</artifacts>
@@ -269,10 +269,10 @@
 				<metadata-artifact status="no" details="" size="3025" time="0" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze-macros_2.11/ivy-0.11.2.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scalanlp/breeze-macros_2.11/0.11.2/breeze-macros_2.11-0.11.2.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="0.11.2" rev-constraint-default="0.11.2" rev-constraint-dynamic="0.11.2" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="breeze-macros_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="382876" time="3217" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze-macros_2.11/docs/breeze-macros_2.11-0.11.2-javadoc.jar">
+					<artifact name="breeze-macros_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="382876" time="0" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze-macros_2.11/docs/breeze-macros_2.11-0.11.2-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalanlp/breeze-macros_2.11/0.11.2/breeze-macros_2.11-0.11.2-javadoc.jar"/>
 					</artifact>
-					<artifact name="breeze-macros_2.11" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="5543" time="1671" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze-macros_2.11/srcs/breeze-macros_2.11-0.11.2-sources.jar">
+					<artifact name="breeze-macros_2.11" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="5543" time="0" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze-macros_2.11/srcs/breeze-macros_2.11-0.11.2-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scalanlp/breeze-macros_2.11/0.11.2/breeze-macros_2.11-0.11.2-sources.jar"/>
 					</artifact>
 					<artifact name="breeze-macros_2.11" type="jar" ext="jar" status="no" details="" size="135552" time="0" location="/Users/ivanliu/.ivy2/cache/org.scalanlp/breeze-macros_2.11/jars/breeze-macros_2.11-0.11.2.jar">
@@ -289,10 +289,10 @@
 					<artifact name="spark-graphx_2.11" type="jar" ext="jar" status="no" details="" size="647227" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-graphx_2.11/jars/spark-graphx_2.11-1.4.0.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/spark/spark-graphx_2.11/1.4.0/spark-graphx_2.11-1.4.0.jar"/>
 					</artifact>
-					<artifact name="spark-graphx_2.11" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="97331" time="2449" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-graphx_2.11/srcs/spark-graphx_2.11-1.4.0-sources.jar">
+					<artifact name="spark-graphx_2.11" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="97331" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-graphx_2.11/srcs/spark-graphx_2.11-1.4.0-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/spark/spark-graphx_2.11/1.4.0/spark-graphx_2.11-1.4.0-sources.jar"/>
 					</artifact>
-					<artifact name="spark-graphx_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="583650" time="3991" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-graphx_2.11/docs/spark-graphx_2.11-1.4.0-javadoc.jar">
+					<artifact name="spark-graphx_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="583650" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-graphx_2.11/docs/spark-graphx_2.11-1.4.0-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/spark/spark-graphx_2.11/1.4.0/spark-graphx_2.11-1.4.0-javadoc.jar"/>
 					</artifact>
 				</artifacts>
@@ -320,10 +320,10 @@
 				<metadata-artifact status="no" details="" size="41799" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-sql_2.11/ivy-1.4.0.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/spark/spark-sql_2.11/1.4.0/spark-sql_2.11-1.4.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="1.4.0" rev-constraint-default="1.4.0" rev-constraint-dynamic="1.4.0" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="spark-sql_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="1155522" time="5115" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-sql_2.11/docs/spark-sql_2.11-1.4.0-javadoc.jar">
+					<artifact name="spark-sql_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="1155522" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-sql_2.11/docs/spark-sql_2.11-1.4.0-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/spark/spark-sql_2.11/1.4.0/spark-sql_2.11-1.4.0-javadoc.jar"/>
 					</artifact>
-					<artifact name="spark-sql_2.11" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="314670" time="3065" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-sql_2.11/srcs/spark-sql_2.11-1.4.0-sources.jar">
+					<artifact name="spark-sql_2.11" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="314670" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-sql_2.11/srcs/spark-sql_2.11-1.4.0-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/spark/spark-sql_2.11/1.4.0/spark-sql_2.11-1.4.0-sources.jar"/>
 					</artifact>
 					<artifact name="spark-sql_2.11" type="jar" ext="jar" status="no" details="" size="2751102" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-sql_2.11/jars/spark-sql_2.11-1.4.0.jar">
@@ -338,10 +338,10 @@
 				<metadata-artifact status="no" details="" size="2375" time="0" location="/Users/ivanliu/.ivy2/cache/org.jodd/jodd-core/ivy-3.6.3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/jodd/jodd-core/3.6.3/jodd-core-3.6.3.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="3.6.3" rev-constraint-default="3.6.3" rev-constraint-dynamic="3.6.3" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="jodd-core" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="707814" time="3858" location="/Users/ivanliu/.ivy2/cache/org.jodd/jodd-core/docs/jodd-core-3.6.3-javadoc.jar">
+					<artifact name="jodd-core" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="707814" time="0" location="/Users/ivanliu/.ivy2/cache/org.jodd/jodd-core/docs/jodd-core-3.6.3-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/jodd/jodd-core/3.6.3/jodd-core-3.6.3-javadoc.jar"/>
 					</artifact>
-					<artifact name="jodd-core" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="280476" time="3049" location="/Users/ivanliu/.ivy2/cache/org.jodd/jodd-core/srcs/jodd-core-3.6.3-sources.jar">
+					<artifact name="jodd-core" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="280476" time="0" location="/Users/ivanliu/.ivy2/cache/org.jodd/jodd-core/srcs/jodd-core-3.6.3-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/jodd/jodd-core/3.6.3/jodd-core-3.6.3-sources.jar"/>
 					</artifact>
 					<artifact name="jodd-core" type="jar" ext="jar" status="no" details="" size="378381" time="0" location="/Users/ivanliu/.ivy2/cache/org.jodd/jodd-core/jars/jodd-core-3.6.3.jar">
@@ -355,10 +355,10 @@
 				<metadata-artifact status="no" details="" size="6015" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-hadoop/ivy-1.6.0rc3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/twitter/parquet-hadoop/1.6.0rc3/parquet-hadoop-1.6.0rc3.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="1.6.0rc3" rev-constraint-default="1.6.0rc3" rev-constraint-dynamic="1.6.0rc3" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="parquet-hadoop" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="107180" time="3889" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-hadoop/srcs/parquet-hadoop-1.6.0rc3-sources.jar">
+					<artifact name="parquet-hadoop" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="107180" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-hadoop/srcs/parquet-hadoop-1.6.0rc3-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-hadoop/1.6.0rc3/parquet-hadoop-1.6.0rc3-sources.jar"/>
 					</artifact>
-					<artifact name="parquet-hadoop" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="415036" time="4048" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-hadoop/docs/parquet-hadoop-1.6.0rc3-javadoc.jar">
+					<artifact name="parquet-hadoop" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="415036" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-hadoop/docs/parquet-hadoop-1.6.0rc3-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-hadoop/1.6.0rc3/parquet-hadoop-1.6.0rc3-javadoc.jar"/>
 					</artifact>
 					<artifact name="parquet-hadoop" type="jar" ext="jar" status="no" details="" size="195121" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-hadoop/jars/parquet-hadoop-1.6.0rc3.jar">
@@ -402,13 +402,13 @@
 				<metadata-artifact status="no" details="" size="5349" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-jackson/ivy-1.6.0rc3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/twitter/parquet-jackson/1.6.0rc3/parquet-jackson-1.6.0rc3.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="1.6.0rc3" rev-constraint-default="1.6.0rc3" rev-constraint-dynamic="1.6.0rc3" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="parquet-jackson" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="806158" time="6209" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-jackson/srcs/parquet-jackson-1.6.0rc3-sources.jar">
+					<artifact name="parquet-jackson" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="806158" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-jackson/srcs/parquet-jackson-1.6.0rc3-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-jackson/1.6.0rc3/parquet-jackson-1.6.0rc3-sources.jar"/>
 					</artifact>
 					<artifact name="parquet-jackson" type="jar" ext="jar" status="no" details="" size="1029040" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-jackson/jars/parquet-jackson-1.6.0rc3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-jackson/1.6.0rc3/parquet-jackson-1.6.0rc3.jar"/>
 					</artifact>
-					<artifact name="parquet-jackson" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="334" time="1837" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-jackson/docs/parquet-jackson-1.6.0rc3-javadoc.jar">
+					<artifact name="parquet-jackson" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="334" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-jackson/docs/parquet-jackson-1.6.0rc3-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-jackson/1.6.0rc3/parquet-jackson-1.6.0rc3-javadoc.jar"/>
 					</artifact>
 				</artifacts>
@@ -423,10 +423,10 @@
 					<artifact name="parquet-format" type="jar" ext="jar" status="no" details="" size="375618" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-format/jars/parquet-format-2.2.0-rc1.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-format/2.2.0-rc1/parquet-format-2.2.0-rc1.jar"/>
 					</artifact>
-					<artifact name="parquet-format" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="387913" time="3324" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-format/docs/parquet-format-2.2.0-rc1-javadoc.jar">
+					<artifact name="parquet-format" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="387913" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-format/docs/parquet-format-2.2.0-rc1-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-format/2.2.0-rc1/parquet-format-2.2.0-rc1-javadoc.jar"/>
 					</artifact>
-					<artifact name="parquet-format" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="83070" time="2455" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-format/srcs/parquet-format-2.2.0-rc1-sources.jar">
+					<artifact name="parquet-format" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="83070" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-format/srcs/parquet-format-2.2.0-rc1-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-format/2.2.0-rc1/parquet-format-2.2.0-rc1-sources.jar"/>
 					</artifact>
 				</artifacts>
@@ -437,10 +437,10 @@
 				<metadata-artifact status="no" details="" size="6143" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-column/ivy-1.6.0rc3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/twitter/parquet-column/1.6.0rc3/parquet-column-1.6.0rc3.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="1.6.0rc3" rev-constraint-default="1.6.0rc3" rev-constraint-dynamic="1.6.0rc3" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="parquet-column" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="189258" time="2664" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-column/srcs/parquet-column-1.6.0rc3-sources.jar">
+					<artifact name="parquet-column" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="189258" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-column/srcs/parquet-column-1.6.0rc3-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-column/1.6.0rc3/parquet-column-1.6.0rc3-sources.jar"/>
 					</artifact>
-					<artifact name="parquet-column" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="1135052" time="6558" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-column/docs/parquet-column-1.6.0rc3-javadoc.jar">
+					<artifact name="parquet-column" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="1135052" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-column/docs/parquet-column-1.6.0rc3-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-column/1.6.0rc3/parquet-column-1.6.0rc3-javadoc.jar"/>
 					</artifact>
 					<artifact name="parquet-column" type="jar" ext="jar" status="no" details="" size="866617" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-column/jars/parquet-column-1.6.0rc3.jar">
@@ -457,10 +457,10 @@
 					<artifact name="parquet-encoding" type="jar" ext="jar" status="no" details="" size="272727" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-encoding/jars/parquet-encoding-1.6.0rc3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-encoding/1.6.0rc3/parquet-encoding-1.6.0rc3.jar"/>
 					</artifact>
-					<artifact name="parquet-encoding" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="167623" time="2637" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-encoding/srcs/parquet-encoding-1.6.0rc3-sources.jar">
+					<artifact name="parquet-encoding" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="167623" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-encoding/srcs/parquet-encoding-1.6.0rc3-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-encoding/1.6.0rc3/parquet-encoding-1.6.0rc3-sources.jar"/>
 					</artifact>
-					<artifact name="parquet-encoding" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="115702" time="2563" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-encoding/docs/parquet-encoding-1.6.0rc3-javadoc.jar">
+					<artifact name="parquet-encoding" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="115702" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-encoding/docs/parquet-encoding-1.6.0rc3-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-encoding/1.6.0rc3/parquet-encoding-1.6.0rc3-javadoc.jar"/>
 					</artifact>
 				</artifacts>
@@ -474,10 +474,10 @@
 					<artifact name="parquet-generator" type="jar" ext="jar" status="no" details="" size="15700" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-generator/jars/parquet-generator-1.6.0rc3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-generator/1.6.0rc3/parquet-generator-1.6.0rc3.jar"/>
 					</artifact>
-					<artifact name="parquet-generator" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="64564" time="2550" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-generator/docs/parquet-generator-1.6.0rc3-javadoc.jar">
+					<artifact name="parquet-generator" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="64564" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-generator/docs/parquet-generator-1.6.0rc3-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-generator/1.6.0rc3/parquet-generator-1.6.0rc3-javadoc.jar"/>
 					</artifact>
-					<artifact name="parquet-generator" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="8989" time="1641" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-generator/srcs/parquet-generator-1.6.0rc3-sources.jar">
+					<artifact name="parquet-generator" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="8989" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-generator/srcs/parquet-generator-1.6.0rc3-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-generator/1.6.0rc3/parquet-generator-1.6.0rc3-sources.jar"/>
 					</artifact>
 				</artifacts>
@@ -488,13 +488,13 @@
 				<metadata-artifact status="no" details="" size="4590" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-common/ivy-1.6.0rc3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/com/twitter/parquet-common/1.6.0rc3/parquet-common-1.6.0rc3.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="1.6.0rc3" rev-constraint-default="1.6.0rc3" rev-constraint-dynamic="1.6.0rc3" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="parquet-common" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="91607" time="2243" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-common/docs/parquet-common-1.6.0rc3-javadoc.jar">
+					<artifact name="parquet-common" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="91607" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-common/docs/parquet-common-1.6.0rc3-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-common/1.6.0rc3/parquet-common-1.6.0rc3-javadoc.jar"/>
 					</artifact>
 					<artifact name="parquet-common" type="jar" ext="jar" status="no" details="" size="15733" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-common/jars/parquet-common-1.6.0rc3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-common/1.6.0rc3/parquet-common-1.6.0rc3.jar"/>
 					</artifact>
-					<artifact name="parquet-common" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="11209" time="1663" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-common/srcs/parquet-common-1.6.0rc3-sources.jar">
+					<artifact name="parquet-common" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="11209" time="0" location="/Users/ivanliu/.ivy2/cache/com.twitter/parquet-common/srcs/parquet-common-1.6.0rc3-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/com/twitter/parquet-common/1.6.0rc3/parquet-common-1.6.0rc3-sources.jar"/>
 					</artifact>
 				</artifacts>
@@ -505,10 +505,10 @@
 				<metadata-artifact status="no" details="" size="40718" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-catalyst_2.11/ivy-1.4.0.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/spark/spark-catalyst_2.11/1.4.0/spark-catalyst_2.11-1.4.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="1.4.0" rev-constraint-default="1.4.0" rev-constraint-dynamic="1.4.0" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="spark-catalyst_2.11" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="237337" time="3536" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-catalyst_2.11/srcs/spark-catalyst_2.11-1.4.0-sources.jar">
+					<artifact name="spark-catalyst_2.11" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="237337" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-catalyst_2.11/srcs/spark-catalyst_2.11-1.4.0-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/spark/spark-catalyst_2.11/1.4.0/spark-catalyst_2.11-1.4.0-sources.jar"/>
 					</artifact>
-					<artifact name="spark-catalyst_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="3332053" time="12950" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-catalyst_2.11/docs/spark-catalyst_2.11-1.4.0-javadoc.jar">
+					<artifact name="spark-catalyst_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="3332053" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-catalyst_2.11/docs/spark-catalyst_2.11-1.4.0-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/apache/spark/spark-catalyst_2.11/1.4.0/spark-catalyst_2.11-1.4.0-javadoc.jar"/>
 					</artifact>
 					<artifact name="spark-catalyst_2.11" type="jar" ext="jar" status="no" details="" size="3379113" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.spark/spark-catalyst_2.11/jars/spark-catalyst_2.11-1.4.0.jar">
@@ -526,10 +526,10 @@
 					<artifact name="scala-compiler" type="jar" ext="jar" status="no" details="" size="14237296" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-compiler/jars/scala-compiler-2.11.6.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.6/scala-compiler-2.11.6.jar"/>
 					</artifact>
-					<artifact name="scala-compiler" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="2146491" time="5770" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-compiler/srcs/scala-compiler-2.11.6-sources.jar">
+					<artifact name="scala-compiler" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="2146491" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-compiler/srcs/scala-compiler-2.11.6-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.6/scala-compiler-2.11.6-sources.jar"/>
 					</artifact>
-					<artifact name="scala-compiler" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="12537102" time="22659" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-compiler/docs/scala-compiler-2.11.6-javadoc.jar">
+					<artifact name="scala-compiler" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="12537102" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-compiler/docs/scala-compiler-2.11.6-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/scala-compiler/2.11.6/scala-compiler-2.11.6-javadoc.jar"/>
 					</artifact>
 				</artifacts>
@@ -541,13 +541,13 @@
 				<metadata-artifact status="no" details="" size="2803" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/ivy-1.0.3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.3/scala-parser-combinators_2.11-1.0.3.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="1.0.3" rev-constraint-default="1.0.3" rev-constraint-dynamic="1.0.3" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="scala-parser-combinators_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="693395" time="4343" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/docs/scala-parser-combinators_2.11-1.0.3-javadoc.jar">
+					<artifact name="scala-parser-combinators_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="693395" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/docs/scala-parser-combinators_2.11-1.0.3-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.3/scala-parser-combinators_2.11-1.0.3-javadoc.jar"/>
 					</artifact>
-					<artifact name="scala-parser-combinators_2.11" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="42156" time="1617" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/srcs/scala-parser-combinators_2.11-1.0.3-sources.jar">
+					<artifact name="scala-parser-combinators_2.11" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="42156" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/srcs/scala-parser-combinators_2.11-1.0.3-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.3/scala-parser-combinators_2.11-1.0.3-sources.jar"/>
 					</artifact>
-					<artifact name="scala-parser-combinators_2.11" type="jar" ext="jar" status="successful" details="" size="415523" time="3482" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/jars/scala-parser-combinators_2.11-1.0.3.jar">
+					<artifact name="scala-parser-combinators_2.11" type="jar" ext="jar" status="no" details="" size="415523" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/jars/scala-parser-combinators_2.11-1.0.3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.3/scala-parser-combinators_2.11-1.0.3.jar"/>
 					</artifact>
 				</artifacts>
@@ -559,13 +559,13 @@
 				<metadata-artifact status="no" details="" size="3011" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/ivy-1.0.3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.11/1.0.3/scala-xml_2.11-1.0.3.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="1.0.3" rev-constraint-default="1.0.3" rev-constraint-dynamic="1.0.3" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="scala-xml_2.11" type="jar" ext="jar" status="successful" details="" size="647893" time="3481" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/jars/scala-xml_2.11-1.0.3.jar">
+					<artifact name="scala-xml_2.11" type="jar" ext="jar" status="no" details="" size="647893" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/jars/scala-xml_2.11-1.0.3.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.11/1.0.3/scala-xml_2.11-1.0.3.jar"/>
 					</artifact>
-					<artifact name="scala-xml_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="1225501" time="5125" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/docs/scala-xml_2.11-1.0.3-javadoc.jar">
+					<artifact name="scala-xml_2.11" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="1225501" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/docs/scala-xml_2.11-1.0.3-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.11/1.0.3/scala-xml_2.11-1.0.3-javadoc.jar"/>
 					</artifact>
-					<artifact name="scala-xml_2.11" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="109174" time="2220" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/srcs/scala-xml_2.11-1.0.3-sources.jar">
+					<artifact name="scala-xml_2.11" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="109174" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/srcs/scala-xml_2.11-1.0.3-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/modules/scala-xml_2.11/1.0.3/scala-xml_2.11-1.0.3-sources.jar"/>
 					</artifact>
 				</artifacts>
@@ -577,13 +577,13 @@
 				<metadata-artifact status="no" details="" size="2825" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-reflect/ivy-2.11.6.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.6/scala-reflect-2.11.6.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.11.6" rev-constraint-default="2.11.6" rev-constraint-dynamic="2.11.6" callerrev="1.0" extra-info.apiURL="http://www.scala-lang.org/api/2.11.6/"/>
 				<artifacts>
-					<artifact name="scala-reflect" type="doc" ext="jar" extra-classifier="javadoc" status="successful" details="" size="4405075" time="11424" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-reflect/docs/scala-reflect-2.11.6-javadoc.jar">
+					<artifact name="scala-reflect" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="4405075" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-reflect/docs/scala-reflect-2.11.6-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.6/scala-reflect-2.11.6-javadoc.jar"/>
 					</artifact>
 					<artifact name="scala-reflect" type="jar" ext="jar" status="no" details="" size="4450173" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.6.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.6/scala-reflect-2.11.6.jar"/>
 					</artifact>
-					<artifact name="scala-reflect" type="src" ext="jar" extra-classifier="sources" status="successful" details="" size="561028" time="3464" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-reflect/srcs/scala-reflect-2.11.6-sources.jar">
+					<artifact name="scala-reflect" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="561028" time="0" location="/Users/ivanliu/.ivy2/cache/org.scala-lang/scala-reflect/srcs/scala-reflect-2.11.6-sources.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.6/scala-reflect-2.11.6-sources.jar"/>
 					</artifact>
 				</artifacts>
@@ -819,11 +819,11 @@
 					<artifact name="metrics-graphite" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="60052" time="0" location="/Users/ivanliu/.ivy2/cache/io.dropwizard.metrics/metrics-graphite/docs/metrics-graphite-3.1.0-javadoc.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/io/dropwizard/metrics/metrics-graphite/3.1.0/metrics-graphite-3.1.0-javadoc.jar"/>
 					</artifact>
-					<artifact name="metrics-graphite" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="10570" time="0" location="/Users/ivanliu/.ivy2/cache/io.dropwizard.metrics/metrics-graphite/srcs/metrics-graphite-3.1.0-sources.jar">
-						<origin-location is-local="false" location="https://repo1.maven.org/maven2/io/dropwizard/metrics/metrics-graphite/3.1.0/metrics-graphite-3.1.0-sources.jar"/>
-					</artifact>
 					<artifact name="metrics-graphite" type="jar" ext="jar" status="no" details="" size="20638" time="0" location="/Users/ivanliu/.ivy2/cache/io.dropwizard.metrics/metrics-graphite/jars/metrics-graphite-3.1.0.jar">
 						<origin-location is-local="false" location="https://repo1.maven.org/maven2/io/dropwizard/metrics/metrics-graphite/3.1.0/metrics-graphite-3.1.0.jar"/>
+					</artifact>
+					<artifact name="metrics-graphite" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="10570" time="0" location="/Users/ivanliu/.ivy2/cache/io.dropwizard.metrics/metrics-graphite/srcs/metrics-graphite-3.1.0-sources.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/io/dropwizard/metrics/metrics-graphite/3.1.0/metrics-graphite-3.1.0-sources.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
@@ -1561,7 +1561,7 @@
 		</module>
 		<module organisation="org.apache.hadoop" name="hadoop-mapreduce-client-jobclient">
 			<revision name="2.2.0" status="release" pubdate="20131007173723" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="48">
-				<metadata-artifact status="successful" details="" size="5474" time="1635" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-jobclient/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-jobclient/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-client-jobclient/2.2.0/hadoop-mapreduce-client-jobclient-2.2.0.pom"/>
+				<metadata-artifact status="successful" details="" size="5474" time="6859" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-jobclient/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-jobclient/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-client-jobclient/2.2.0/hadoop-mapreduce-client-jobclient-2.2.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.2.0" rev-constraint-default="2.2.0" rev-constraint-dynamic="2.2.0" callerrev="1.0"/>
 				<artifacts>
 					<artifact name="hadoop-mapreduce-client-jobclient" type="jar" ext="jar" status="no" details="" size="35216" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-jobclient/jars/hadoop-mapreduce-client-jobclient-2.2.0.jar">
@@ -1578,7 +1578,7 @@
 		</module>
 		<module organisation="org.apache.hadoop" name="hadoop-mapreduce-client-app">
 			<revision name="2.2.0" status="release" pubdate="20131007173711" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="29">
-				<metadata-artifact status="successful" details="" size="4335" time="2402" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-app/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-app/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-client-app/2.2.0/hadoop-mapreduce-client-app-2.2.0.pom"/>
+				<metadata-artifact status="successful" details="" size="4335" time="4082" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-app/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-app/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-client-app/2.2.0/hadoop-mapreduce-client-app-2.2.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.2.0" rev-constraint-default="2.2.0" rev-constraint-dynamic="2.2.0" callerrev="1.0"/>
 				<artifacts>
 					<artifact name="hadoop-mapreduce-client-app" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="278865" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-app/srcs/hadoop-mapreduce-client-app-2.2.0-sources.jar">
@@ -1595,7 +1595,7 @@
 		</module>
 		<module organisation="org.apache.hadoop" name="hadoop-mapreduce-client-shuffle">
 			<revision name="2.2.0" status="release" pubdate="20131007173703" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="47">
-				<metadata-artifact status="successful" details="" size="1675" time="1432" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-shuffle/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-shuffle/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-client-shuffle/2.2.0/hadoop-mapreduce-client-shuffle-2.2.0.pom"/>
+				<metadata-artifact status="successful" details="" size="1675" time="2735" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-shuffle/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-shuffle/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-client-shuffle/2.2.0/hadoop-mapreduce-client-shuffle-2.2.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.2.0" rev-constraint-default="2.2.0" rev-constraint-dynamic="2.2.0" callerrev="1.0"/>
 				<artifacts>
 					<artifact name="hadoop-mapreduce-client-shuffle" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="108204" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-shuffle/docs/hadoop-mapreduce-client-shuffle-2.2.0-javadoc.jar">
@@ -1612,7 +1612,7 @@
 		</module>
 		<module organisation="org.apache.hadoop" name="hadoop-yarn-server-nodemanager">
 			<revision name="2.2.0" status="release" pubdate="20131007173538" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="49">
-				<metadata-artifact status="successful" details="" size="7324" time="1848" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-server-nodemanager/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-server-nodemanager/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-yarn-server-nodemanager/2.2.0/hadoop-yarn-server-nodemanager-2.2.0.pom"/>
+				<metadata-artifact status="successful" details="" size="7324" time="1898" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-server-nodemanager/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-server-nodemanager/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-yarn-server-nodemanager/2.2.0/hadoop-yarn-server-nodemanager-2.2.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.2.0" rev-constraint-default="2.2.0" rev-constraint-dynamic="2.2.0" callerrev="1.0"/>
 				<artifacts>
 					<artifact name="hadoop-yarn-server-nodemanager" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="262442" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-server-nodemanager/srcs/hadoop-yarn-server-nodemanager-2.2.0-sources.jar">
@@ -1629,7 +1629,7 @@
 		</module>
 		<module organisation="org.apache.hadoop" name="hadoop-mapreduce-client-common">
 			<revision name="2.2.0" status="release" pubdate="20131007173659" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="30">
-				<metadata-artifact status="successful" details="" size="3273" time="1659" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-common/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-common/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-client-common/2.2.0/hadoop-mapreduce-client-common-2.2.0.pom"/>
+				<metadata-artifact status="successful" details="" size="3273" time="4211" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-common/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-common/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-client-common/2.2.0/hadoop-mapreduce-client-common-2.2.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.2.0" rev-constraint-default="2.2.0" rev-constraint-dynamic="2.2.0" callerrev="1.0"/>
 				<artifacts>
 					<artifact name="hadoop-mapreduce-client-common" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="244749" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-common/srcs/hadoop-mapreduce-client-common-2.2.0-sources.jar">
@@ -1646,7 +1646,7 @@
 		</module>
 		<module organisation="org.apache.hadoop" name="hadoop-yarn-server-common">
 			<revision name="2.2.0" status="release" pubdate="20131007173526" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="46">
-				<metadata-artifact status="successful" details="" size="3534" time="1434" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-server-common/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-server-common/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-yarn-server-common/2.2.0/hadoop-yarn-server-common-2.2.0.pom"/>
+				<metadata-artifact status="successful" details="" size="3534" time="1527" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-server-common/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-server-common/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-yarn-server-common/2.2.0/hadoop-yarn-server-common-2.2.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.2.0" rev-constraint-default="2.2.0" rev-constraint-dynamic="2.2.0" callerrev="1.0"/>
 				<artifacts>
 					<artifact name="hadoop-yarn-server-common" type="jar" ext="jar" status="no" details="" size="175554" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-server-common/jars/hadoop-yarn-server-common-2.2.0.jar">
@@ -1663,7 +1663,7 @@
 		</module>
 		<module organisation="org.apache.hadoop" name="hadoop-mapreduce-client-core">
 			<revision name="2.2.0" status="release" pubdate="20131007173626" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="45">
-				<metadata-artifact status="successful" details="" size="3085" time="1285" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-core/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-core/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-client-core/2.2.0/hadoop-mapreduce-client-core-2.2.0.pom"/>
+				<metadata-artifact status="successful" details="" size="3085" time="1133" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-core/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-core/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-mapreduce-client-core/2.2.0/hadoop-mapreduce-client-core-2.2.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.2.0" rev-constraint-default="2.2.0" rev-constraint-dynamic="2.2.0" callerrev="1.0"/>
 				<artifacts>
 					<artifact name="hadoop-mapreduce-client-core" type="src" ext="jar" extra-classifier="sources" status="no" details="" size="1008328" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-mapreduce-client-core/srcs/hadoop-mapreduce-client-core-2.2.0-sources.jar">
@@ -1680,7 +1680,7 @@
 		</module>
 		<module organisation="org.apache.hadoop" name="hadoop-yarn-client">
 			<revision name="2.2.0" status="release" pubdate="20131007173604" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="44">
-				<metadata-artifact status="successful" details="" size="1961" time="2048" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-client/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-client/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-yarn-client/2.2.0/hadoop-yarn-client-2.2.0.pom"/>
+				<metadata-artifact status="successful" details="" size="1961" time="4890" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-client/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-client/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-yarn-client/2.2.0/hadoop-yarn-client-2.2.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.2.0" rev-constraint-default="2.2.0" rev-constraint-dynamic="2.2.0" callerrev="1.0"/>
 				<artifacts>
 					<artifact name="hadoop-yarn-client" type="jar" ext="jar" status="no" details="" size="94728" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-client/jars/hadoop-yarn-client-2.2.0.jar">
@@ -1697,7 +1697,7 @@
 		</module>
 		<module organisation="org.apache.hadoop" name="hadoop-yarn-common">
 			<revision name="2.2.0" status="release" pubdate="20131007173515" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="31">
-				<metadata-artifact status="successful" details="" size="5032" time="1675" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-common/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-common/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-yarn-common/2.2.0/hadoop-yarn-common-2.2.0.pom"/>
+				<metadata-artifact status="successful" details="" size="5032" time="5523" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-common/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-common/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-yarn-common/2.2.0/hadoop-yarn-common-2.2.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.2.0" rev-constraint-default="2.2.0" rev-constraint-dynamic="2.2.0" callerrev="1.0"/>
 				<artifacts>
 					<artifact name="hadoop-yarn-common" type="doc" ext="jar" extra-classifier="javadoc" status="no" details="" size="6749818" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-common/docs/hadoop-yarn-common-2.2.0-javadoc.jar">
@@ -1714,7 +1714,7 @@
 		</module>
 		<module organisation="org.apache.hadoop" name="hadoop-yarn-api">
 			<revision name="2.2.0" status="release" pubdate="20131007173452" resolver="public" artresolver="public" homepage="" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="32">
-				<metadata-artifact status="successful" details="" size="2956" time="1843" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-api/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-api/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-yarn-api/2.2.0/hadoop-yarn-api-2.2.0.pom"/>
+				<metadata-artifact status="successful" details="" size="2956" time="1163" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-api/ivy-2.2.0.xml" searched="true" original-local-location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-api/ivy-2.2.0.xml.original" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-yarn-api/2.2.0/hadoop-yarn-api-2.2.0.pom"/>
 				<caller organisation="default" name="spark_hackathon$sources_javadoc_2.11" conf="test, compile, runtime" rev="2.2.0" rev-constraint-default="2.2.0" rev-constraint-dynamic="2.2.0" callerrev="1.0"/>
 				<artifacts>
 					<artifact name="hadoop-yarn-api" type="jar" ext="jar" status="no" details="" size="1158936" time="0" location="/Users/ivanliu/.ivy2/cache/org.apache.hadoop/hadoop-yarn-api/jars/hadoop-yarn-api-2.2.0.jar">

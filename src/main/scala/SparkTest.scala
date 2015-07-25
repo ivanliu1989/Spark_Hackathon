@@ -28,7 +28,7 @@ object SparkTest  {
 
     val ssc = new StreamingContext(conf, Seconds(interval))
     ssc.checkpoint(checkpoint_dir)
-    val lines = ssc.socketTextStream("localhost",9999)
+    val lines = ssc.socketTextStream("localhost", 9999)
 
     lines.flatMap(_.split(" ")).map(x=>(x,1)).reduceByKeyAndWindow((a:Int, b:Int)=>(a+b), Seconds(windowLength), Seconds(interval)).print
 

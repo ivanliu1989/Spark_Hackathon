@@ -1,5 +1,4 @@
-import org.apache.spark.{SparkContext, SparkConf}
-import org.apache.spark.mllib.regression.LabeledPoint
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
  * Created by ivanliu on 12/07/15.
@@ -16,23 +15,25 @@ object Preprocessing {
     val testHist = sc.textFile("../data/testHistory")
     val trainHist = sc.textFile("../data/trainHistory")
     val transactions = sc.textFile("../data/transactions")
-    val tran_sample = transactions.sample(false, fraction = 0.00001, seed = 123).cache()
-    print(tran_sample.count())
+    print(offers.take(100))
+    print("I am Ivan")
+//    val tran_sample = transactions.sample(false, fraction = 0.00001, seed = 123).cache()
+//    print(tran_sample.count())
     //    tran_sample.foreach(println)
   }
 
-  def parsePoint(line:String): Unit ={
-    /*Converts a comma separated unicode string into a `LabeledPoint`.
-
-    Args:
-        line (unicode): Comma separated unicode string where the first element is the label and the
-            remaining elements are features.
-
-    Returns:
-        LabeledPoint: The line is converted into a `LabeledPoint`, which consists of a label and
-            features.*/
-
-    val lines = LabeledPoint(line.split(",")(0), line.split(",")(-0))
-  }
+  //  def parsePoint(line:String): Unit ={
+  //    /*Converts a comma separated unicode string into a `LabeledPoint`.
+  //
+//    Args:
+//        line (unicode): Comma separated unicode string where the first element is the label and the
+//            remaining elements are features.
+//
+//    Returns:
+//        LabeledPoint: The line is converted into a `LabeledPoint`, which consists of a label and
+//            features.*/
+//
+//    val lines = LabeledPoint(line.split(",")(0), line.split(",")(-0))
+//  }
 }
 
