@@ -4,3 +4,5 @@ run
 clean
 compile
 eclipse
+clean
+compile
