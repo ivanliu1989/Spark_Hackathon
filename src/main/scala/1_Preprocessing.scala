@@ -27,11 +27,12 @@ object Preprocessing {
   def reduce_data(): Unit={
 
   }
-  def diff_days(s1: String, s2:String): Int={
-    val date1 = date_format.parse(s1)
-    val date2 = date_format.parse(s2)
-
-  }
+//  def diff_days(s1: String, s2:String): Int={
+//    val date1 = date_format.parse(s1)
+//    val date2 = date_format.parse(s2)
+//
+//  }
+//  
   def generate_features(): Unit={
 
   }
