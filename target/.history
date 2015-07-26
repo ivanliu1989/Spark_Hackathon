@@ -6,3 +6,10 @@ compile
 eclipse
 clean
 compile
+clean
+compile
+test
+evicted
+compile
+evicted
+compile
