@@ -6,6 +6,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object Preprocessing {
 
+  val date_format = new java.text.SimpleDateFormat("yyyy-MM-dd")
+
   def main(args: Array[String]): Unit = {
     //    define Spark Context
     val conf = new SparkConf().setAppName("Streaming Example").setMaster("local[2]")
@@ -22,6 +24,17 @@ object Preprocessing {
     //    tran_sample.foreach(println)
   }
 
+  def reduce_data(): Unit={
+
+  }
+  def diff_days(s1: String, s2:String): Int={
+    val date1 = date_format.parse(s1)
+    val date2 = date_format.parse(s2)
+
+  }
+  def generate_features(): Unit={
+
+  }
   //  def parsePoint(line:String): Unit ={
   //    /*Converts a comma separated unicode string into a `LabeledPoint`.
   //
