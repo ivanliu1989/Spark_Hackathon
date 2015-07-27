@@ -15,7 +15,6 @@ object StreamingMachineLearning {
     val sparkConf = new SparkConf().setAppName("RDDRelation").setMaster("local[2]")
     val sc = new SparkContext(sparkConf)
     val sqlContext = new SQLContext(sc)
-
     // Importing the SQL context gives access to all the SQL functions and implicit conversions.
     import sqlContext.implicits._
 
@@ -28,7 +27,7 @@ object StreamingMachineLearning {
     // SQL Table offers
     case class offers(offer: String, category: String, quantity: Int, Company: String, offervalue: Double, brand: String)
     val offers_data = offers_df.map(r => offers(r(0), r(1), r(2).toInt, r(3), r(4).toDouble, r(5))).toDF()
-
+    
     offers_data.registerTempTable("offers_table")
 
     // SQL Table testHist
@@ -51,7 +50,13 @@ object StreamingMachineLearning {
 
     // SQL Query
     sqlContext.sql("select offerdate from offers_table").collect().foreach(println)
-
+    
+    // Get all categories and comps on offer in a dict
+    val offer_cat = offers_df.map(r => r(1)).distinct().collect()
+    val offer_comp = offers_df.map(r => r(3)).distinct().collect()
+    
+    // only write when if category in offers dict
+    val transactions_data_filtered = trainHist_df.filter(r=>{offer_cat.contains(r(1)) or offer_comp.contains(r(3))})
   }
 
 }
