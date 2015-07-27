@@ -18,4 +18,8 @@ libraryDependencies ++= Seq(
 
 libraryDependencies += "com.github.scopt" %% "scopt" % "3.3.0"
 
+libraryDependencies += "joda-time" % "joda-time" % "2.8.1"
+libraryDependencies += "org.joda" %% "joda-convert" % "1.8-SNAPSHOT"
+
 resolvers += Resolver.sonatypeRepo("public")
+
