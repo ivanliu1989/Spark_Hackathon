@@ -8,9 +8,9 @@ import org.apache.spark.sql.functions._
  */
 object StreamingMachineLearning {
   
-  val date_format = new java.text.SimpleDateFormat("yyyy-MM-dd")
+  //val date_format = new java.text.SimpleDateFormat("yyyy-MM-dd")
 
-  def main(args: Array[String]): Unit = {
+  def main(args: Array[String]) {
     
     // Define Spark Context
     val sparkConf = new SparkConf().setAppName("RDDRelation").setMaster("local[2]")
@@ -27,8 +27,12 @@ object StreamingMachineLearning {
     val transactions_df = sc.textFile("../data/transactions")
     
     // case Class
-    case class offers(offer: Int, category: Int, quantity: Int, Company: Int, offervalue: Double, brand: Int)
-    val df = offers_df.map(_.split(",")).map(r=>offers(r(0),r(1),r(2),r(3),r(4),r(5))).toDF()
+    case class offers(offer: String, category: String, quantity: Int, Company: String, offervalue: Double, brand: String)
+    val offers_data = offers_df.mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }
+                               .map(_.split(","))
+                               .map(r=>offers(r(0),r(1),r(2).toInt,r(3),r(4).toDouble,r(5))).toDF()
+                               
+    offers_data.registerTempTable("offers_table")                      
   }
   
 }
