@@ -12,20 +12,23 @@ object StreamingMachineLearning {
 
   def main(args: Array[String]): Unit = {
     
-    //    define Spark Context
+    // Define Spark Context
     val sparkConf = new SparkConf().setAppName("RDDRelation").setMaster("local[2]")
     val sc = new SparkContext(sparkConf)
     val sqlContext = new SQLContext(sc)
     
-    //Load and Check the data
-    val offers = sc.textFile("../data/offers").map(_.split(","))
-    val testHist = sc.textFile("../data/testHistory")
-    val trainHist = sc.textFile("../data/trainHistory")
-    val transactions = sc.textFile("../data/transactions")
-    print(offers.take(100))
-    print("I am Ivan")
-
+    // Importing the SQL context gives access to all the SQL functions and implicit conversions.
+    import sqlContext.implicits._
     
+    //Load and Check the data
+    val offers_df = sc.textFile("../data/offers")
+    val testHist_df = sc.textFile("../data/testHistory")
+    val trainHist_df = sc.textFile("../data/trainHistory")
+    val transactions_df = sc.textFile("../data/transactions")
+    
+    // case Class
+    case class offers(offer: Int, category: Int, quantity: Int, Company: Int, offervalue: Double, brand: Int)
+    val df = offers_df.map(_.split(",")).map(r=>offers(r(0),r(1),r(2),r(3),r(4),r(5))).toDF()
   }
   
 }
