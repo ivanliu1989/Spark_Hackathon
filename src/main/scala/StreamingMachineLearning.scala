@@ -56,7 +56,7 @@ object StreamingMachineLearning {
     val offer_comp = offers_df.map(r => r(3)).collect()
     
     // only write when if category in offers dict
-    val transactions_df_filtered =  transactions_df.filter(r=>{offer_cat.contains(r(3)) || offer_comp.contains(r(0)(4))}) //349655789 | 15349956  
+    val transactions_df_filtered =  transactions_df.filter(r=>{offer_cat.contains(r(3)) || offer_comp.contains(r(4))}) //349655789 | 15349956 | 15349956 
   }
 
 }
