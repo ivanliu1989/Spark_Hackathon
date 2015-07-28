@@ -20,23 +20,26 @@ object StreamingMachineLearning {
     val offers_df = sc.textFile("../data/offers").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val testHist_df = sc.textFile("../data/testHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val trainHist_df = sc.textFile("../data/trainHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-//    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.0001, seed = 123)
+    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
+    // val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.0001, seed = 123)
 
     // 1.3 Get all categories and comps on offer in a dict
     val offer_cat = offers_df.map(r => r(1)).collect()
     val offer_comp = offers_df.map(r => r(3)).collect()
     
     // 2. Reduce datasets - only write when if category in offers dict
-    val transactions_df_filtered =  transactions_df.filter(r=>{offer_cat.contains(r(3)) || offer_comp.contains(r(4))}).persist() //349655789 | 15349956 | 27764694 
+    val transactions_df_filtered =  transactions_df.filter(r=>{offer_cat.contains(r(3)) || offer_comp.contains(r(4))}) //349655789 | 15349956 | 27764694 
     
     // 3. Feature Generation/Engineering
     // 3.1 keep a dictionary with the offerdata
-    
-    // 3.2 keep two dictionaries with the shopper id's from test and train
     val offers_dict = offers_df.map(r => (r(0),r))
-    val testHist_dict = testHist_df.map(r => (r(0),r))
-    val trainHist_dict = trainHist_df.map(r => (r(0),r))
+    // 3.2 keep two dictionaries with the shopper id's from test and train
+    // val testHist_dict = testHist_df.map(r => ((r(0),r(1)),r))
+    val trainHist_dict = trainHist_df.map(r => ((r(0),r(1)),r))
+    val transactions_dict = transactions_df_filtered.map(r => ((r(0),r(1)),r))
+    // transactions_dict.values.map(r=>r(3)).take(10)
+    val main_data = trainHist_dict.leftOuterJoin(transactions_dict).values.map(v=>v._1 ++ v._2)
+    val main_data_2 = main_data.map(r => (r(2),r)).leftOuterJoin(offers_dict).values.map(v=>v._1 ++ v._2)
   }
 
 }
