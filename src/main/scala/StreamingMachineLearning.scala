@@ -34,7 +34,9 @@ object StreamingMachineLearning {
     // 3.1 keep a dictionary with the offerdata
     
     // 3.2 keep two dictionaries with the shopper id's from test and train
-    
+    val offers_dict = offers_df.map(r => (r(0),r))
+    val testHist_dict = testHist_df.map(r => (r(0),r))
+    val trainHist_dict = trainHist_df.map(r => (r(0),r))
   }
 
 }
