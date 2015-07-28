@@ -7,22 +7,38 @@ import org.apache.spark.sql.functions._
  */
 object StreamingMachineLearning {
 
-  //val date_format = new java.text.SimpleDateFormat("yyyy-MM-dd")
-
   def main(args: Array[String]) {
 
-    // Define Spark Context
+    // 1.Define Spark Context
     val sparkConf = new SparkConf().setAppName("RDDRelation").setMaster("local[2]")
     val sc = new SparkContext(sparkConf)
     val sqlContext = new SQLContext(sc)
-    // Importing the SQL context gives access to all the SQL functions and implicit conversions.
+    // 1.1 Importing the SQL context gives access to all the SQL functions and implicit conversions.
     import sqlContext.implicits._
 
-    //Load and Check the data
+    // 1.2 Load and Check the data
     val offers_df = sc.textFile("../data/offers").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val testHist_df = sc.textFile("../data/testHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val trainHist_df = sc.textFile("../data/trainHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
+//    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
+    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.00001, seed = 123)
+
+    // 1.3 Get all categories and comps on offer in a dict
+    val offer_cat = offers_df.map(r => r(1)).collect()
+    val offer_comp = offers_df.map(r => r(3)).collect()
+    
+    // 2. Reduce datasets - only write when if category in offers dict
+    val transactions_df_filtered =  transactions_df.filter(r=>{offer_cat.contains(r(3)) || offer_comp.contains(r(4))}) //349655789 | 15349956 | 27764694 
+    
+    // 3. Feature Generation/Engineering
+    // 3.1 keep a dictionary with the offerdata
+    
+    // 3.2 keep two dictionaries with the shopper id's from test and train
+    
+  }
+
+}
+
 
     // SQL Table offers
 //    case class offers(offer: String, category: String, quantity: Int, Company: String, offervalue: Double, brand: String)
@@ -51,12 +67,3 @@ object StreamingMachineLearning {
     // SQL Query
     // sqlContext.sql("select offerdate from offers_table").collect().foreach(println)
     
-    // Get all categories and comps on offer in a dict
-    val offer_cat = offers_df.map(r => r(1)).collect()
-    val offer_comp = offers_df.map(r => r(3)).collect()
-    
-    // only write when if category in offers dict
-    val transactions_df_filtered =  transactions_df.filter(r=>{offer_cat.contains(r(3)) || offer_comp.contains(r(4))}) //349655789 | 15349956 | 15349956 
-  }
-
-}
