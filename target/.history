@@ -37,3 +37,6 @@ test
 clean
 compile
 test
+clean
+compile
+test
