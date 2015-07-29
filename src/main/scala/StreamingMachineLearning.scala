@@ -38,8 +38,8 @@ object StreamingMachineLearning {
     val trainHist_dict = trainHist_df.map(r => ((r(0),r(1)),r))
     val transactions_dict = transactions_df_filtered.map(r => ((r(0),r(1)),r))
     // transactions_dict.values.map(r=>r(3)).take(10)
-    val main_data = trainHist_dict.leftOuterJoin(transactions_dict).values.map(v=>v._1 ++ v._2)
-    val main_data_2 = main_data.map(r => (r(2),r)).leftOuterJoin(offers_dict).values.map(v=>v._1 ++ v._2)
+    val main_data = trainHist_dict.join(transactions_dict).values.map(v=>v._1 ++ v._2)
+    val main_data_2 = main_data.map(r => (r(2),r)).join(offers_dict).values.map(v=>v._1 ++ v._2)
   }
 
 }
