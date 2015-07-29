@@ -37,12 +37,12 @@ object StreamingMachineLearning {
     // val testHist_dict = testHist_df.map(r => ((r(0),r(1)),r))
     val trainHist_dict = trainHist_df.map(r => (r(2),r))
     val transactions_dict = transactions_df_filtered.map(r => ((r(0),r(1),r(3),r(4),r(5)),r))
-    // transactions_dict.values.map(r=>r(3)).take(10)
     val train_offer = trainHist_dict.join(offers_dict).values.map(v=>v._1 ++ v._2).map(r=>((r(0),r(1),r(8),r(10),r(12)),Array(r(0),r(1),r(2),r(3),r(4),r(5),r(6),r(8),r(9),r(10),r(11),r(12))))
     // 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.category, 8.quantity, 9.company, 10.offervalue, 11.brand
     // (0,1,7,9,11)
     val main_data = train_offer.join(transactions_dict).values.map(v=>v._1 ++ v._2).map(r => (r(0),r(1),r(2),r(3),r(4),r(5),r(6),r(7),r(8),r(9),r(10),r(11),r(14),r(18),r(19),r(20),r(21),r(22)))
-
+    // 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.category, 8.quantity, 9.company, 10.offervalue, 11.brand, 12.dept, 13.date, 14.productsize, 15.productmeasure, 16.purchasequantity, 17.purchaseamount
+    
   }
 
 }
