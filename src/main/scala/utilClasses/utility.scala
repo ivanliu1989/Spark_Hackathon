@@ -15,7 +15,7 @@ class utility {
     Math.abs((delta * date_unit).toInt)
   }
   
-  def generate_feature(loc_train: String, loc_test: String, loc_transactions: String, loc_out_train: String, loc_out_test: String) = {
-    
-  }
+//  def generate_feature(loc_train: String, loc_test: String, loc_transactions: String, loc_out_train: String, loc_out_test: String) = {
+//    
+//  }
 }

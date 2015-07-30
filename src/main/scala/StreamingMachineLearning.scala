@@ -42,12 +42,21 @@ object StreamingMachineLearning {
     // 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.category, 8.quantity, 9.company, 10.offervalue, 11.brand
     val main_data = train_offer.rightOuterJoin(transactions_dict).values.filter(v=> !v._1.isEmpty).map(r => {val a = r._1.toArray
       a(0) ++ r._2
-    }).map(r => (r(0),r(1),r(2),r(3),r(4),r(5),r(6),r(7),r(8),r(9),r(10),r(11),r(14),r(15),r(16),r(17),r(18),r(19),r(20),r(21),r(22)))
-    
+    }).map(r => Array(r(0),r(1),r(2),r(3),r(4),r(5),r(6),r(7),r(8),r(9),r(10),r(11),r(14),r(15),r(16),r(17),r(18),r(19),r(20),r(21),r(22)))
     // 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.o_category, 8.quantity, 9.o_company, 10.offervalue, 11.o_brand,   
     // 12.dept, 13.t_category, 14.t_company, 15.t_brand, 16.date, 17.productsize, 18.productmeasure, 19.purchasequantity, 20.purchaseamount
     
     // reduceByKey => Key(trainHist-2~11) Attributes(Transactions-12~20)
+    val date_format = new java.text.SimpleDateFormat("yyyy-MM-dd")
+    val date_unit = 1.15741e-8
+    def diff_days(s1: String, s2: String) = {
+      val date1 = date_format.parse(s1)
+      val date2 = date_format.parse(s2)
+      val delta: Long = date1.getTime() - date2.getTime()
+      (delta * date_unit).toInt
+    }
+    val main_data_filter = main_data.filter(r=>{diff_days(r(6), r(16))>0})
+    
   }
 
 }
