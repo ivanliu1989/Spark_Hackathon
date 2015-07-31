@@ -59,7 +59,7 @@ object StreamingMachineLearning {
     }
     val main_data_filter = main_data.filter(r => { diff_days(r(6), r(16)) > 0 })
 
-    // 3.4 Aggregate Transactions and generate new features
+    // 3.4 Generate six new features
     // reduceByKey => Key(trainHist-2~11) Attributes(Transactions-12~20)
     val main_data_nFeat = main_data_filter.map(r=>r ++ {
 val h_company = r(9)
@@ -68,13 +68,23 @@ val h_brand = r(11)
 val t_company = r(14)
 val t_category = r(13)
 val t_brand = r(15)
-if (h_company = t_company) val has_bought_company = 1
-if (h_category = t_category) val has_bought_category = 1
-if (h_brand = t_brand) val has_bought_brand = 1
-if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1) val has_bought_brand_company_category = 1
-if (has_bought_category = 1 && has_bought_brand = 1) val has_bought_brand_category = 1
-if (has_bought_company=1 && has_bought_brand = 1) val has_bought_brand_company = 1
+// Overall
+if (h_company = t_company) val has_bought_company = 1 else val has_bought_company = 0
+if (h_category = t_category) val has_bought_category = 1 else val has_bought_category = 0
+if (h_brand = t_brand) val has_bought_brand = 1 else val has_bought_brand = 0
+if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1) val has_bought_brand_company_category = 1 else val has_bought_brand_company_category = 0
+if (has_bought_category = 1 && has_bought_brand = 1) val has_bought_brand_category = 1 else val has_bought_brand_category = 0
+if (has_bought_company=1 && has_bought_brand = 1) val has_bought_brand_company = 1 else val has_bought_brand_company = 0
+// last 30 days qa
+
+// last 60 days qa
+
+// last 90 days qa
+
+// last 180 days qa
 return Array(has_bought_company,has_bought_category,has_bought_brand,has_bought_brand_company_category,has_bought_brand_category,has_bought_brand_company)})
+
+    // 3.5 Aggregate Transactions and generate new features
   }
 
 }
