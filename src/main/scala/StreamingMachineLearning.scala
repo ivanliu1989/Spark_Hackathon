@@ -60,15 +60,6 @@ object StreamingMachineLearning {
     val main_data_filter = main_data.filter(r => { diff_days(r(6), r(16)) > 0 })
 
     // 3.4 Generate six new features
-    // reduceByKey => Key(trainHist-2~11) Attributes(Transactions-12~20)
-    /* Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.quantity, 7.offervalue    
-       Features: 8~79.(72 features) 
-       Removed Features: 6.offerdate, 7.o_category, 9.o_company, 11.o_brand, 12.dept, 13.productsize, 14.productmeasure 
-       */
-    /* Cat: 0, 1, 2, 3
-     * Num: 4,6~79
-     * Target: 5  
-     */
 
     val main_data_nFeat = main_data_filter.map(r => Array(r(0), r(1), r(2), r(3), r(4), r(5), r(8), r(10)) ++ {
       val h_company = r(9)
@@ -240,7 +231,15 @@ object StreamingMachineLearning {
     })
 
     // 3.5 Aggregate Transactions and generate new features
-    
+    // reduceByKey => Key(trainHist-2~11) Attributes(Transactions-12~20)
+    /* Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.quantity, 7.offervalue    
+       Features: 8~79.(72 features) 
+       Removed Features: 6.offerdate, 7.o_category, 9.o_company, 11.o_brand, 12.dept, 13.productsize, 14.productmeasure 
+       
+       Cat: 0, 1, 2, 3
+       Num: 4,6~79
+       Target: 5  
+     */
   }
 
 }
