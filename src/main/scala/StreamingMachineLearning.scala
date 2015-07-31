@@ -20,8 +20,8 @@ object StreamingMachineLearning {
     val offers_df = sc.textFile("../data/offers").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val testHist_df = sc.textFile("../data/testHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val trainHist_df = sc.textFile("../data/trainHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    //val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
+    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
+    //val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
 
     // 1.3 Get all categories and comps on offer in a dict
     val offer_cat = offers_df.map(r => r(1)).collect()
@@ -61,10 +61,16 @@ object StreamingMachineLearning {
 
     // 3.4 Generate six new features
     // reduceByKey => Key(trainHist-2~11) Attributes(Transactions-12~20)
-    /* Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.o_category, 8.quantity, 9.o_company, 10.offervalue, 11.o_brand,   
-       Features: 12.dept, 13.productsize, 14.productmeasure, 15~86.(72 features) */
+    /* Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.quantity, 7.offervalue    
+       Features: 8~79.(72 features) 
+       Removed Features: 6.offerdate, 7.o_category, 9.o_company, 11.o_brand, 12.dept, 13.productsize, 14.productmeasure 
+       */
+    /* Cat: 0, 1, 2, 3
+     * Num: 4,6~79
+     * Target: 5  
+     */
 
-    val main_data_nFeat = main_data_filter.map(r => Array(r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(7), r(8), r(9), r(10), r(11), r(12), r(17), r(18)) ++ {
+    val main_data_nFeat = main_data_filter.map(r => Array(r(0), r(1), r(2), r(3), r(4), r(5), r(8), r(10)) ++ {
       val h_company = r(9)
       val h_category = r(7)
       val h_brand = r(11)
@@ -234,6 +240,7 @@ object StreamingMachineLearning {
     })
 
     // 3.5 Aggregate Transactions and generate new features
+    
   }
 
 }
