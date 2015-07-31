@@ -71,8 +71,12 @@ val h_brand = r(11)
 val t_company = r(14)
 val t_category = r(13)
 val t_brand = r(15)
+
+val has_bought_company = 0
+val has_bought_company_q = 0
+val has_bought_company_a = 0
 // Overall
-if (h_company = t_company){ 
+if (h_company == t_company){ 
   val has_bought_company = 1
   val has_bought_company_q = r(19)
   val has_bought_company_a = r(20)
@@ -81,7 +85,7 @@ if (h_company = t_company){
   val has_bought_company_q = 0
   val has_bought_company_a = 0
 }
-if (h_category = t_category){ 
+if (h_category == t_category){ 
   val has_bought_category = 1
   val has_bought_category_q = r(19)
   val has_bought_category_a = r(20)
@@ -90,7 +94,7 @@ if (h_category = t_category){
   val has_bought_category_q = 0
   val has_bought_category_a = 0
 } 
-if (h_brand = t_brand){ 
+if (h_brand == t_brand){ 
   val has_bought_brand = 1
   val has_bought_brand_q = r(19)
   val has_bought_brand_a = r(20)
@@ -99,7 +103,7 @@ if (h_brand = t_brand){
   val has_bought_brand_q = 0
   val has_bought_brand_a = 0
 } 
-if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1){ 
+if (has_bought_company==1 && has_bought_category == 1 && has_bought_brand == 1){ 
   val has_bought_brand_company_category = 1
   val has_bought_brand_company_category_q = r(19)
   val has_bought_brand_company_category_a = r(20)
@@ -108,7 +112,7 @@ if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1){
   val has_bought_brand_company_category_q = 0
   val has_bought_brand_company_category_a = 0
 }
-if (has_bought_category = 1 && has_bought_brand = 1){ 
+if (has_bought_category == 1 && has_bought_brand == 1){ 
   val has_bought_brand_category = 1
   val has_bought_brand_category_q = r(19)
   val has_bought_brand_category_a = r(20)
@@ -117,7 +121,7 @@ if (has_bought_category = 1 && has_bought_brand = 1){
   val has_bought_brand_category_q = 0
   val has_bought_brand_category_a = 0
 }
-if (has_bought_company=1 && has_bought_brand = 1){ 
+if (has_bought_company==1 && has_bought_brand == 1){ 
   val has_bought_brand_company = 1
   val has_bought_brand_company_q = r(19)
   val has_bought_brand_company_a = r(20)
@@ -127,7 +131,7 @@ if (has_bought_company=1 && has_bought_brand = 1){
   val has_bought_brand_company_a = 0
 } 
 // last 30 days qa
-if (has_bought_company = 1 && diff_days(r(6), r(16)) < 30){ 
+if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30){ 
   val has_bought_company_30 = 1 
   val has_bought_company_q_30 = r(19)
   val has_bought_company_a_30 = r(20)
@@ -135,7 +139,7 @@ if (has_bought_company = 1 && diff_days(r(6), r(16)) < 30){
   val has_bought_company_30 = 0 
   val has_bought_company_q_30 = 0
   val has_bought_company_a_30 = 0}
-if (has_bought_category = 1 && diff_days(r(6), r(16)) < 30){ 
+if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30){ 
   val has_bought_category_30 = 1 
   val has_bought_category_q_30 = r(19)
   val has_bought_category_a_30 = r(20)
@@ -143,7 +147,7 @@ if (has_bought_category = 1 && diff_days(r(6), r(16)) < 30){
   val has_bought_category_30 = 0 
   val has_bought_category_q_30 = 0
   val has_bought_category_a_30 = 0}
-if (has_bought_brand = 1 && diff_days(r(6), r(16)) < 30){ 
+if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30){ 
   val has_bought_brand_30 = 1 
   val has_bought_brand_q_30 = r(19)
   val has_bought_brand_a_30 = r(20)
@@ -151,7 +155,7 @@ if (has_bought_brand = 1 && diff_days(r(6), r(16)) < 30){
   val has_bought_brand_30 = 0 
   val has_bought_brand_q_30 = 0
   val has_bought_brand_a_30 = 0}
-if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 30){ 
+if (has_bought_company==1 && has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 30){ 
   val has_bought_brand_company_category_30 = 1 
   val has_bought_brand_company_category_q_30 = r(19)
   val has_bought_brand_company_category_a_30 = r(20)
