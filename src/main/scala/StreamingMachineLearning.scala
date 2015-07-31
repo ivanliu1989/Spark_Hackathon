@@ -20,8 +20,8 @@ object StreamingMachineLearning {
     val offers_df = sc.textFile("../data/offers").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val testHist_df = sc.textFile("../data/testHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val trainHist_df = sc.textFile("../data/trainHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    //val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
+    //val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
+    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
 
     // 1.3 Get all categories and comps on offer in a dict
     val offer_cat = offers_df.map(r => r(1)).collect()
@@ -70,129 +70,129 @@ object StreamingMachineLearning {
       val t_brand = r(15)
 
       // Overall
-      val has_bought_company = if (h_company == t_company) 1 else 0
-      val has_bought_company_q = if (h_company == t_company) 1 else r(19)
-      val has_bought_company_a = if (h_company == t_company) 1 else r(20)
+      val has_bought_company = if (h_company == t_company) 1.0 else 0
+      val has_bought_company_q = if (h_company == t_company) r(19).toDouble else 0
+      val has_bought_company_a = if (h_company == t_company) r(20).toDouble else 0
 
-      val has_bought_category = if (h_category == t_category) 1 else 0
-      val has_bought_category_q = if (h_category == t_category) 1 else r(19)
-      val has_bought_category_a = if (h_category == t_category) 1 else r(20)
+      val has_bought_category = if (h_category == t_category) 1.0 else 0
+      val has_bought_category_q = if (h_category == t_category) r(19).toDouble else 0
+      val has_bought_category_a = if (h_category == t_category) 1 else r(20).toDouble
 
-      val has_bought_brand = if (h_brand == t_brand) 1 else 0
-      val has_bought_brand_q = if (h_brand == t_brand) 1 else r(19)
-      val has_bought_brand_a = if (h_brand == t_brand) 1 else r(20)
+      val has_bought_brand = if (h_brand == t_brand) 1.0 else 0
+      val has_bought_brand_q = if (h_brand == t_brand) r(19).toDouble else 0
+      val has_bought_brand_a = if (h_brand == t_brand) 1 else r(20).toDouble
 
-      val has_bought_brand_company_category = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) 1 else 0
-      val has_bought_brand_company_category_q = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) r(19) else 0
-      val has_bought_brand_company_category_a = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) r(20) else 0
+      val has_bought_brand_company_category = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) 1.0 else 0
+      val has_bought_brand_company_category_q = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) r(19).toDouble else 0
+      val has_bought_brand_company_category_a = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) r(20).toDouble else 0
 
-      val has_bought_brand_category = if (has_bought_category == 1 && has_bought_brand == 1) 1 else 0
-      val has_bought_brand_category_q = if (has_bought_category == 1 && has_bought_brand == 1) r(19) else 0
-      val has_bought_brand_category_a = if (has_bought_category == 1 && has_bought_brand == 1) r(20) else 0
+      val has_bought_brand_category = if (has_bought_category == 1 && has_bought_brand == 1) 1.0 else 0
+      val has_bought_brand_category_q = if (has_bought_category == 1 && has_bought_brand == 1) r(19).toDouble else 0
+      val has_bought_brand_category_a = if (has_bought_category == 1 && has_bought_brand == 1) r(20).toDouble else 0
 
-      val has_bought_brand_company = if (has_bought_company == 1 && has_bought_brand == 1) 1 else 0
-      val has_bought_brand_company_q = if (has_bought_company == 1 && has_bought_brand == 1) r(19) else 0
-      val has_bought_brand_company_a = if (has_bought_company == 1 && has_bought_brand == 1) r(20) else 0
+      val has_bought_brand_company = if (has_bought_company == 1 && has_bought_brand == 1) 1.0 else 0
+      val has_bought_brand_company_q = if (has_bought_company == 1 && has_bought_brand == 1) r(19).toDouble else 0
+      val has_bought_brand_company_a = if (has_bought_company == 1 && has_bought_brand == 1) r(20).toDouble else 0
 
       // 30 Days
-      val has_bought_company_30 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
-      val has_bought_company_q_30 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
-      val has_bought_company_a_30 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
+      val has_bought_company_30 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) 1.0 else 0
+      val has_bought_company_q_30 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) r(19).toDouble else 0
+      val has_bought_company_a_30 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) r(20).toDouble else 0
 
-      val has_bought_category_30 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
-      val has_bought_category_q_30 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
-      val has_bought_category_a_30 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
+      val has_bought_category_30 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) 1.0 else 0
+      val has_bought_category_q_30 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) r(19).toDouble else 0
+      val has_bought_category_a_30 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) r(20).toDouble else 0
 
-      val has_bought_brand_30 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
-      val has_bought_brand_q_30 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
-      val has_bought_brand_a_30 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
+      val has_bought_brand_30 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1.0 else 0
+      val has_bought_brand_q_30 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19).toDouble else 0
+      val has_bought_brand_a_30 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20).toDouble else 0
 
-      val has_bought_brand_company_category_30 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
-      val has_bought_brand_company_category_q_30 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
-      val has_bought_brand_company_category_a_30 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
+      val has_bought_brand_company_category_30 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1.0 else 0
+      val has_bought_brand_company_category_q_30 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19).toDouble else 0
+      val has_bought_brand_company_category_a_30 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20).toDouble else 0
 
-      val has_bought_brand_category_30 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
-      val has_bought_brand_category_q_30 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
-      val has_bought_brand_category_a_30 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
+      val has_bought_brand_category_30 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1.0 else 0
+      val has_bought_brand_category_q_30 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19).toDouble else 0
+      val has_bought_brand_category_a_30 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20).toDouble else 0
 
-      val has_bought_brand_company_30 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
-      val has_bought_brand_company_q_30 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
-      val has_bought_brand_company_a_30 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
+      val has_bought_brand_company_30 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1.0 else 0
+      val has_bought_brand_company_q_30 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19).toDouble else 0
+      val has_bought_brand_company_a_30 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20).toDouble else 0
 
       // 60 Days
-      val has_bought_company_60 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
-      val has_bought_company_q_60 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
-      val has_bought_company_a_60 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
+      val has_bought_company_60 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) 1.0 else 0
+      val has_bought_company_q_60 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) r(19).toDouble else 0
+      val has_bought_company_a_60 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) r(20).toDouble else 0
 
-      val has_bought_category_60 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
-      val has_bought_category_q_60 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
-      val has_bought_category_a_60 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
+      val has_bought_category_60 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) 1.0 else 0
+      val has_bought_category_q_60 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) r(19).toDouble else 0
+      val has_bought_category_a_60 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) r(20).toDouble else 0
 
-      val has_bought_brand_60 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
-      val has_bought_brand_q_60 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
-      val has_bought_brand_a_60 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
+      val has_bought_brand_60 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1.0 else 0
+      val has_bought_brand_q_60 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19).toDouble else 0
+      val has_bought_brand_a_60 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20).toDouble else 0
 
-      val has_bought_brand_company_category_60 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
-      val has_bought_brand_company_category_q_60 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
-      val has_bought_brand_company_category_a_60 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
+      val has_bought_brand_company_category_60 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1.0 else 0
+      val has_bought_brand_company_category_q_60 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19).toDouble else 0
+      val has_bought_brand_company_category_a_60 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20).toDouble else 0
 
-      val has_bought_brand_category_60 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
-      val has_bought_brand_category_q_60 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
-      val has_bought_brand_category_a_60 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
+      val has_bought_brand_category_60 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1.0 else 0
+      val has_bought_brand_category_q_60 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19).toDouble else 0
+      val has_bought_brand_category_a_60 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20).toDouble else 0
 
-      val has_bought_brand_company_60 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
-      val has_bought_brand_company_q_60 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
-      val has_bought_brand_company_a_60 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
+      val has_bought_brand_company_60 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1.0 else 0
+      val has_bought_brand_company_q_60 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19).toDouble else 0
+      val has_bought_brand_company_a_60 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20).toDouble else 0
 
       // 90 Days
-      val has_bought_company_90 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
-      val has_bought_company_q_90 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
-      val has_bought_company_a_90 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
+      val has_bought_company_90 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) 1.0 else 0
+      val has_bought_company_q_90 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) r(19).toDouble else 0
+      val has_bought_company_a_90 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) r(20).toDouble else 0
 
-      val has_bought_category_90 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
-      val has_bought_category_q_90 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
-      val has_bought_category_a_90 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
+      val has_bought_category_90 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) 1.0 else 0
+      val has_bought_category_q_90 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) r(19).toDouble else 0
+      val has_bought_category_a_90 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) r(20).toDouble else 0
 
-      val has_bought_brand_90 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
-      val has_bought_brand_q_90 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
-      val has_bought_brand_a_90 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
+      val has_bought_brand_90 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1.0 else 0
+      val has_bought_brand_q_90 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19).toDouble else 0
+      val has_bought_brand_a_90 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20).toDouble else 0
 
-      val has_bought_brand_company_category_90 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
-      val has_bought_brand_company_category_q_90 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
-      val has_bought_brand_company_category_a_90 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
+      val has_bought_brand_company_category_90 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1.0 else 0
+      val has_bought_brand_company_category_q_90 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19).toDouble else 0
+      val has_bought_brand_company_category_a_90 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20).toDouble else 0
 
-      val has_bought_brand_category_90 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
-      val has_bought_brand_category_q_90 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
-      val has_bought_brand_category_a_90 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
+      val has_bought_brand_category_90 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1.0 else 0
+      val has_bought_brand_category_q_90 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19).toDouble else 0
+      val has_bought_brand_category_a_90 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20).toDouble else 0
 
-      val has_bought_brand_company_90 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
-      val has_bought_brand_company_q_90 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
-      val has_bought_brand_company_a_90 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
+      val has_bought_brand_company_90 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1.0 else 0
+      val has_bought_brand_company_q_90 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19).toDouble else 0
+      val has_bought_brand_company_a_90 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20).toDouble else 0
 
       // 180 Days
-      val has_bought_company_180 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
-      val has_bought_company_q_180 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
-      val has_bought_company_a_180 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
+      val has_bought_company_180 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) 1.0 else 0
+      val has_bought_company_q_180 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) r(19).toDouble else 0
+      val has_bought_company_a_180 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) r(20).toDouble else 0
 
-      val has_bought_category_180 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
-      val has_bought_category_q_180 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
-      val has_bought_category_a_180 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
+      val has_bought_category_180 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) 1.0 else 0
+      val has_bought_category_q_180 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) r(19).toDouble else 0
+      val has_bought_category_a_180 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) r(20).toDouble else 0
 
-      val has_bought_brand_180 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
-      val has_bought_brand_q_180 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
-      val has_bought_brand_a_180 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
+      val has_bought_brand_180 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1.0 else 0
+      val has_bought_brand_q_180 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19).toDouble else 0
+      val has_bought_brand_a_180 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20).toDouble else 0
 
-      val has_bought_brand_company_category_180 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
-      val has_bought_brand_company_category_q_180 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
-      val has_bought_brand_company_category_a_180 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
+      val has_bought_brand_company_category_180 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1.0 else 0
+      val has_bought_brand_company_category_q_180 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19).toDouble else 0
+      val has_bought_brand_company_category_a_180 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20).toDouble else 0
 
-      val has_bought_brand_category_180 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
-      val has_bought_brand_category_q_180 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
-      val has_bought_brand_category_a_180 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
+      val has_bought_brand_category_180 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1.0 else 0
+      val has_bought_brand_category_q_180 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19).toDouble else 0
+      val has_bought_brand_category_a_180 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20).toDouble else 0
 
-      val has_bought_brand_company_180 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
-      val has_bought_brand_company_q_180 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
-      val has_bought_brand_company_a_180 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
+      val has_bought_brand_company_180 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1.0 else 0
+      val has_bought_brand_company_q_180 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19).toDouble else 0
+      val has_bought_brand_company_a_180 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20).toDouble else 0
 
       Array(has_bought_company, has_bought_company_q, has_bought_company_a,
         has_bought_category, has_bought_category_q, has_bought_category_a,
@@ -233,13 +233,26 @@ object StreamingMachineLearning {
     // 3.5 Aggregate Transactions and generate new features
     // reduceByKey => Key(trainHist-2~11) Attributes(Transactions-12~20)
     /* Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.quantity, 7.offervalue    
-       Features: 8~79.(72 features) 
+       Features: 8~98.(72 features) 
        Removed Features: 6.offerdate, 7.o_category, 9.o_company, 11.o_brand, 12.dept, 13.productsize, 14.productmeasure 
        
        Cat: 0, 1, 2, 3
-       Num: 4,6~79
+       Num: 4,6~98
        Target: 5  
      */
+    val main_data_agg = main_data_nFeat.map(r => (Array(r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(7)),
+      Array(r(8), r(9), r(10), r(11), r(12), r(13), r(14), r(15), r(16), r(17), r(18), r(19), r(20),
+        r(21), r(22), r(23), r(24), r(25), r(26), r(27), r(28), r(29), r(30),
+        r(31), r(32), r(33), r(34), r(35), r(36), r(37), r(38), r(39), r(40),
+        r(41), r(42), r(43), r(44), r(45), r(46), r(47), r(48), r(49), r(50),
+        r(51), r(52), r(53), r(54), r(55), r(56), r(57), r(58), r(59), r(60),
+        r(61), r(62), r(63), r(64), r(65), r(66), r(67), r(68), r(69), r(70),
+        r(71), r(72), r(73), r(74), r(75), r(76), r(77), r(78), r(79), r(80),
+        r(81), r(82), r(83), r(84), r(85), r(86), r(87), r(88), r(89), r(90),
+        r(91), r(92), r(93), r(94), r(95), r(96), r(97)))).mapValues { r =>
+      val array = r.toSeq.toArray
+      array.map(_.asInstanceOf[Double])
+    }.reduceByKey((a,b)=>a(0) + b(0))
   }
 
 }
