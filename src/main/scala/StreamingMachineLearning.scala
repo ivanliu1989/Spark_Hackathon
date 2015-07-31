@@ -26,27 +26,29 @@ object StreamingMachineLearning {
     // 1.3 Get all categories and comps on offer in a dict
     val offer_cat = offers_df.map(r => r(1)).collect()
     val offer_comp = offers_df.map(r => r(3)).collect()
-    
+
     // 2. Reduce datasets - only write when if category in offers dict
-    val transactions_df_filtered =  transactions_df.filter(r=>{offer_cat.contains(r(3)) || offer_comp.contains(r(4))}) //349655789 | 15349956 | 27764694 
-    
+    val transactions_df_filtered = transactions_df.filter(r => { offer_cat.contains(r(3)) || offer_comp.contains(r(4)) }) //349655789 | 15349956 | 27764694 
+
     // 3. Feature Generation/Engineering
     // 3.1 keep a dictionary with the offerdata
-    val offers_dict = offers_df.map(r => (r(0),r))
+    val offers_dict = offers_df.map(r => (r(0), r))
     // 3.2 keep two dictionaries with the shopper id's from test and train
     // val testHist_dict = testHist_df.map(r => ((r(0),r(1)),r))
-    val trainHist_dict = trainHist_df.map(r => (r(2),r))
-    val transactions_dict = transactions_df_filtered.map(r => ((r(0),r(1)),r)) //,r(3),r(4),r(5)
-    // 0.id, 1.chain, 2.dept, 3.category, 4.company, 5.brand, 6.date, 7.productsize, 8.productmeasure, 9.purchasequantity, 10.purchaseamount
-    val train_offer = trainHist_dict.join(offers_dict).values.map(v=>v._1 ++ v._2).map(r=>((r(0),r(1)),Array(r(0),r(1),r(2),r(3),r(4),r(5),r(6),r(8),r(9),r(10),r(11),r(12)))) //,r(8),r(10),r(12)
-    // 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.category, 8.quantity, 9.company, 10.offervalue, 11.brand
-    val main_data = train_offer.rightOuterJoin(transactions_dict).values.filter(v=> !v._1.isEmpty).map(r => {val a = r._1.toArray
-      a(0) ++ r._2
-    }).map(r => Array(r(0),r(1),r(2),r(3),r(4),r(5),r(6),r(7),r(8),r(9),r(10),r(11),r(14),r(15),r(16),r(17),r(18),r(19),r(20),r(21),r(22)))
-    // 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.o_category, 8.quantity, 9.o_company, 10.offervalue, 11.o_brand,   
-    // 12.dept, 13.t_category, 14.t_company, 15.t_brand, 16.date, 17.productsize, 18.productmeasure, 19.purchasequantity, 20.purchaseamount
-    
-    // reduceByKey => Key(trainHist-2~11) Attributes(Transactions-12~20)
+    val trainHist_dict = trainHist_df.map(r => (r(2), r))
+    val transactions_dict = transactions_df_filtered.map(r => ((r(0), r(1)), r)) //,r(3),r(4),r(5)
+    // Features: 0.id, 1.chain, 2.dept, 3.category, 4.company, 5.brand, 6.date, 7.productsize, 8.productmeasure, 9.purchasequantity, 10.purchaseamount
+    val train_offer = trainHist_dict.join(offers_dict).values.map(v => v._1 ++ v._2).map(r => ((r(0), r(1)), Array(r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(8), r(9), r(10), r(11), r(12)))) //,r(8),r(10),r(12)
+    // Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.category, 8.quantity, 9.company, 10.offervalue, 11.brand
+    val main_data = train_offer.fullOuterJoin(transactions_dict).values.filter(v => (!v._1.isEmpty && !v._2.isEmpty)).map(r => {
+      val a = r._1.toArray
+      val b = r._2.toArray
+      a(0) ++ b(0)
+    }).map(r => Array(r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(7), r(8), r(9), r(10), r(11), r(14), r(15), r(16), r(17), r(18), r(19), r(20), r(21), r(22)))
+    /* Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.o_category, 8.quantity, 9.o_company, 10.offervalue, 11.o_brand,   
+       Features: 12.dept, 13.t_category, 14.t_company, 15.t_brand, 16.date, 17.productsize, 18.productmeasure, 19.purchasequantity, 20.purchaseamount */
+
+    // 3.3 Filter transactions happened after offers
     val date_format = new java.text.SimpleDateFormat("yyyy-MM-dd")
     val date_unit = 1.15741e-8
     def diff_days(s1: String, s2: String) = {
@@ -55,8 +57,10 @@ object StreamingMachineLearning {
       val delta: Long = date1.getTime() - date2.getTime()
       (delta * date_unit).toInt
     }
-    val main_data_filter = main_data.filter(r=>{diff_days(r(6), r(16))>0})
-    
+    val main_data_filter = main_data.filter(r => { diff_days(r(6), r(16)) > 0 })
+
+    // 3.4 Aggregate Transactions and generate new features
+    // reduceByKey => Key(trainHist-2~11) Attributes(Transactions-12~20)
   }
 
 }
