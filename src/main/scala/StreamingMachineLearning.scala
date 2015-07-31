@@ -61,7 +61,10 @@ object StreamingMachineLearning {
 
     // 3.4 Generate six new features
     // reduceByKey => Key(trainHist-2~11) Attributes(Transactions-12~20)
-    val main_data_nFeat = main_data_filter.map(r=>r ++ {
+    /* Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.o_category, 8.quantity, 9.o_company, 10.offervalue, 11.o_brand,   
+       Features: 12.dept, 13.productsize, 14.productmeasure, 15~86.(72 features) */
+
+    val main_data_nFeat = main_data_filter.map(r=>Array(r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(7), r(8), r(9), r(10), r(11), r(12), r(17), r(18)) ++ {
 val h_company = r(9)
 val h_category = r(7)
 val h_brand = r(11)
@@ -323,8 +326,42 @@ if (has_bought_company=1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 180
   val has_bought_brand_company_q_180 = 0
   val has_bought_brand_company_a_180 = 0}
 
-return Array(has_bought_company,has_bought_category,has_bought_brand,has_bought_brand_company_category,has_bought_brand_category,has_bought_brand_company)})
+return Array(has_bought_company,has_bought_company_q,has_bought_company_a,
+has_bought_category, has_bought_category_q, has_bought_category_a,
+has_bought_brand, has_bought_brand_q,has_bought_brand_a,
+has_bought_brand_company_category, has_bought_brand_company_category_q, has_bought_brand_company_category_a,
+has_bought_brand_category, has_bought_brand_category_q, has_bought_brand_category_a,
+has_bought_brand_company, has_bought_brand_company_q, has_bought_brand_company_a,
 
+has_bought_company_30,has_bought_company_q_30,has_bought_company_a_30,
+has_bought_category_30, has_bought_category_q_30, has_bought_category_a_30,
+has_bought_brand_30, has_bought_brand_q_30,has_bought_brand_a_30,
+has_bought_brand_company_category_30, has_bought_brand_company_category_q_30, has_bought_brand_company_category_a_30,
+has_bought_brand_category_30, has_bought_brand_category_q_30, has_bought_brand_category_a_30,
+has_bought_brand_company_30, has_bought_brand_company_q_30, has_bought_brand_company_a_30,
+
+has_bought_company_60,has_bought_company_q_60,has_bought_company_a_60,
+has_bought_category_60, has_bought_category_q_60, has_bought_category_a_60,
+has_bought_brand_60, has_bought_brand_q_60,has_bought_brand_a_60,
+has_bought_brand_company_category_60, has_bought_brand_company_category_q_60, has_bought_brand_company_category_a_60,
+has_bought_brand_category_60, has_bought_brand_category_q_60, has_bought_brand_category_a_60,
+has_bought_brand_company_60, has_bought_brand_company_q_60, has_bought_brand_company_a_60,
+
+has_bought_company_90,has_bought_company_q_90,has_bought_company_a_90,
+has_bought_category_90, has_bought_category_q_90, has_bought_category_a_90,
+has_bought_brand_90, has_bought_brand_q_90,has_bought_brand_a_90,
+has_bought_brand_company_category_90, has_bought_brand_company_category_q_90, has_bought_brand_company_category_a_90,
+has_bought_brand_category_90, has_bought_brand_category_q_90, has_bought_brand_category_a_90,
+has_bought_brand_company_90, has_bought_brand_company_q_90, has_bought_brand_company_a_90,
+
+has_bought_company_180,has_bought_company_q_180,has_bought_company_a_180,
+has_bought_category_180, has_bought_category_q_180, has_bought_category_a_180,
+has_bought_brand_180, has_bought_brand_q_180,has_bought_brand_a_180,
+has_bought_brand_company_category_180, has_bought_brand_company_category_q_180, has_bought_brand_company_category_a_180,
+has_bought_brand_category_180, has_bought_brand_category_q_180, has_bought_brand_category_a_180,
+has_bought_brand_company_180, has_bought_brand_company_q_180, has_bought_brand_company_a_180
+}
+)
     // 3.5 Aggregate Transactions and generate new features
   }
 
