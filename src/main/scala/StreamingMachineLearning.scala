@@ -65,328 +65,174 @@ object StreamingMachineLearning {
        Features: 12.dept, 13.productsize, 14.productmeasure, 15~86.(72 features) */
 
     val main_data_nFeat = main_data_filter.map(r => Array(r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(7), r(8), r(9), r(10), r(11), r(12), r(17), r(18)) ++ {
-      val h_company = r(9)
-      val h_category = r(7)
-      val h_brand = r(11)
-      val t_company = r(14)
-      val t_category = r(13)
-      val t_brand = r(15)
+     val h_company = r(9)
+     val h_category = r(7)
+     val h_brand = r(11)
+     val t_company = r(14)
+     val t_category = r(13)
+     val t_brand = r(15)
 
-      val has_bought_company = 0
-      val has_bought_company_q = 0
-      val has_bought_company_a = 0
+     // Overall
+     val has_bought_company = if (h_company == t_company) 1 else 0
+     val has_bought_company_q = if (h_company == t_company) 1 else r(19)
+     val has_bought_company_a = if (h_company == t_company) 1 else r(20)
 
-      val has_bought_category = 0
-      val has_bought_category_q = 0
-      val has_bought_category_a = 0
+     val has_bought_category = if (h_category == t_category) 1 else 0
+     val has_bought_category_q = if (h_category == t_category) 1 else r(19)
+     val has_bought_category_a = if (h_category == t_category) 1 else r(20)
 
-      val has_bought_brand = 0
-      val has_bought_brand_q = 0
-      val has_bought_brand_a = 0
+     val has_bought_brand = if (h_brand == t_brand) 1 else 0
+     val has_bought_brand_q = if (h_brand == t_brand) 1 else r(19)
+     val has_bought_brand_a = if (h_brand == t_brand) 1 else r(20)
 
-      val has_bought_brand_company_category = 0
-      val has_bought_brand_company_category_q = 0
-      val has_bought_brand_company_category_a = 0
+     val has_bought_brand_company_category = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) 1 else 0
+     val has_bought_brand_company_category_q = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) r(19) else 0
+     val has_bought_brand_company_category_a = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) r(20) else 0
 
-      val has_bought_brand_category = 0
-      val has_bought_brand_category_q = 0
-      val has_bought_brand_category_a = 0
+     val has_bought_brand_category = if (has_bought_category == 1 && has_bought_brand == 1) 1 else 0
+     val has_bought_brand_category_q = if (has_bought_category == 1 && has_bought_brand == 1) r(19) else 0
+     val has_bought_brand_category_a = if (has_bought_category == 1 && has_bought_brand == 1) r(20) else 0
 
-      val has_bought_brand_company = 0
-      val has_bought_brand_company_q = 0
-      val has_bought_brand_company_a = 0
+     val has_bought_brand_company = if (has_bought_company == 1 && has_bought_brand == 1) 1 else 0
+     val has_bought_brand_company_q = if (has_bought_company == 1 && has_bought_brand == 1) r(19) else 0
+     val has_bought_brand_company_a = if (has_bought_company == 1 && has_bought_brand == 1) r(20) else 0
 
-      val has_bought_company_30 = 0
-      val has_bought_company_q_30 = 0
-      val has_bought_company_a_30 = 0
+// 30 Days
+     val has_bought_company_30 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
+     val has_bought_company_q_30 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
+     val has_bought_company_a_30 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
 
-      val has_bought_category_30 = 0
-      val has_bought_category_q_30 = 0
-      val has_bought_category_a_30 = 0
+     val has_bought_category_30 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
+     val has_bought_category_q_30 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
+     val has_bought_category_a_30 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
 
-      val has_bought_brand_30 = 0
-      val has_bought_brand_q_30 = 0
-      val has_bought_brand_a_30 = 0
+     val has_bought_brand_30 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
+     val has_bought_brand_q_30 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
+     val has_bought_brand_a_30 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
 
-      val has_bought_brand_company_category_30 = 0
-      val has_bought_brand_company_category_q_30 = 0
-      val has_bought_brand_company_category_a_30 = 0
+     val has_bought_brand_company_category_30 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
+     val has_bought_brand_company_category_q_30 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
+     val has_bought_brand_company_category_a_30 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
 
-      val has_bought_brand_category_30 = 0
-      val has_bought_brand_category_q_30 = 0
-      val has_bought_brand_category_a_30 = 0
+     val has_bought_brand_category_30 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
+     val has_bought_brand_category_q_30 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
+     val has_bought_brand_category_a_30 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0
 
-      val has_bought_brand_company_30 = 0
-      val has_bought_brand_company_q_30 = 0
-      val has_bought_brand_company_a_30 = 0
+     val has_bought_brand_company_30 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) 1 else 0
+     val has_bought_brand_company_q_30 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(19) else 0
+     val has_bought_brand_company_a_30 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) r(20) else 0 
 
-      val has_bought_company_60 = 0
-      val has_bought_company_q_60 = 0
-      val has_bought_company_a_60 = 0
+// 60 Days
+      val has_bought_company_60 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
+      val has_bought_company_q_60 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
+      val has_bought_company_a_60 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
 
-      val has_bought_category_60 = 0
-      val has_bought_category_q_60 = 0
-      val has_bought_category_a_60 = 0
+      val has_bought_category_60 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
+      val has_bought_category_q_60 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
+      val has_bought_category_a_60 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
 
-      val has_bought_brand_60 = 0
-      val has_bought_brand_q_60 = 0
-      val has_bought_brand_a_60 = 0
+      val has_bought_brand_60 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
+      val has_bought_brand_q_60 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
+      val has_bought_brand_a_60 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
 
-      val has_bought_brand_company_category_60 = 0
-      val has_bought_brand_company_category_q_60 = 0
-      val has_bought_brand_company_category_a_60 = 0
+      val has_bought_brand_company_category_60 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
+      val has_bought_brand_company_category_q_60 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
+      val has_bought_brand_company_category_a_60 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
 
-      val has_bought_brand_category_60 = 0
-      val has_bought_brand_category_q_60 = 0
-      val has_bought_brand_category_a_60 = 0
+      val has_bought_brand_category_60 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
+      val has_bought_brand_category_q_60 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
+      val has_bought_brand_category_a_60 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0
 
-      val has_bought_brand_company_60 = 0
-      val has_bought_brand_company_q_60 = 0
-      val has_bought_brand_company_a_60 = 0
+      val has_bought_brand_company_60 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) 1 else 0
+      val has_bought_brand_company_q_60 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(19) else 0
+      val has_bought_brand_company_a_60 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) r(20) else 0 
 
-      val has_bought_company_90 = 0
-      val has_bought_company_q_90 = 0
-      val has_bought_company_a_90 = 0
+// 90 Days
+val has_bought_company_90 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
+val has_bought_company_q_90 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
+val has_bought_company_a_90 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
 
-      val has_bought_category_90 = 0
-      val has_bought_category_q_90 = 0
-      val has_bought_category_a_90 = 0
+val has_bought_category_90 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
+val has_bought_category_q_90 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
+val has_bought_category_a_90 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
 
-      val has_bought_brand_90 = 0
-      val has_bought_brand_q_90 = 0
-      val has_bought_brand_a_90 = 0
+val has_bought_brand_90 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
+val has_bought_brand_q_90 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
+val has_bought_brand_a_90 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
 
-      val has_bought_brand_company_category_90 = 0
-      val has_bought_brand_company_category_q_90 = 0
-      val has_bought_brand_company_category_a_90 = 0
+val has_bought_brand_company_category_90 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
+val has_bought_brand_company_category_q_90 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
+val has_bought_brand_company_category_a_90 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
 
-      val has_bought_brand_category_90 = 0
-      val has_bought_brand_category_q_90 = 0
-      val has_bought_brand_category_a_90 = 0
+val has_bought_brand_category_90 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
+val has_bought_brand_category_q_90 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
+val has_bought_brand_category_a_90 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0
 
-      val has_bought_brand_company_90 = 0
-      val has_bought_brand_company_q_90 = 0
-      val has_bought_brand_company_a_90 = 0
+val has_bought_brand_company_90 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) 1 else 0
+val has_bought_brand_company_q_90 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(19) else 0
+val has_bought_brand_company_a_90 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) r(20) else 0 
 
-      val has_bought_company_180 = 0
-      val has_bought_company_q_180 = 0
-      val has_bought_company_a_180 = 0
+// 180 Days
+val has_bought_company_180 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
+val has_bought_company_q_180 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
+val has_bought_company_a_180 = if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
 
-      val has_bought_category_180 = 0
-      val has_bought_category_q_180 = 0
-      val has_bought_category_a_180 = 0
+val has_bought_category_180 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
+val has_bought_category_q_180 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
+val has_bought_category_a_180 = if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
 
-      val has_bought_brand_180 = 0
-      val has_bought_brand_q_180 = 0
-      val has_bought_brand_a_180 = 0
+val has_bought_brand_180 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
+val has_bought_brand_q_180 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
+val has_bought_brand_a_180 = if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
 
-      val has_bought_brand_company_category_180 = 0
-      val has_bought_brand_company_category_q_180 = 0
-      val has_bought_brand_company_category_a_180 = 0
+val has_bought_brand_company_category_180 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
+val has_bought_brand_company_category_q_180 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
+val has_bought_brand_company_category_a_180 = if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
 
-      val has_bought_brand_category_180 = 0
-      val has_bought_brand_category_q_180 = 0
-      val has_bought_brand_category_a_180 = 0
+val has_bought_brand_category_180 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
+val has_bought_brand_category_q_180 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
+val has_bought_brand_category_a_180 = if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0
 
-      val has_bought_brand_company_180 = 0
-      val has_bought_brand_company_q_180 = 0
-      val has_bought_brand_company_a_180 = 0
+val has_bought_brand_company_180 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) 1 else 0
+val has_bought_brand_company_q_180 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(19) else 0
+val has_bought_brand_company_a_180 = if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) r(20) else 0 
 
-      // Overall
-      if (h_company == t_company) {
-        val has_bought_company = 1
-        val has_bought_company_q = r(19)
-        val has_bought_company_a = r(20)
-      }
-      if (h_category == t_category) {
-        val has_bought_category = 1
-        val has_bought_category_q = r(19)
-        val has_bought_category_a = r(20)
-      }
-      if (h_brand == t_brand) {
-        val has_bought_brand = 1
-        val has_bought_brand_q = r(19)
-        val has_bought_brand_a = r(20)
-      }
-      if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) {
-        val has_bought_brand_company_category = 1
-        val has_bought_brand_company_category_q = r(19)
-        val has_bought_brand_company_category_a = r(20)
-      }
-      if (has_bought_category == 1 && has_bought_brand == 1) {
-        val has_bought_brand_category = 1
-        val has_bought_brand_category_q = r(19)
-        val has_bought_brand_category_a = r(20)
-      }
-      if (has_bought_company == 1 && has_bought_brand == 1) {
-        val has_bought_brand_company = 1
-        val has_bought_brand_company_q = r(19)
-        val has_bought_brand_company_a = r(20)
-      }
+     Array(has_bought_company, has_bought_company_q, has_bought_company_a,
+       has_bought_category, has_bought_category_q, has_bought_category_a,
+       has_bought_brand, has_bought_brand_q, has_bought_brand_a,
+       has_bought_brand_company_category, has_bought_brand_company_category_q, has_bought_brand_company_category_a,
+       has_bought_brand_category, has_bought_brand_category_q, has_bought_brand_category_a,
+       has_bought_brand_company, has_bought_brand_company_q, has_bought_brand_company_a,
 
-      // last 30 days qa
-      if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) {
-        val has_bought_company_30 = 1
-        val has_bought_company_q_30 = r(19)
-        val has_bought_company_a_30 = r(20)
-      }
-      if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) {
-        val has_bought_category_30 = 1
-        val has_bought_category_q_30 = r(19)
-        val has_bought_category_a_30 = r(20)
-      }
-      if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) {
-        val has_bought_brand_30 = 1
-        val has_bought_brand_q_30 = r(19)
-        val has_bought_brand_a_30 = r(20)
-      }
-      if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) {
-        val has_bought_brand_company_category_30 = 1
-        val has_bought_brand_company_category_q_30 = r(19)
-        val has_bought_brand_company_category_a_30 = r(20)
-      }
-      if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) {
-        val has_bought_brand_category_30 = 1
-        val has_bought_brand_category_q_30 = r(19)
-        val has_bought_brand_category_a_30 = r(20)
-      }
-      if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) {
-        val has_bought_brand_company_30 = 1
-        val has_bought_brand_company_q_30 = r(19)
-        val has_bought_brand_company_a_30 = r(20)
-      }
+       has_bought_company_30, has_bought_company_q_30, has_bought_company_a_30,
+       has_bought_category_30, has_bought_category_q_30, has_bought_category_a_30,
+       has_bought_brand_30, has_bought_brand_q_30, has_bought_brand_a_30,
+       has_bought_brand_company_category_30, has_bought_brand_company_category_q_30, has_bought_brand_company_category_a_30,
+       has_bought_brand_category_30, has_bought_brand_category_q_30, has_bought_brand_category_a_30,
+       has_bought_brand_company_30, has_bought_brand_company_q_30, has_bought_brand_company_a_30,
 
-      // last 60 days qa
-      if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) {
-        val has_bought_company_60 = 1
-        val has_bought_company_q_60 = r(19)
-        val has_bought_company_a_60 = r(20)
-      }
-      if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) {
-        val has_bought_category_60 = 1
-        val has_bought_category_q_60 = r(19)
-        val has_bought_category_a_60 = r(20)
-      }
-      if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) {
-        val has_bought_brand_60 = 1
-        val has_bought_brand_q_60 = r(19)
-        val has_bought_brand_a_60 = r(20)
-      }
-      if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) {
-        val has_bought_brand_company_category_60 = 1
-        val has_bought_brand_company_category_q_60 = r(19)
-        val has_bought_brand_company_category_a_60 = r(20)
-      }
-      if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) {
-        val has_bought_brand_category_60 = 1
-        val has_bought_brand_category_q_60 = r(19)
-        val has_bought_brand_category_a_60 = r(20)
-      }
-      if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) {
-        val has_bought_brand_company_60 = 1
-        val has_bought_brand_company_q_60 = r(19)
-        val has_bought_brand_company_a_60 = r(20)
-      }
+       has_bought_company_60, has_bought_company_q_60, has_bought_company_a_60,
+       has_bought_category_60, has_bought_category_q_60, has_bought_category_a_60,
+       has_bought_brand_60, has_bought_brand_q_60, has_bought_brand_a_60,
+       has_bought_brand_company_category_60, has_bought_brand_company_category_q_60, has_bought_brand_company_category_a_60,
+       has_bought_brand_category_60, has_bought_brand_category_q_60, has_bought_brand_category_a_60,
+       has_bought_brand_company_60, has_bought_brand_company_q_60, has_bought_brand_company_a_60,
 
-      // last 90 days qa
-      if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) {
-        val has_bought_company_90 = 1
-        val has_bought_company_q_90 = r(19)
-        val has_bought_company_a_90 = r(20)
-      }
-      if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) {
-        val has_bought_category_90 = 1
-        val has_bought_category_q_90 = r(19)
-        val has_bought_category_a_90 = r(20)
-      }
-      if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) {
-        val has_bought_brand_90 = 1
-        val has_bought_brand_q_90 = r(19)
-        val has_bought_brand_a_90 = r(20)
-      }
-      if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) {
-        val has_bought_brand_company_category_90 = 1
-        val has_bought_brand_company_category_q_90 = r(19)
-        val has_bought_brand_company_category_a_90 = r(20)
-      }
-      if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) {
-        val has_bought_brand_category_90 = 1
-        val has_bought_brand_category_q_90 = r(19)
-        val has_bought_brand_category_a_90 = r(20)
-      }
-      if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) {
-        val has_bought_brand_company_90 = 1
-        val has_bought_brand_company_q_90 = r(19)
-        val has_bought_brand_company_a_90 = r(20)
-      }
+       has_bought_company_90, has_bought_company_q_90, has_bought_company_a_90,
+       has_bought_category_90, has_bought_category_q_90, has_bought_category_a_90,
+       has_bought_brand_90, has_bought_brand_q_90, has_bought_brand_a_90,
+       has_bought_brand_company_category_90, has_bought_brand_company_category_q_90, has_bought_brand_company_category_a_90,
+       has_bought_brand_category_90, has_bought_brand_category_q_90, has_bought_brand_category_a_90,
+       has_bought_brand_company_90, has_bought_brand_company_q_90, has_bought_brand_company_a_90,
 
-      // last 180 days qa
-      if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) {
-        val has_bought_company_180 = 1
-        val has_bought_company_q_180 = r(19)
-        val has_bought_company_a_180 = r(20)
-      }
-      if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) {
-        val has_bought_category_180 = 1
-        val has_bought_category_q_180 = r(19)
-        val has_bought_category_a_180 = r(20)
-      }
-      if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) {
-        val has_bought_brand_180 = 1
-        val has_bought_brand_q_180 = r(19)
-        val has_bought_brand_a_180 = r(20)
-      }
-      if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) {
-        val has_bought_brand_company_category_180 = 1
-        val has_bought_brand_company_category_q_180 = r(19)
-        val has_bought_brand_company_category_a_180 = r(20)
-      }
-      if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) {
-        val has_bought_brand_category_180 = 1
-        val has_bought_brand_category_q_180 = r(19)
-        val has_bought_brand_category_a_180 = r(20)
-      }
-      if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) {
-        val has_bought_brand_company_180 = 1
-        val has_bought_brand_company_q_180 = r(19)
-        val has_bought_brand_company_a_180 = r(20)
-      }
+       has_bought_company_180, has_bought_company_q_180, has_bought_company_a_180,
+       has_bought_category_180, has_bought_category_q_180, has_bought_category_a_180,
+       has_bought_brand_180, has_bought_brand_q_180, has_bought_brand_a_180,
+       has_bought_brand_company_category_180, has_bought_brand_company_category_q_180, has_bought_brand_company_category_a_180,
+       has_bought_brand_category_180, has_bought_brand_category_q_180, has_bought_brand_category_a_180,
+       has_bought_brand_company_180, has_bought_brand_company_q_180, has_bought_brand_company_a_180)
+   })
 
-      Array(has_bought_company, has_bought_company_q, has_bought_company_a,
-        has_bought_category, has_bought_category_q, has_bought_category_a,
-        has_bought_brand, has_bought_brand_q, has_bought_brand_a,
-        has_bought_brand_company_category, has_bought_brand_company_category_q, has_bought_brand_company_category_a,
-        has_bought_brand_category, has_bought_brand_category_q, has_bought_brand_category_a,
-        has_bought_brand_company, has_bought_brand_company_q, has_bought_brand_company_a,
-
-        has_bought_company_30, has_bought_company_q_30, has_bought_company_a_30,
-        has_bought_category_30, has_bought_category_q_30, has_bought_category_a_30,
-        has_bought_brand_30, has_bought_brand_q_30, has_bought_brand_a_30,
-        has_bought_brand_company_category_30, has_bought_brand_company_category_q_30, has_bought_brand_company_category_a_30,
-        has_bought_brand_category_30, has_bought_brand_category_q_30, has_bought_brand_category_a_30,
-        has_bought_brand_company_30, has_bought_brand_company_q_30, has_bought_brand_company_a_30,
-
-        has_bought_company_60, has_bought_company_q_60, has_bought_company_a_60,
-        has_bought_category_60, has_bought_category_q_60, has_bought_category_a_60,
-        has_bought_brand_60, has_bought_brand_q_60, has_bought_brand_a_60,
-        has_bought_brand_company_category_60, has_bought_brand_company_category_q_60, has_bought_brand_company_category_a_60,
-        has_bought_brand_category_60, has_bought_brand_category_q_60, has_bought_brand_category_a_60,
-        has_bought_brand_company_60, has_bought_brand_company_q_60, has_bought_brand_company_a_60,
-
-        has_bought_company_90, has_bought_company_q_90, has_bought_company_a_90,
-        has_bought_category_90, has_bought_category_q_90, has_bought_category_a_90,
-        has_bought_brand_90, has_bought_brand_q_90, has_bought_brand_a_90,
-        has_bought_brand_company_category_90, has_bought_brand_company_category_q_90, has_bought_brand_company_category_a_90,
-        has_bought_brand_category_90, has_bought_brand_category_q_90, has_bought_brand_category_a_90,
-        has_bought_brand_company_90, has_bought_brand_company_q_90, has_bought_brand_company_a_90,
-
-        has_bought_company_180, has_bought_company_q_180, has_bought_company_a_180,
-        has_bought_category_180, has_bought_category_q_180, has_bought_category_a_180,
-        has_bought_brand_180, has_bought_brand_q_180, has_bought_brand_a_180,
-        has_bought_brand_company_category_180, has_bought_brand_company_category_q_180, has_bought_brand_company_category_a_180,
-        has_bought_brand_category_180, has_bought_brand_category_q_180, has_bought_brand_category_a_180,
-        has_bought_brand_company_180, has_bought_brand_company_q_180, has_bought_brand_company_a_180)
-    })
 
     // 3.5 Aggregate Transactions and generate new features
   }
