@@ -20,8 +20,8 @@ object StreamingMachineLearning {
     val offers_df = sc.textFile("../data/offers").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val testHist_df = sc.textFile("../data/testHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val trainHist_df = sc.textFile("../data/trainHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    // val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.0001, seed = 123)
+    //val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
+    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
 
     // 1.3 Get all categories and comps on offer in a dict
     val offer_cat = offers_df.map(r => r(1)).collect()
@@ -64,330 +64,329 @@ object StreamingMachineLearning {
     /* Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.o_category, 8.quantity, 9.o_company, 10.offervalue, 11.o_brand,   
        Features: 12.dept, 13.productsize, 14.productmeasure, 15~86.(72 features) */
 
-    val main_data_nFeat = main_data_filter.map(r=>Array(r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(7), r(8), r(9), r(10), r(11), r(12), r(17), r(18)) ++ {
-val h_company = r(9)
-val h_category = r(7)
-val h_brand = r(11)
-val t_company = r(14)
-val t_category = r(13)
-val t_brand = r(15)
+    val main_data_nFeat = main_data_filter.map(r => Array(r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(7), r(8), r(9), r(10), r(11), r(12), r(17), r(18)) ++ {
+      val h_company = r(9)
+      val h_category = r(7)
+      val h_brand = r(11)
+      val t_company = r(14)
+      val t_category = r(13)
+      val t_brand = r(15)
 
-val has_bought_company = 0
-val has_bought_company_q = 0
-val has_bought_company_a = 0
+      val has_bought_company = 0
+      val has_bought_company_q = 0
+      val has_bought_company_a = 0
 
-val has_bought_category = 0
-val has_bought_category_q = 0
-val has_bought_category_a = 0
+      val has_bought_category = 0
+      val has_bought_category_q = 0
+      val has_bought_category_a = 0
 
-val has_bought_brand = 0
-val has_bought_brand_q = 0
-val has_bought_brand_a = 0
+      val has_bought_brand = 0
+      val has_bought_brand_q = 0
+      val has_bought_brand_a = 0
 
-val has_bought_brand_company_category = 0
-val has_bought_brand_company_category_q = 0
-val has_bought_brand_company_category_a = 0
+      val has_bought_brand_company_category = 0
+      val has_bought_brand_company_category_q = 0
+      val has_bought_brand_company_category_a = 0
 
-val has_bought_brand_category = 0
-val has_bought_brand_category_q = 0
-val has_bought_brand_category_a = 0
+      val has_bought_brand_category = 0
+      val has_bought_brand_category_q = 0
+      val has_bought_brand_category_a = 0
 
-val has_bought_brand_company = 0
-val has_bought_brand_company_q = 0
-val has_bought_brand_company_a = 0
+      val has_bought_brand_company = 0
+      val has_bought_brand_company_q = 0
+      val has_bought_brand_company_a = 0
 
-val has_bought_company_30 = 0
-val has_bought_company_q_30 = 0
-val has_bought_company_a_30 = 0
+      val has_bought_company_30 = 0
+      val has_bought_company_q_30 = 0
+      val has_bought_company_a_30 = 0
 
-val has_bought_category_30 = 0
-val has_bought_category_q_30 = 0
-val has_bought_category_a_30 = 0
+      val has_bought_category_30 = 0
+      val has_bought_category_q_30 = 0
+      val has_bought_category_a_30 = 0
 
-val has_bought_brand_30 = 0
-val has_bought_brand_q_30 = 0
-val has_bought_brand_a_30 = 0
+      val has_bought_brand_30 = 0
+      val has_bought_brand_q_30 = 0
+      val has_bought_brand_a_30 = 0
 
-val has_bought_brand_company_category = 0
-val has_bought_brand_company_category_q = 0
-val has_bought_brand_company_category_a = 0
+      val has_bought_brand_company_category_30 = 0
+      val has_bought_brand_company_category_q_30 = 0
+      val has_bought_brand_company_category_a_30 = 0
 
-val has_bought_brand_category_30 = 0
-val has_bought_brand_category_q_30 = 0
-val has_bought_brand_category_a_30 = 0
+      val has_bought_brand_category_30 = 0
+      val has_bought_brand_category_q_30 = 0
+      val has_bought_brand_category_a_30 = 0
 
-val has_bought_brand_company_30 = 0
-val has_bought_brand_company_q_30 = 0
-val has_bought_brand_company_a_30 = 0
+      val has_bought_brand_company_30 = 0
+      val has_bought_brand_company_q_30 = 0
+      val has_bought_brand_company_a_30 = 0
 
-val has_bought_company_60 = 0
-val has_bought_company_q_60 = 0
-val has_bought_company_a_60 = 0
+      val has_bought_company_60 = 0
+      val has_bought_company_q_60 = 0
+      val has_bought_company_a_60 = 0
 
-val has_bought_category_60 = 0
-val has_bought_category_q_60 = 0
-val has_bought_category_a_60 = 0
+      val has_bought_category_60 = 0
+      val has_bought_category_q_60 = 0
+      val has_bought_category_a_60 = 0
 
-val has_bought_brand_60 = 0
-val has_bought_brand_q_60 = 0
-val has_bought_brand_a_60 = 0
+      val has_bought_brand_60 = 0
+      val has_bought_brand_q_60 = 0
+      val has_bought_brand_a_60 = 0
 
-val has_bought_brand_company_category = 0
-val has_bought_brand_company_category_q = 0
-val has_bought_brand_company_category_a = 0
+      val has_bought_brand_company_category_60 = 0
+      val has_bought_brand_company_category_q_60 = 0
+      val has_bought_brand_company_category_a_60 = 0
 
-val has_bought_brand_category_60 = 0
-val has_bought_brand_category_q_60 = 0
-val has_bought_brand_category_a_60 = 0
+      val has_bought_brand_category_60 = 0
+      val has_bought_brand_category_q_60 = 0
+      val has_bought_brand_category_a_60 = 0
 
-val has_bought_brand_company_60 = 0
-val has_bought_brand_company_q_60 = 0
-val has_bought_brand_company_a_60 = 0
+      val has_bought_brand_company_60 = 0
+      val has_bought_brand_company_q_60 = 0
+      val has_bought_brand_company_a_60 = 0
 
-val has_bought_company_90 = 0
-val has_bought_company_q_90 = 0
-val has_bought_company_a_90 = 0
+      val has_bought_company_90 = 0
+      val has_bought_company_q_90 = 0
+      val has_bought_company_a_90 = 0
 
-val has_bought_category_90 = 0
-val has_bought_category_q_90 = 0
-val has_bought_category_a_90 = 0
+      val has_bought_category_90 = 0
+      val has_bought_category_q_90 = 0
+      val has_bought_category_a_90 = 0
 
-val has_bought_brand_90 = 0
-val has_bought_brand_q_90 = 0
-val has_bought_brand_a_90 = 0
+      val has_bought_brand_90 = 0
+      val has_bought_brand_q_90 = 0
+      val has_bought_brand_a_90 = 0
 
-val has_bought_brand_company_category = 0
-val has_bought_brand_company_category_q = 0
-val has_bought_brand_company_category_a = 0
+      val has_bought_brand_company_category_90 = 0
+      val has_bought_brand_company_category_q_90 = 0
+      val has_bought_brand_company_category_a_90 = 0
 
-val has_bought_brand_category_90 = 0
-val has_bought_brand_category_q_90 = 0
-val has_bought_brand_category_a_90 = 0
+      val has_bought_brand_category_90 = 0
+      val has_bought_brand_category_q_90 = 0
+      val has_bought_brand_category_a_90 = 0
 
-val has_bought_brand_company_90 = 0
-val has_bought_brand_company_q_90 = 0
-val has_bought_brand_company_a_90 = 0
+      val has_bought_brand_company_90 = 0
+      val has_bought_brand_company_q_90 = 0
+      val has_bought_brand_company_a_90 = 0
 
-val has_bought_company_180 = 0
-val has_bought_company_q_180 = 0
-val has_bought_company_a_180 = 0
+      val has_bought_company_180 = 0
+      val has_bought_company_q_180 = 0
+      val has_bought_company_a_180 = 0
 
-val has_bought_category_180 = 0
-val has_bought_category_q_180 = 0
-val has_bought_category_a_180 = 0
+      val has_bought_category_180 = 0
+      val has_bought_category_q_180 = 0
+      val has_bought_category_a_180 = 0
 
-val has_bought_brand_180 = 0
-val has_bought_brand_q_180 = 0
-val has_bought_brand_a_180 = 0
+      val has_bought_brand_180 = 0
+      val has_bought_brand_q_180 = 0
+      val has_bought_brand_a_180 = 0
 
-val has_bought_brand_company_category = 0
-val has_bought_brand_company_category_q = 0
-val has_bought_brand_company_category_a = 0
+      val has_bought_brand_company_category_180 = 0
+      val has_bought_brand_company_category_q_180 = 0
+      val has_bought_brand_company_category_a_180 = 0
 
-val has_bought_brand_category_180 = 0
-val has_bought_brand_category_q_180 = 0
-val has_bought_brand_category_a_180 = 0
+      val has_bought_brand_category_180 = 0
+      val has_bought_brand_category_q_180 = 0
+      val has_bought_brand_category_a_180 = 0
 
-val has_bought_brand_company_180 = 0
-val has_bought_brand_company_q_180 = 0
-val has_bought_brand_company_a_180 = 0
+      val has_bought_brand_company_180 = 0
+      val has_bought_brand_company_q_180 = 0
+      val has_bought_brand_company_a_180 = 0
 
-// Overall
-if (h_company == t_company){
-  val has_bought_company = 1
-  val has_bought_company_q = r(19)
-  val has_bought_company_a = r(20)
-}
-if (h_category == t_category){
-  val has_bought_category = 1
-  val has_bought_category_q = r(19)
-  val has_bought_category_a = r(20)
-}
-if (h_brand == t_brand){
-  val has_bought_brand = 1
-  val has_bought_brand_q = r(19)
-  val has_bought_brand_a = r(20)
-}
-if (has_bought_company==1 && has_bought_category == 1 && has_bought_brand == 1){
-  val has_bought_brand_company_category = 1
-  val has_bought_brand_company_category_q = r(19)
-  val has_bought_brand_company_category_a = r(20)
-}
-if (has_bought_category == 1 && has_bought_brand == 1){
-  val has_bought_brand_category = 1
-  val has_bought_brand_category_q = r(19)
-  val has_bought_brand_category_a = r(20)
-}
-if (has_bought_company==1 && has_bought_brand == 1){
-  val has_bought_brand_company = 1
-  val has_bought_brand_company_q = r(19)
-  val has_bought_brand_company_a = r(20)
-}
+      // Overall
+      if (h_company == t_company) {
+        val has_bought_company = 1
+        val has_bought_company_q = r(19)
+        val has_bought_company_a = r(20)
+      }
+      if (h_category == t_category) {
+        val has_bought_category = 1
+        val has_bought_category_q = r(19)
+        val has_bought_category_a = r(20)
+      }
+      if (h_brand == t_brand) {
+        val has_bought_brand = 1
+        val has_bought_brand_q = r(19)
+        val has_bought_brand_a = r(20)
+      }
+      if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1) {
+        val has_bought_brand_company_category = 1
+        val has_bought_brand_company_category_q = r(19)
+        val has_bought_brand_company_category_a = r(20)
+      }
+      if (has_bought_category == 1 && has_bought_brand == 1) {
+        val has_bought_brand_category = 1
+        val has_bought_brand_category_q = r(19)
+        val has_bought_brand_category_a = r(20)
+      }
+      if (has_bought_company == 1 && has_bought_brand == 1) {
+        val has_bought_brand_company = 1
+        val has_bought_brand_company_q = r(19)
+        val has_bought_brand_company_a = r(20)
+      }
 
-// last 30 days qa
-if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30){
-  val has_bought_company_30 = 1
-  val has_bought_company_q_30 = r(19)
-  val has_bought_company_a_30 = r(20)
-}
-if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30){
-  val has_bought_category_30 = 1
-  val has_bought_category_q_30 = r(19)
-  val has_bought_category_a_30 = r(20)
-}
-if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30){
-  val has_bought_brand_30 = 1
-  val has_bought_brand_q_30 = r(19)
-  val has_bought_brand_a_30 = r(20)
-}
-if (has_bought_company==1 && has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 30){
-  val has_bought_brand_company_category_30 = 1
-  val has_bought_brand_company_category_q_30 = r(19)
-  val has_bought_brand_company_category_a_30 = r(20)
-}
-if (has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 30){
-  val has_bought_brand_category_30 = 1
-  val has_bought_brand_category_q_30 = r(19)
-  val has_bought_brand_category_a_30 = r(20)
-}
-if (has_bought_company=1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 30){
-  val has_bought_brand_company_30 = 1
-  val has_bought_brand_company_q_30 = r(19)
-  val has_bought_brand_company_a_30 = r(20)
-}
+      // last 30 days qa
+      if (has_bought_company == 1 && diff_days(r(6), r(16)) < 30) {
+        val has_bought_company_30 = 1
+        val has_bought_company_q_30 = r(19)
+        val has_bought_company_a_30 = r(20)
+      }
+      if (has_bought_category == 1 && diff_days(r(6), r(16)) < 30) {
+        val has_bought_category_30 = 1
+        val has_bought_category_q_30 = r(19)
+        val has_bought_category_a_30 = r(20)
+      }
+      if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) {
+        val has_bought_brand_30 = 1
+        val has_bought_brand_q_30 = r(19)
+        val has_bought_brand_a_30 = r(20)
+      }
+      if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) {
+        val has_bought_brand_company_category_30 = 1
+        val has_bought_brand_company_category_q_30 = r(19)
+        val has_bought_brand_company_category_a_30 = r(20)
+      }
+      if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) {
+        val has_bought_brand_category_30 = 1
+        val has_bought_brand_category_q_30 = r(19)
+        val has_bought_brand_category_a_30 = r(20)
+      }
+      if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 30) {
+        val has_bought_brand_company_30 = 1
+        val has_bought_brand_company_q_30 = r(19)
+        val has_bought_brand_company_a_30 = r(20)
+      }
 
-// last 60 days qa
-if (has_bought_company = 1 && diff_days(r(6), r(16)) < 60){
-  val has_bought_company_60 = 1
-  val has_bought_company_q_60 = r(19)
-  val has_bought_company_a_60 = r(20)
-}
-if (has_bought_category = 1 && diff_days(r(6), r(16)) < 60){
-  val has_bought_category_60 = 1
-  val has_bought_category_q_60 = r(19)
-  val has_bought_category_a_60 = r(20)
-}
-if (has_bought_brand = 1 && diff_days(r(6), r(16)) < 60){
-  val has_bought_brand_60 = 1
-  val has_bought_brand_q_60 = r(19)
-  val has_bought_brand_a_60 = r(20)
-}
-if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 60){
-  val has_bought_brand_company_category_60 = 1
-  val has_bought_brand_company_category_q_60 = r(19)
-  val has_bought_brand_company_category_a_60 = r(20)
-}
-if (has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 60){
-  val has_bought_brand_category_60 = 1
-  val has_bought_brand_category_q_60 = r(19)
-  val has_bought_brand_category_a_60 = r(20)
-}
-if (has_bought_company=1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 60){
-  val has_bought_brand_company_60 = 1
-  val has_bought_brand_company_q_60 = r(19)
-  val has_bought_brand_company_a_60 = r(20)
-}
+      // last 60 days qa
+      if (has_bought_company == 1 && diff_days(r(6), r(16)) < 60) {
+        val has_bought_company_60 = 1
+        val has_bought_company_q_60 = r(19)
+        val has_bought_company_a_60 = r(20)
+      }
+      if (has_bought_category == 1 && diff_days(r(6), r(16)) < 60) {
+        val has_bought_category_60 = 1
+        val has_bought_category_q_60 = r(19)
+        val has_bought_category_a_60 = r(20)
+      }
+      if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) {
+        val has_bought_brand_60 = 1
+        val has_bought_brand_q_60 = r(19)
+        val has_bought_brand_a_60 = r(20)
+      }
+      if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) {
+        val has_bought_brand_company_category_60 = 1
+        val has_bought_brand_company_category_q_60 = r(19)
+        val has_bought_brand_company_category_a_60 = r(20)
+      }
+      if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) {
+        val has_bought_brand_category_60 = 1
+        val has_bought_brand_category_q_60 = r(19)
+        val has_bought_brand_category_a_60 = r(20)
+      }
+      if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 60) {
+        val has_bought_brand_company_60 = 1
+        val has_bought_brand_company_q_60 = r(19)
+        val has_bought_brand_company_a_60 = r(20)
+      }
 
-// last 90 days qa
-if (has_bought_company = 1 && diff_days(r(6), r(16)) < 90){
-  val has_bought_company_90 = 1
-  val has_bought_company_q_90 = r(19)
-  val has_bought_company_a_90 = r(20)
-}
-if (has_bought_category = 1 && diff_days(r(6), r(16)) < 90){
-  val has_bought_category_90 = 1
-  val has_bought_category_q_90 = r(19)
-  val has_bought_category_a_90 = r(20)
-}
-if (has_bought_brand = 1 && diff_days(r(6), r(16)) < 90){
-  val has_bought_brand_90 = 1
-  val has_bought_brand_q_90 = r(19)
-  val has_bought_brand_a_90 = r(20)
-}
-if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 90){
-  val has_bought_brand_company_category_90 = 1
-  val has_bought_brand_company_category_q_90 = r(19)
-  val has_bought_brand_company_category_a_90 = r(20)
-}
-if (has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 90){
-  val has_bought_brand_category_90 = 1
-  val has_bought_brand_category_q_90 = r(19)
-  val has_bought_brand_category_a_90 = r(20)
-}
-if (has_bought_company=1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 90){
-  val has_bought_brand_company_90 = 1
-  val has_bought_brand_company_q_90 = r(19)
-  val has_bought_brand_company_a_90 = r(20)
-}
+      // last 90 days qa
+      if (has_bought_company == 1 && diff_days(r(6), r(16)) < 90) {
+        val has_bought_company_90 = 1
+        val has_bought_company_q_90 = r(19)
+        val has_bought_company_a_90 = r(20)
+      }
+      if (has_bought_category == 1 && diff_days(r(6), r(16)) < 90) {
+        val has_bought_category_90 = 1
+        val has_bought_category_q_90 = r(19)
+        val has_bought_category_a_90 = r(20)
+      }
+      if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) {
+        val has_bought_brand_90 = 1
+        val has_bought_brand_q_90 = r(19)
+        val has_bought_brand_a_90 = r(20)
+      }
+      if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) {
+        val has_bought_brand_company_category_90 = 1
+        val has_bought_brand_company_category_q_90 = r(19)
+        val has_bought_brand_company_category_a_90 = r(20)
+      }
+      if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) {
+        val has_bought_brand_category_90 = 1
+        val has_bought_brand_category_q_90 = r(19)
+        val has_bought_brand_category_a_90 = r(20)
+      }
+      if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 90) {
+        val has_bought_brand_company_90 = 1
+        val has_bought_brand_company_q_90 = r(19)
+        val has_bought_brand_company_a_90 = r(20)
+      }
 
-// last 180 days qa
-if (has_bought_company = 1 && diff_days(r(6), r(16)) < 180){
-  val has_bought_company_180 = 1
-  val has_bought_company_q_180 = r(19)
-  val has_bought_company_a_180 = r(20)
-}
-if (has_bought_category = 1 && diff_days(r(6), r(16)) < 180){
-  val has_bought_category_180 = 1
-  val has_bought_category_q_180 = r(19)
-  val has_bought_category_a_180 = r(20)
-}
-if (has_bought_brand = 1 && diff_days(r(6), r(16)) < 180){
-  val has_bought_brand_180 = 1
-  val has_bought_brand_q_180 = r(19)
-  val has_bought_brand_a_180 = r(20)
-}
-if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 180){
-  val has_bought_brand_company_category_180 = 1
-  val has_bought_brand_company_category_q_180 = r(19)
-  val has_bought_brand_company_category_a_180 = r(20)
-}
-if (has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 180){
-  val has_bought_brand_category_180 = 1
-  val has_bought_brand_category_q_180 = r(19)
-  val has_bought_brand_category_a_180 = r(20)
-}
-if (has_bought_company=1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 180){
-  val has_bought_brand_company_180 = 1
-  val has_bought_brand_company_q_180 = r(19)
-  val has_bought_brand_company_a_180 = r(20)
-}
+      // last 180 days qa
+      if (has_bought_company == 1 && diff_days(r(6), r(16)) < 180) {
+        val has_bought_company_180 = 1
+        val has_bought_company_q_180 = r(19)
+        val has_bought_company_a_180 = r(20)
+      }
+      if (has_bought_category == 1 && diff_days(r(6), r(16)) < 180) {
+        val has_bought_category_180 = 1
+        val has_bought_category_q_180 = r(19)
+        val has_bought_category_a_180 = r(20)
+      }
+      if (has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) {
+        val has_bought_brand_180 = 1
+        val has_bought_brand_q_180 = r(19)
+        val has_bought_brand_a_180 = r(20)
+      }
+      if (has_bought_company == 1 && has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) {
+        val has_bought_brand_company_category_180 = 1
+        val has_bought_brand_company_category_q_180 = r(19)
+        val has_bought_brand_company_category_a_180 = r(20)
+      }
+      if (has_bought_category == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) {
+        val has_bought_brand_category_180 = 1
+        val has_bought_brand_category_q_180 = r(19)
+        val has_bought_brand_category_a_180 = r(20)
+      }
+      if (has_bought_company == 1 && has_bought_brand == 1 && diff_days(r(6), r(16)) < 180) {
+        val has_bought_brand_company_180 = 1
+        val has_bought_brand_company_q_180 = r(19)
+        val has_bought_brand_company_a_180 = r(20)
+      }
 
-return Array(has_bought_company,has_bought_company_q,has_bought_company_a,
-has_bought_category, has_bought_category_q, has_bought_category_a,
-has_bought_brand, has_bought_brand_q,has_bought_brand_a,
-has_bought_brand_company_category, has_bought_brand_company_category_q, has_bought_brand_company_category_a,
-has_bought_brand_category, has_bought_brand_category_q, has_bought_brand_category_a,
-has_bought_brand_company, has_bought_brand_company_q, has_bought_brand_company_a,
+      Array(has_bought_company, has_bought_company_q, has_bought_company_a,
+        has_bought_category, has_bought_category_q, has_bought_category_a,
+        has_bought_brand, has_bought_brand_q, has_bought_brand_a,
+        has_bought_brand_company_category, has_bought_brand_company_category_q, has_bought_brand_company_category_a,
+        has_bought_brand_category, has_bought_brand_category_q, has_bought_brand_category_a,
+        has_bought_brand_company, has_bought_brand_company_q, has_bought_brand_company_a,
 
-has_bought_company_30,has_bought_company_q_30,has_bought_company_a_30,
-has_bought_category_30, has_bought_category_q_30, has_bought_category_a_30,
-has_bought_brand_30, has_bought_brand_q_30,has_bought_brand_a_30,
-has_bought_brand_company_category_30, has_bought_brand_company_category_q_30, has_bought_brand_company_category_a_30,
-has_bought_brand_category_30, has_bought_brand_category_q_30, has_bought_brand_category_a_30,
-has_bought_brand_company_30, has_bought_brand_company_q_30, has_bought_brand_company_a_30,
+        has_bought_company_30, has_bought_company_q_30, has_bought_company_a_30,
+        has_bought_category_30, has_bought_category_q_30, has_bought_category_a_30,
+        has_bought_brand_30, has_bought_brand_q_30, has_bought_brand_a_30,
+        has_bought_brand_company_category_30, has_bought_brand_company_category_q_30, has_bought_brand_company_category_a_30,
+        has_bought_brand_category_30, has_bought_brand_category_q_30, has_bought_brand_category_a_30,
+        has_bought_brand_company_30, has_bought_brand_company_q_30, has_bought_brand_company_a_30,
 
-has_bought_company_60,has_bought_company_q_60,has_bought_company_a_60,
-has_bought_category_60, has_bought_category_q_60, has_bought_category_a_60,
-has_bought_brand_60, has_bought_brand_q_60,has_bought_brand_a_60,
-has_bought_brand_company_category_60, has_bought_brand_company_category_q_60, has_bought_brand_company_category_a_60,
-has_bought_brand_category_60, has_bought_brand_category_q_60, has_bought_brand_category_a_60,
-has_bought_brand_company_60, has_bought_brand_company_q_60, has_bought_brand_company_a_60,
+        has_bought_company_60, has_bought_company_q_60, has_bought_company_a_60,
+        has_bought_category_60, has_bought_category_q_60, has_bought_category_a_60,
+        has_bought_brand_60, has_bought_brand_q_60, has_bought_brand_a_60,
+        has_bought_brand_company_category_60, has_bought_brand_company_category_q_60, has_bought_brand_company_category_a_60,
+        has_bought_brand_category_60, has_bought_brand_category_q_60, has_bought_brand_category_a_60,
+        has_bought_brand_company_60, has_bought_brand_company_q_60, has_bought_brand_company_a_60,
 
-has_bought_company_90,has_bought_company_q_90,has_bought_company_a_90,
-has_bought_category_90, has_bought_category_q_90, has_bought_category_a_90,
-has_bought_brand_90, has_bought_brand_q_90,has_bought_brand_a_90,
-has_bought_brand_company_category_90, has_bought_brand_company_category_q_90, has_bought_brand_company_category_a_90,
-has_bought_brand_category_90, has_bought_brand_category_q_90, has_bought_brand_category_a_90,
-has_bought_brand_company_90, has_bought_brand_company_q_90, has_bought_brand_company_a_90,
+        has_bought_company_90, has_bought_company_q_90, has_bought_company_a_90,
+        has_bought_category_90, has_bought_category_q_90, has_bought_category_a_90,
+        has_bought_brand_90, has_bought_brand_q_90, has_bought_brand_a_90,
+        has_bought_brand_company_category_90, has_bought_brand_company_category_q_90, has_bought_brand_company_category_a_90,
+        has_bought_brand_category_90, has_bought_brand_category_q_90, has_bought_brand_category_a_90,
+        has_bought_brand_company_90, has_bought_brand_company_q_90, has_bought_brand_company_a_90,
 
-has_bought_company_180,has_bought_company_q_180,has_bought_company_a_180,
-has_bought_category_180, has_bought_category_q_180, has_bought_category_a_180,
-has_bought_brand_180, has_bought_brand_q_180,has_bought_brand_a_180,
-has_bought_brand_company_category_180, has_bought_brand_company_category_q_180, has_bought_brand_company_category_a_180,
-has_bought_brand_category_180, has_bought_brand_category_q_180, has_bought_brand_category_a_180,
-has_bought_brand_company_180, has_bought_brand_company_q_180, has_bought_brand_company_a_180
-}
-)
+        has_bought_company_180, has_bought_company_q_180, has_bought_company_a_180,
+        has_bought_category_180, has_bought_category_q_180, has_bought_category_a_180,
+        has_bought_brand_180, has_bought_brand_q_180, has_bought_brand_a_180,
+        has_bought_brand_company_category_180, has_bought_brand_company_category_q_180, has_bought_brand_company_category_a_180,
+        has_bought_brand_category_180, has_bought_brand_category_q_180, has_bought_brand_category_a_180,
+        has_bought_brand_company_180, has_bought_brand_company_q_180, has_bought_brand_company_a_180)
+    })
 
     // 3.5 Aggregate Transactions and generate new features
   }
