@@ -149,7 +149,7 @@ if (has_bought_brand = 1 && diff_days(r(6), r(16)) < 30){
   val has_bought_brand_q_30 = 0
   val has_bought_brand_a_30 = 0}
 if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 30){ 
-  val has_bought_brand_company_category = 1 
+  val has_bought_brand_company_category_30 = 1 
   val has_bought_brand_company_category_q_30 = r(19)
   val has_bought_brand_company_category_a_30 = r(20)
 }else {
@@ -174,10 +174,155 @@ if (has_bought_company=1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 30)
   val has_bought_brand_company_a_30 = 0}
 
 // last 60 days qa
+if (has_bought_company = 1 && diff_days(r(6), r(16)) < 60){ 
+  val has_bought_company_60 = 1 
+  val has_bought_company_q_60 = r(19)
+  val has_bought_company_a_60 = r(20)
+}else {
+  val has_bought_company_60 = 0 
+  val has_bought_company_q_60 = 0
+  val has_bought_company_a_60 = 0}
+if (has_bought_category = 1 && diff_days(r(6), r(16)) < 60){ 
+  val has_bought_category_60 = 1 
+  val has_bought_category_q_60 = r(19)
+  val has_bought_category_a_60 = r(20)
+}else {
+  val has_bought_category_60 = 0 
+  val has_bought_category_q_60 = 0
+  val has_bought_category_a_60 = 0}
+if (has_bought_brand = 1 && diff_days(r(6), r(16)) < 60){ 
+  val has_bought_brand_60 = 1 
+  val has_bought_brand_q_60 = r(19)
+  val has_bought_brand_a_60 = r(20)
+}else {
+  val has_bought_brand_60 = 0 
+  val has_bought_brand_q_60 = 0
+  val has_bought_brand_a_60 = 0}
+if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 60){ 
+  val has_bought_brand_company_category_60 = 1 
+  val has_bought_brand_company_category_q_60 = r(19)
+  val has_bought_brand_company_category_a_60 = r(20)
+}else {
+  val has_bought_brand_company_category_60 = 0 
+  val has_bought_brand_company_category_q_60 = 0
+  val has_bought_brand_company_category_a_60 = 0}
+if (has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 60){ 
+  val has_bought_brand_category_60 = 1 
+  val has_bought_brand_category_q_60 = r(19)
+  val has_bought_brand_category_a_60 = r(20)
+}else {
+  val has_bought_brand_category_60 = 0 
+  val has_bought_brand_category_q_60 = 0
+  val has_bought_brand_category_a_60 = 0}
+if (has_bought_company=1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 60){ 
+  val has_bought_brand_company_60 = 1 
+  val has_bought_brand_company_q_60 = r(19)
+  val has_bought_brand_company_a_60 = r(20)
+}else {
+  val has_bought_brand_company_60 = 0 
+  val has_bought_brand_company_q_60 = 0
+  val has_bought_brand_company_a_60 = 0}
 
 // last 90 days qa
+if (has_bought_company = 1 && diff_days(r(6), r(16)) < 90){ 
+  val has_bought_company_90 = 1 
+  val has_bought_company_q_90 = r(19)
+  val has_bought_company_a_90 = r(20)
+}else {
+  val has_bought_company_90 = 0 
+  val has_bought_company_q_90 = 0
+  val has_bought_company_a_90 = 0}
+if (has_bought_category = 1 && diff_days(r(6), r(16)) < 90){ 
+  val has_bought_category_90 = 1 
+  val has_bought_category_q_90 = r(19)
+  val has_bought_category_a_90 = r(20)
+}else {
+  val has_bought_category_90 = 0 
+  val has_bought_category_q_90 = 0
+  val has_bought_category_a_90 = 0}
+if (has_bought_brand = 1 && diff_days(r(6), r(16)) < 90){ 
+  val has_bought_brand_90 = 1 
+  val has_bought_brand_q_90 = r(19)
+  val has_bought_brand_a_90 = r(20)
+}else {
+  val has_bought_brand_90 = 0 
+  val has_bought_brand_q_90 = 0
+  val has_bought_brand_a_90 = 0}
+if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 90){ 
+  val has_bought_brand_company_category_90 = 1 
+  val has_bought_brand_company_category_q_90 = r(19)
+  val has_bought_brand_company_category_a_90 = r(20)
+}else {
+  val has_bought_brand_company_category_90 = 0 
+  val has_bought_brand_company_category_q_90 = 0
+  val has_bought_brand_company_category_a_90 = 0}
+if (has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 90){ 
+  val has_bought_brand_category_90 = 1 
+  val has_bought_brand_category_q_90 = r(19)
+  val has_bought_brand_category_a_90 = r(20)
+}else {
+  val has_bought_brand_category_90 = 0 
+  val has_bought_brand_category_q_90 = 0
+  val has_bought_brand_category_a_90 = 0}
+if (has_bought_company=1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 90){ 
+  val has_bought_brand_company_90 = 1 
+  val has_bought_brand_company_q_90 = r(19)
+  val has_bought_brand_company_a_90 = r(20)
+}else {
+  val has_bought_brand_company_90 = 0 
+  val has_bought_brand_company_q_90 = 0
+  val has_bought_brand_company_a_90 = 0}
 
 // last 180 days qa
+if (has_bought_company = 1 && diff_days(r(6), r(16)) < 180){ 
+  val has_bought_company_180 = 1 
+  val has_bought_company_q_180 = r(19)
+  val has_bought_company_a_180 = r(20)
+}else {
+  val has_bought_company_180 = 0 
+  val has_bought_company_q_180 = 0
+  val has_bought_company_a_180 = 0}
+if (has_bought_category = 1 && diff_days(r(6), r(16)) < 180){ 
+  val has_bought_category_180 = 1 
+  val has_bought_category_q_180 = r(19)
+  val has_bought_category_a_180 = r(20)
+}else {
+  val has_bought_category_180 = 0 
+  val has_bought_category_q_180 = 0
+  val has_bought_category_a_180 = 0}
+if (has_bought_brand = 1 && diff_days(r(6), r(16)) < 180){ 
+  val has_bought_brand_180 = 1 
+  val has_bought_brand_q_180 = r(19)
+  val has_bought_brand_a_180 = r(20)
+}else {
+  val has_bought_brand_180 = 0 
+  val has_bought_brand_q_180 = 0
+  val has_bought_brand_a_180 = 0}
+if (has_bought_company=1 && has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 180){ 
+  val has_bought_brand_company_category_180 = 1 
+  val has_bought_brand_company_category_q_180 = r(19)
+  val has_bought_brand_company_category_a_180 = r(20)
+}else {
+  val has_bought_brand_company_category_180 = 0 
+  val has_bought_brand_company_category_q_180 = 0
+  val has_bought_brand_company_category_a_180 = 0}
+if (has_bought_category = 1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 180){ 
+  val has_bought_brand_category_180 = 1 
+  val has_bought_brand_category_q_180 = r(19)
+  val has_bought_brand_category_a_180 = r(20)
+}else {
+  val has_bought_brand_category_180 = 0 
+  val has_bought_brand_category_q_180 = 0
+  val has_bought_brand_category_a_180 = 0}
+if (has_bought_company=1 && has_bought_brand = 1 && diff_days(r(6), r(16)) < 180){ 
+  val has_bought_brand_company_180 = 1 
+  val has_bought_brand_company_q_180 = r(19)
+  val has_bought_brand_company_a_180 = r(20)
+}else {
+  val has_bought_brand_company_180 = 0 
+  val has_bought_brand_company_q_180 = 0
+  val has_bought_brand_company_a_180 = 0}
+
 return Array(has_bought_company,has_bought_category,has_bought_brand,has_bought_brand_company_category,has_bought_brand_category,has_bought_brand_company)})
 
     // 3.5 Aggregate Transactions and generate new features
