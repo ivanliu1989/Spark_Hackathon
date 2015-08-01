@@ -297,7 +297,7 @@ object StreamingMachineLearning {
      */
     val svmAlg = new SVMWithSGD()
     svmAlg.optimizer.
-      setNumIterations(200).
+      setNumIterations(300).
       setRegParam(0.1).
       setUpdater(new L1Updater)
     val svmModelL1 = svmAlg.run(train)
@@ -312,7 +312,7 @@ object StreamingMachineLearning {
     val metrics = new BinaryClassificationMetrics(scoreAndLabels)
     val auROC = metrics.areaUnderROC()
 
-    println("Area under ROC = " + auROC)
+    println("Area under ROC = " + auROC) //auROC: 0.6423827158596562
 
     // Save and load model
     val today = Calendar.getInstance().getTime()
