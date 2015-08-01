@@ -4,7 +4,7 @@
 		module="spark_hackathon_2.11"
 		revision="1.0"
 		status="integration"
-		publication="20150728164224"
+		publication="20150801211512"
 	>
 		<description>
 		Spark_Hackathon
@@ -32,11 +32,19 @@
 		<artifact name="spark_hackathon_2.11" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
 	</publications>
 	<dependencies>
-		<dependency org="org.scala-lang" name="scala-compiler" rev="2.11.6" conf="scala-tool->default,optional(default)"/>
-		<dependency org="org.scala-lang" name="scala-library" rev="2.11.6" conf="scala-tool->default,optional(default);compile->default(compile)"/>
+		<dependency org="org.scala-lang" name="scala-compiler" rev="2.11.7" conf="scala-tool->default,optional(default)"/>
+		<dependency org="org.scala-lang" name="scala-library" rev="2.11.7" conf="scala-tool->default,optional(default);compile->default(compile)"/>
 		<dependency org="org.apache.spark" name="spark-core_2.11" rev="1.4.0" conf="compile->default(compile)"/>
+		<dependency org="org.apache.spark" name="spark-sql_2.11" rev="1.4.0" conf="compile->default(compile)"/>
 		<dependency org="org.apache.spark" name="spark-streaming_2.11" rev="1.4.0" conf="compile->default(compile)"/>
+		<dependency org="org.apache.spark" name="spark-streaming-kafka_2.11" rev="1.4.0" conf="compile->default(compile)"/>
 		<dependency org="org.apache.spark" name="spark-mllib_2.11" rev="1.4.0" conf="compile->default(compile)"/>
+		<dependency org="org.apache.commons" name="commons-lang3" rev="3.0" conf="compile->default(compile)"/>
+		<dependency org="org.eclipse.jetty" name="jetty-client" rev="8.1.14.v20131031" conf="compile->default(compile)"/>
+		<dependency org="org.scalatest" name="scalatest_2.11" rev="2.2.1" conf="test->default(compile)"/>
+		<dependency org="com.databricks" name="spark-csv_2.11" rev="1.0.3" conf="compile->default(compile)"/>
+		<dependency org="joda-time" name="joda-time" rev="2.8.1" conf="compile->default(compile)"/>
+		<dependency org="org.joda" name="joda-convert" rev="1.7" conf="compile->default(compile)"/>
 		<dependency org="com.github.scopt" name="scopt_2.11" rev="3.3.0" conf="compile->default(compile)"/>
 	</dependencies>
 </ivy-module>

@@ -40,3 +40,9 @@ test
 clean
 compile
 test
+quit
+clean
+compile
+clean
+compile
+test
