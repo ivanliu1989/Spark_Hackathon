@@ -283,7 +283,7 @@ object StreamingMachineLearning {
 
     // 3.8 Logistic Regression
     // fixed hyperparameters
-    val numIters = 500
+    val numIters = 300
     val stepSize = 0.85
     val regParam = 1e-3
     val regType = "l2"
@@ -307,7 +307,7 @@ object StreamingMachineLearning {
     println("Final Model Selected for SVM - (Reg:" + regParam + "). Model Score (ROC): " + auROC_lg) //auROC: 0.6423827158596562
     println("Start Training Logistic Regression Model Based on Full Datasets ...")
     val lgModelL1_full = lgSGD.run(training)
-
+    println("Full Datasets Logistics Regression Completed. ROC: " + auROC_lg)
     // Save and load model
     // val today = Calendar.getInstance().getTime()
     // val lgModelPath = "/models/logisticRegressionModel_" + date_format.format(today)
@@ -365,7 +365,7 @@ object StreamingMachineLearning {
 
     println("Start Training Selected Model Based on Full Datasets ...")
     val svmModelL1_full = svmAlg.run(training)
-
+    println("Full Datasets Support Vector Machine Completed. ROC: " + auROC_svm)
     // Save and load model
     // val svmModelPath = "/models/svmModel_" + date_format.format(today)
     // svmModelL1.save(sc, "svmModelPath")
