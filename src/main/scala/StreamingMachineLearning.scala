@@ -271,7 +271,7 @@ object StreamingMachineLearning {
       x(80) + y(80), x(81) + y(81), x(82) + y(82), x(83) + y(83), x(84) + y(84), x(85) + y(85), x(86) + y(86), x(87) + y(87), x(88) + y(88), x(89) + y(89)))
 
     // 3.6 Label Point
-    val training = main_data_agg.map(r => (r._1._6, Array(r._1._5, r._1._7, r._1._8) ++ r._2)).map(r => LabeledPoint(r._1, Vectors.dense(r._2)))
+    val training = main_data_agg.map(r => (r._1._6, Array(r._1._5, r._1._7, r._1._8) ++ r._2)).map(r => LabeledPoint(r._1, Vectors.dense(r._2))).cache()
     /* Target: 0.repeater,     
        Features: 1.repeattrips, 2.quantity, 3.offervalue, 4~86.(72 features)   
      */
@@ -283,7 +283,7 @@ object StreamingMachineLearning {
 
     // 3.8 Logistic Regression
     // fixed hyperparameters
-    val numIters = 50
+    val numIters = 200
     val stepSize = 10
     val regParam = 1e-6
     val regType = "l2"
@@ -292,9 +292,8 @@ object StreamingMachineLearning {
     val lgSGD = new LogisticRegressionWithSGD()
     lgSGD.optimizer.
       setNumIterations(numIters).
-      setMiniBatchFraction(regParam).
       setStepSize(stepSize).
-      setRegParam(0.1).
+      setRegParam(regParam).
       setUpdater(new L1Updater)
     val lgModelL1 = lgSGD.run(train)
     // Compute raw scores on the test set.
@@ -319,10 +318,25 @@ object StreamingMachineLearning {
      */
     println("### Start Training Support Vector Machine Model ... ") //auROC: 0.6423827158596562
     val svmAlg = new SVMWithSGD()
-    val auROC_svm = 0.5
     val reg_svm = 0.001
+    svmAlg.optimizer.
+      setNumIterations(200).
+      setRegParam(reg_svm).
+      setUpdater(new L1Updater)
+    val svmModelL1 = svmAlg.run(train)
+    // Clear the default threshold.
+    svmModelL1.clearThreshold()
+    // Compute raw scores on the test set.
+    val scoreAndLabels = test.map { point =>
+      val score = svmModelL1.predict(point.features)
+      (score, point.label)
+    }
+    // Get evaluation metrics.
+    val metrics = new BinaryClassificationMetrics(scoreAndLabels)
+    val auROC_svm = metrics.areaUnderROC()
+
     // Grid Search
-    for (reg <- Array(0.001, 0.01, 0.1)) {
+    /*    for (reg <- Array(0.01, 0.1)) {
       svmAlg.optimizer.
         setNumIterations(200).
         setRegParam(reg).
@@ -343,8 +357,15 @@ object StreamingMachineLearning {
         val auROC_svm = auROC
         val reg_svm = reg
       }
-    }
+    } */
     println("Final Model Selected for SVM - (Reg:" + reg_svm + "). Model Score (ROC): " + auROC_svm) //auROC: 0.6423827158596562
+
+    println("Start Training Selected Model Based on Full Datasets ...")
+    svmAlg.optimizer.
+      setNumIterations(200).
+      setRegParam(reg_svm).
+      setUpdater(new L1Updater)
+    val svmModelL1_full = svmAlg.run(training)
 
     // Save and load model
     val svmModelPath = "/models/svmModel_" + date_format.format(today)
