@@ -17,3 +17,5 @@ libraryDependencies += "com.github.scopt" %% "scopt" % "3.3.0"
 
 //resolvers += Resolver.sonatypeRepo("public")
 
+// set the main class for 'sbt run'
+mainClass in (Compile, run) := Some("StreamingMachineLearning")

@@ -283,9 +283,9 @@ object StreamingMachineLearning {
 
     // 3.8 Logistic Regression
     // fixed hyperparameters
-    val numIters = 200
-    val stepSize = 10
-    val regParam = 1e-6
+    val numIters = 500
+    val stepSize = 0.85
+    val regParam = 1e-3
     val regType = "l2"
     val includeIntercept = true
 
@@ -309,8 +309,8 @@ object StreamingMachineLearning {
     val lgModelL1_full = lgSGD.run(training)
 
     // Save and load model
-    val today = Calendar.getInstance().getTime()
-    val lgModelPath = "/models/logisticRegressionModel_" + date_format.format(today)
+    // val today = Calendar.getInstance().getTime()
+    // val lgModelPath = "/models/logisticRegressionModel_" + date_format.format(today)
 
     // 3.9 SVM
     // Run training algorithm to build the model
@@ -367,8 +367,8 @@ object StreamingMachineLearning {
     val svmModelL1_full = svmAlg.run(training)
 
     // Save and load model
-    val svmModelPath = "/models/svmModel_" + date_format.format(today)
-    //svmModelL1.save(sc, "svmModelPath")
+    // val svmModelPath = "/models/svmModel_" + date_format.format(today)
+    // svmModelL1.save(sc, "svmModelPath")
     // val sameModel = SVMModel.load(sc, "svmModelPath")
 
   }
