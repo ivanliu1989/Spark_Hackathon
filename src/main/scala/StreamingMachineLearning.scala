@@ -271,7 +271,12 @@ object StreamingMachineLearning {
        Features: 1.repeattrips, 2.quantity, 3.offervalue, 4~86.(72 features)   
      */
 
-    // 3.7 Logistic Regression
+    // 3.7 Split data into train and test
+    val splits = training.randomSplit(Array(0.8, 0.2), seed = 1234)
+    val train = splits(0).zipWithIndex().collectAsMap()
+    val test = splits(1).zipWithIndex().collectAsMap()
+    
+    // 3.8 Logistic Regression
     // fixed hyperparameters
     val numIters = 50
     val stepSize = 10
