@@ -304,7 +304,10 @@ object StreamingMachineLearning {
     // Get evaluation metrics.
     val metrics_lg = new BinaryClassificationMetrics(scoreAndLabels_lg)
     val auROC_lg = metrics_lg.areaUnderROC()
-    println("Area under ROC = " + auROC_lg) //auROC: 
+    println("Final Model Selected for SVM - (Reg:" + regParam + "). Model Score (ROC): " + auROC_lg) //auROC: 0.6423827158596562
+    println("Start Training Logistic Regression Model Based on Full Datasets ...")
+    val lgModelL1_full = lgSGD.run(training)
+
     // Save and load model
     val today = Calendar.getInstance().getTime()
     val lgModelPath = "/models/logisticRegressionModel_" + date_format.format(today)
@@ -318,7 +321,7 @@ object StreamingMachineLearning {
      */
     println("### Start Training Support Vector Machine Model ... ") //auROC: 0.6423827158596562
     val svmAlg = new SVMWithSGD()
-    val reg_svm = 0.001
+    val reg_svm = 0.1
     svmAlg.optimizer.
       setNumIterations(200).
       setRegParam(reg_svm).
@@ -361,10 +364,6 @@ object StreamingMachineLearning {
     println("Final Model Selected for SVM - (Reg:" + reg_svm + "). Model Score (ROC): " + auROC_svm) //auROC: 0.6423827158596562
 
     println("Start Training Selected Model Based on Full Datasets ...")
-    svmAlg.optimizer.
-      setNumIterations(200).
-      setRegParam(reg_svm).
-      setUpdater(new L1Updater)
     val svmModelL1_full = svmAlg.run(training)
 
     // Save and load model
