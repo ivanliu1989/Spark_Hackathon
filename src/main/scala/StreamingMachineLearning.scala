@@ -3,7 +3,12 @@ import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.functions._
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.mllib.linalg.Vectors
-import org.apache.spark.mllib.classification.LogisticRegressionWithSGD
+import org.apache.spark.mllib.classification.{ SVMModel, SVMWithSGD, LogisticRegressionWithSGD }
+import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics
+import org.apache.spark.mllib.util.MLUtils
+import java.util.Calendar
+import java.text.SimpleDateFormat
+import org.apache.spark.mllib.optimization.L1Updater
 
 /**
  * @author ivanliu
@@ -273,9 +278,8 @@ object StreamingMachineLearning {
 
     // 3.7 Split data into train and test
     val splits = training.randomSplit(Array(0.8, 0.2), seed = 1234)
-    val train = splits(0).zipWithIndex().collectAsMap()
-    val test = splits(1).zipWithIndex().collectAsMap()
-    
+    val train = splits(0).cache() //.zipWithIndex().collectAsMap()
+    val test = splits(1).cache()
     // 3.8 Logistic Regression
     // fixed hyperparameters
     val numIters = 50
@@ -283,6 +287,38 @@ object StreamingMachineLearning {
     val regParam = 1e-6
     val regType = "l2"
     val includeIntercept = true
+
+    // 3.9 SVM
+    // Run training algorithm to build the model
+    /* 
+     * val numIterations = 100
+     * val svmModel = SVMWithSGD.train(train, numIterations) 
+     * auROC = 0.5614841451376602
+     */
+    val svmAlg = new SVMWithSGD()
+    svmAlg.optimizer.
+      setNumIterations(200).
+      setRegParam(0.1).
+      setUpdater(new L1Updater)
+    val svmModelL1 = svmAlg.run(train)
+    // Clear the default threshold.
+    svmModelL1.clearThreshold()
+    // Compute raw scores on the test set.
+    val scoreAndLabels = test.map { point =>
+      val score = svmModelL1.predict(point.features)
+      (score, point.label)
+    }
+    // Get evaluation metrics.
+    val metrics = new BinaryClassificationMetrics(scoreAndLabels)
+    val auROC = metrics.areaUnderROC()
+
+    println("Area under ROC = " + auROC)
+
+    // Save and load model
+    val today = Calendar.getInstance().getTime()
+    val svmModelPath = "/models/svmModel_" + date_format.format(today)
+    //svmModelL1.save(sc, "svmModelPath")
+    // val sameModel = SVMModel.load(sc, "svmModelPath")
 
   }
 
