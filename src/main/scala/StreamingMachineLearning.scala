@@ -1,6 +1,9 @@
 import org.apache.spark.{ SparkConf, SparkContext }
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.functions._
+import org.apache.spark.mllib.regression.LabeledPoint
+import org.apache.spark.mllib.linalg.Vectors
+import org.apache.spark.mllib.classification.LogisticRegressionWithSGD
 
 /**
  * @author ivanliu
@@ -61,7 +64,7 @@ object StreamingMachineLearning {
 
     // 3.4 Generate six new features
 
-    val main_data_nFeat = main_data_filter.map(r => Array(r(0), r(1), r(2), r(3), r(4), r(5), r(8), r(10)) ++ {
+    val main_data_nFeat = main_data_filter.map(r => Array(r(0).toDouble, r(1).toDouble, r(2).toDouble, r(3).toDouble, r(4).toDouble, if (r(5) == "t") 1.0 else 0.0, r(8).toDouble, r(10).toDouble) ++ {
       val h_company = r(9)
       val h_category = r(7)
       val h_brand = r(11)
@@ -263,10 +266,19 @@ object StreamingMachineLearning {
       x(80) + y(80), x(81) + y(81), x(82) + y(82), x(83) + y(83), x(84) + y(84), x(85) + y(85), x(86) + y(86), x(87) + y(87), x(88) + y(88), x(89) + y(89)))
 
     // 3.6 Label Point
-    val training = main_data_agg.map(r => (if (r._1._6 == "t") 1 else 0, Array(r._1._5, r._1._7, r._1._8) ++ r._2))
+    val training = main_data_agg.map(r => (r._1._6, Array(r._1._5, r._1._7, r._1._8) ++ r._2)).map(r => LabeledPoint(r._1, Vectors.dense(r._2)))
     /* Target: 0.repeater,     
        Features: 1.repeattrips, 2.quantity, 3.offervalue, 4~86.(72 features)   
      */
+
+    // 3.7 Logistic Regression
+    // fixed hyperparameters
+    val numIters = 50
+    val stepSize = 10
+    val regParam = 1e-6
+    val regType = "l2"
+    val includeIntercept = true
+
   }
 
 }
