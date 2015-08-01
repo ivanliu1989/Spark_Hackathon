@@ -280,6 +280,7 @@ object StreamingMachineLearning {
     val splits = training.randomSplit(Array(0.8, 0.2), seed = 1234)
     val train = splits(0).cache() //.zipWithIndex().collectAsMap()
     val test = splits(1).cache()
+
     // 3.8 Logistic Regression
     // fixed hyperparameters
     val numIters = 50
@@ -288,6 +289,27 @@ object StreamingMachineLearning {
     val regType = "l2"
     val includeIntercept = true
 
+    val lgSGD = new LogisticRegressionWithSGD()
+    lgSGD.optimizer.
+      setNumIterations(numIters).
+      setMiniBatchFraction(regParam).
+      setStepSize(stepSize).
+      setRegParam(0.1).
+      setUpdater(new L1Updater)
+    val lgModelL1 = lgSGD.run(train)
+    // Compute raw scores on the test set.
+    val scoreAndLabels_lg = test.map { point =>
+      val score = lgModelL1.predict(point.features)
+      (score, point.label)
+    }
+    // Get evaluation metrics.
+    val metrics_lg = new BinaryClassificationMetrics(scoreAndLabels_lg)
+    val auROC_lg = metrics_lg.areaUnderROC()
+    println("Area under ROC = " + auROC_lg) //auROC: 
+    // Save and load model
+    val today = Calendar.getInstance().getTime()
+    val lgModelPath = "/models/logisticRegressionModel_" + date_format.format(today)
+
     // 3.9 SVM
     // Run training algorithm to build the model
     /* 
@@ -295,27 +317,36 @@ object StreamingMachineLearning {
      * val svmModel = SVMWithSGD.train(train, numIterations) 
      * auROC = 0.5614841451376602
      */
+    println("### Start Training Support Vector Machine Model ... ") //auROC: 0.6423827158596562
     val svmAlg = new SVMWithSGD()
-    svmAlg.optimizer.
-      setNumIterations(300).
-      setRegParam(0.1).
-      setUpdater(new L1Updater)
-    val svmModelL1 = svmAlg.run(train)
-    // Clear the default threshold.
-    svmModelL1.clearThreshold()
-    // Compute raw scores on the test set.
-    val scoreAndLabels = test.map { point =>
-      val score = svmModelL1.predict(point.features)
-      (score, point.label)
+    val auROC_svm = 0.5
+    val reg_svm = 0.001
+    // Grid Search
+    for (reg <- Array(0.001, 0.01, 0.1)) {
+      svmAlg.optimizer.
+        setNumIterations(200).
+        setRegParam(reg).
+        setUpdater(new L1Updater)
+      val svmModelL1 = svmAlg.run(train)
+      // Clear the default threshold.
+      svmModelL1.clearThreshold()
+      // Compute raw scores on the test set.
+      val scoreAndLabels = test.map { point =>
+        val score = svmModelL1.predict(point.features)
+        (score, point.label)
+      }
+      // Get evaluation metrics.
+      val metrics = new BinaryClassificationMetrics(scoreAndLabels)
+      val auROC = metrics.areaUnderROC()
+      println("Regularization: " + reg + ". Area under ROC = " + auROC)
+      if (auROC_svm < auROC) {
+        val auROC_svm = auROC
+        val reg_svm = reg
+      }
     }
-    // Get evaluation metrics.
-    val metrics = new BinaryClassificationMetrics(scoreAndLabels)
-    val auROC = metrics.areaUnderROC()
-
-    println("Area under ROC = " + auROC) //auROC: 0.6423827158596562
+    println("Final Model Selected for SVM - (Reg:" + reg_svm + "). Model Score (ROC): " + auROC_svm) //auROC: 0.6423827158596562
 
     // Save and load model
-    val today = Calendar.getInstance().getTime()
     val svmModelPath = "/models/svmModel_" + date_format.format(today)
     //svmModelL1.save(sc, "svmModelPath")
     // val sameModel = SVMModel.load(sc, "svmModelPath")
