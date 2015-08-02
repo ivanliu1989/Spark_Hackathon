@@ -46,3 +46,6 @@ compile
 clean
 compile
 test
+compile
+test
+run
