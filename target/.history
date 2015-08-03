@@ -49,3 +49,10 @@ test
 compile
 test
 run
+compile
+test
+run
+clean
+compile
+test
+ryb
