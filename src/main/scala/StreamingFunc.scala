@@ -1,0 +1,8 @@
+
+
+/**
+ * @author ivanliu
+ */
+class StreamingFunc {
+  
+}
