@@ -1,14 +1,4 @@
 # -*- coding: UTF-8 -*-
-
-"""
-Kaggle Challenge: 
-"http://www.kaggle.com/c/acquire-valued-shoppers-challenge/" 
-'Reduce the data and generate features' by Triskelion 
-After a forum post by BreakfastPirate
-Very mediocre and hacky code, single-purpose, but pretty fast
-Some refactoring by Zygmunt Zając <zygmunt@fastml.com>
-"""
-
 from datetime import datetime, date
 from collections import defaultdict
 
