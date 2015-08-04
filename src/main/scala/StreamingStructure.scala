@@ -3,6 +3,6 @@
 /**
  * @author ivanliu
  */
-class StreamingFunc {
+object StreamingStructure {
   
 }

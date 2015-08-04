@@ -1,3 +1,5 @@
+package utilClasses
+
 import org.apache.spark.{ SparkConf, SparkContext }
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.functions._
