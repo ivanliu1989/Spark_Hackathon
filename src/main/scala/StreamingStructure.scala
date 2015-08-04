@@ -12,6 +12,7 @@ import java.util.Calendar
 import java.text.SimpleDateFormat
 import org.apache.spark.mllib.optimization.L1Updater
 import org.apache.spark.streaming.{ Seconds, StreamingContext }
+import java.io.{ FileInputStream, ObjectInputStream, FileOutputStream, ObjectOutputStream }
 
 /**
  * @author ivanliu
@@ -19,6 +20,8 @@ import org.apache.spark.streaming.{ Seconds, StreamingContext }
 object StreamingStructure {
 
   val checkpoint_dir = "./checkpoint"
+  val svm_dir = "./models/svm/"
+  val lg_dir = "./models/logistic/"
 
   def main(args: Array[String]) {
 
@@ -48,8 +51,28 @@ object StreamingStructure {
     val testData = ssc.textFileStream(test_path).map(LabeledPoint.parse)
     val lgModel, svmModel = if (train_trigger) {
       //train model
+
+      val lg_f = new FileOutputStream(lg_dir)
+      val lg_oos = new ObjectOutputStream(lg_f)
+      lg_oos.writeObject(model)
+      lg_oos.close
+
+      val svm_f = new FileOutputStream(svm_dir)
+      val svm_oos = new ObjectOutputStream(svm_f)
+      svm_oos.writeObject(model)
+      svm_oos.close
+
     } else {
       //read model from disk
+      val lg_fos = new FileInputStream(lg_dir)
+      val lg_oos = new ObjectInputStream(lg_fos)
+      val lg_Model = lg_oos.readObject().asInstanceOf[org.apache.spark.mllib.classification.LogisticRegressionWithSGD]
+
+      val svm_fos = new FileInputStream(svm_dir)
+      val svm_oos = new ObjectInputStream(svm_fos)
+      val svm_Model = svm_oos.readObject().asInstanceOf[org.apache.spark.mllib.classification.SVMWithSGD]
+
+      (lg_Model, svm_Model)
     }
 
     // 3. Streaming Inner Loop
