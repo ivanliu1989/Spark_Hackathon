@@ -20,7 +20,7 @@ object StreamingMachineLearning {
   def main(args: Array[String]) {
 
     // 1.Define Spark Context
-    val sparkConf = new SparkConf().setAppName("RDDRelation").setMaster("local[2]")
+    val sparkConf = new SparkConf().setAppName("StreamingMachineLearning").setMaster("local[2]")
     val sc = new SparkContext(sparkConf)
     val sqlContext = new SQLContext(sc)
     // 1.1 Importing the SQL context gives access to all the SQL functions and implicit conversions.
