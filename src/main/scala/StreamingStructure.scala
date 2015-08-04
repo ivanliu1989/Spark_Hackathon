@@ -43,14 +43,15 @@ object StreamingStructure {
     // 3. Streaming Inner Loop
     val predict_lg = testData.map { point =>
       val score = lgModel.predict(point.features)
-      (score, point.label)
+      (point.label,score)
     }
     val predict_svm = testData.map { point =>
       val score = svmModel.predict(point.features)
-      (score, point.label)
+      (point.label,score)
     }
     
     // 4. Ensemble Predictions
+    val ensemble_pred = predict_lg.join(predict_svm).mapValues(r => if((r(0)+r(1))/2 > 0.5) 1 else 0)
     
     // 5. Save data
     
