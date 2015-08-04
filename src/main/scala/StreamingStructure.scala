@@ -30,15 +30,31 @@ object StreamingStructure {
     val conf = new SparkConf().setMaster("local").setAppName("StreamingLogisticRegression")
     val ssc = new StreamingContext(conf, Seconds(args(2).toLong))
 
-    // 2. Steaming Outer Loop
+    // 2. Streaming Outer Loop
     val train_trigger = if (args(3).toInt % (24*3600) ==0) true else false
     val trainingData = ssc.textFileStream(args(0)).map(LabeledPoint.parse)
     val testData = ssc.textFileStream(args(1)).map(LabeledPoint.parse)
-    val lgModel, svmModel = if(train_trigger) {} else {}
-
-    lgModel.predictOnValues(testData.map(lp => (lp.label, lp.features))).print()
-    svmModel.predictOnValues(testData.map(lp => (lp.label, lp.features))).print()
-
+    val lgModel, svmModel = if(train_trigger) {
+      //train model
+    } else {
+      //read model from disk
+    }
+    
+    // 3. Streaming Inner Loop
+    val predict_lg = testData.map { point =>
+      val score = lgModel.predict(point.features)
+      (score, point.label)
+    }
+    val predict_svm = testData.map { point =>
+      val score = svmModel.predict(point.features)
+      (score, point.label)
+    }
+    
+    // 4. Ensemble Predictions
+    
+    // 5. Save data
+    
+    
     ssc.start()
     ssc.awaitTermination()
 
