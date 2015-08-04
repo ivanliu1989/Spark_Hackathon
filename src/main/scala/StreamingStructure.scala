@@ -17,7 +17,11 @@ import org.apache.spark.streaming.{ Seconds, StreamingContext }
  * @author ivanliu
  */
 object StreamingStructure {
+
+  val checkpoint_dir = "./checkpoint"
+
   def main(args: Array[String]) {
+
     if (args.length != 4) {
       System.err.println(
         "Usage: StreamingLogisticRegression <trainingDir> <testDir> <predBatchDuration> <trainBatchDuration>")
@@ -25,39 +29,44 @@ object StreamingStructure {
     }
     // 1. Setup Parameters
     val sparkConf = new SparkConf().setMaster("local[2]").setAppName("StreamingLogisticRegression")
-    val sc = new StreamingContext(sparkConf, Seconds(args(2).toLong))
+    val ssc = StreamingContext.getOrCreate(checkpoint_dir, () => { CreateStreamingContext(sparkConf, args(2).toInt, args(3).toInt, args(0), args(1), 0) })
 
-    val conf = new SparkConf().setMaster("local").setAppName("StreamingLogisticRegression")
-    val ssc = new StreamingContext(conf, Seconds(args(2).toLong))
+    ssc.start()
+    ssc.awaitTermination()
+
+  }
+
+  // Streaming Context
+  def CreateStreamingContext(sparkConf: SparkConf, interval: Int, train_interval: Int, train_path: String, test_path: String, windowLength: Int = 0): StreamingContext = {
+
+    val ssc = new StreamingContext(sparkConf, Seconds(interval))
+    ssc.checkpoint(checkpoint_dir)
 
     // 2. Streaming Outer Loop
-    val train_trigger = if (args(3).toInt % (24*3600) ==0) true else false
-    val trainingData = ssc.textFileStream(args(0)).map(LabeledPoint.parse)
-    val testData = ssc.textFileStream(args(1)).map(LabeledPoint.parse)
-    val lgModel, svmModel = if(train_trigger) {
+    val train_trigger = if (train_interval % (24 * 3600) == 0) true else false
+    val trainingData = ssc.textFileStream(train_path).map(LabeledPoint.parse)
+    val testData = ssc.textFileStream(test_path).map(LabeledPoint.parse)
+    val lgModel, svmModel = if (train_trigger) {
       //train model
     } else {
       //read model from disk
     }
-    
+
     // 3. Streaming Inner Loop
     val predict_lg = testData.map { point =>
       val score = lgModel.predict(point.features)
-      (point.label,score)
+      (point.label, score)
     }
     val predict_svm = testData.map { point =>
       val score = svmModel.predict(point.features)
-      (point.label,score)
+      (point.label, score)
     }
-    
-    // 4. Ensemble Predictions
-    val ensemble_pred = predict_lg.join(predict_svm).mapValues(r => if((r(0)+r(1))/2 > 0.5) 1 else 0)
-    
-    // 5. Save data
-    
-    
-    ssc.start()
-    ssc.awaitTermination()
 
+    // 4. Ensemble Predictions
+    val ensemble_pred = predict_lg.join(predict_svm).mapValues(r => if ((r(0) + r(1)) / 2 > 0.5) 1 else 0)
+
+    // 5. Save data
+
+    ssc
   }
 }
