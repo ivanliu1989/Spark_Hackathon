@@ -30,8 +30,6 @@ class utility {
   // 2. Sparse Datasets & Convert to LabelPoint Format
   def generate_features(offers_df: String, trainHist_df: String, transactions_df: String) = {
 
-    
-
   }
 
   // 3. Train the model
