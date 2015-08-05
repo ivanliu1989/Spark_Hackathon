@@ -44,7 +44,7 @@ object StreamingStructure {
 
     val ssc = new StreamingContext(sparkConf, Seconds(interval))
     ssc.checkpoint(checkpoint_dir)
-
+    /*
     // 2. Streaming Outer Loop
     val train_trigger = if (train_interval % (24 * 3600) == 0) true else false
     val trainingData = ssc.textFileStream(train_path).map(LabeledPoint.parse)
@@ -89,7 +89,7 @@ object StreamingStructure {
     val ensemble_pred = predict_lg.join(predict_svm).mapValues(r => if ((r(0) + r(1)) / 2 > 0.5) 1 else 0)
 
     // 5. Save data
-
+*/
     ssc
   }
 }

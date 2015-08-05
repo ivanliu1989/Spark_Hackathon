@@ -56,3 +56,6 @@ clean
 compile
 test
 ryb
+run StreamingMachineLearning
+run "run-main StreamingMachineLearning"
+sbt "StreamingMachineLearning" "run"
