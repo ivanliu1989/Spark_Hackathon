@@ -69,7 +69,7 @@ object StreamingMachineLearning {
     }
     val main_data_filter = main_data.filter(r => { diff_days(r(6), r(16)) > 0 })
 
-    // 3.4 Generate six new features
+    // 3.4 Generate 90 new features
 
     val main_data_nFeat = main_data_filter.map(r => Array(r(0).toDouble, r(1).toDouble, r(2).toDouble, r(3).toDouble, r(4).toDouble, if (r(5) == "t") 1.0 else 0.0, r(8).toDouble, r(10).toDouble) ++ {
       val h_company = r(9)
