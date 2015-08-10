@@ -1,16 +1,12 @@
 package utilClasses
 
-import org.apache.spark.{ SparkConf, SparkContext }
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.functions._
-import org.apache.spark.mllib.regression.LabeledPoint
-import org.apache.spark.mllib.linalg.Vectors
-import org.apache.spark.mllib.classification.{ SVMModel, SVMWithSGD, LogisticRegressionWithSGD }
+import org.apache.spark.mllib.classification.{LogisticRegressionWithSGD, SVMWithSGD}
 import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics
-import org.apache.spark.mllib.util.MLUtils
-import java.util.Calendar
-import java.text.SimpleDateFormat
+import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.optimization.L1Updater
+import org.apache.spark.mllib.regression.LabeledPoint
+import org.apache.spark.sql.SQLContext
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
  * @author ivanliu
@@ -24,14 +20,13 @@ object StreamingMachineLearning {
     val sc = new SparkContext(sparkConf)
     val sqlContext = new SQLContext(sc)
     // 1.1 Importing the SQL context gives access to all the SQL functions and implicit conversions.
-    import sqlContext.implicits._
 
     // 1.2 Load and Check the data
     val offers_df = sc.textFile("../data/offers").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val testHist_df = sc.textFile("../data/testHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val trainHist_df = sc.textFile("../data/trainHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    //val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
+    //val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
+    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
 
     // 1.3 Get all categories and comps on offer in a dict
     val offer_cat = offers_df.map(r => r(1)).collect()
@@ -306,7 +301,7 @@ object StreamingMachineLearning {
     // Get evaluation metrics.
     val metrics_lg = new BinaryClassificationMetrics(scoreAndLabels_lg)
     val auROC_lg = metrics_lg.areaUnderROC()
-    println("Final Model Selected for SVM - (Reg:" + regParam + "). Model Score (ROC): " + auROC_lg) //auROC: 0.6423827158596562
+    println("Final Model Selected for Logistic Regression - (Reg:" + regParam + "). Model Score (ROC): " + auROC_lg) //auROC: 0.6423827158596562
     println("Start Training Logistic Regression Model Based on Full Datasets ...")
     val lgModelL1_full = lgSGD.run(training)
     println("Full Datasets Logistics Regression Completed. ROC: " + auROC_lg)
@@ -372,7 +367,13 @@ object StreamingMachineLearning {
     // val svmModelPath = "/models/svmModel_" + date_format.format(today)
     // svmModelL1.save(sc, "svmModelPath")
     // val sameModel = SVMModel.load(sc, "svmModelPath")
+    println("Final Model Selected for Logistic Regression - (Reg:" + regParam + "). Model Score (ROC): " + auROC_lg) //auROC: 0.6423827158596562
+    println("Start Training Logistic Regression Model Based on Full Datasets ...")
+    println("Full Datasets Logistics Regression Completed. ROC: " + auROC_lg)
 
+    println("Final Model Selected for SVM - (Reg:" + reg_svm + "). Model Score (ROC): " + auROC_svm) //auROC: 0.6423827158596562
+    println("Start Training Selected Model Based on Full Datasets ...")
+    println("Full Datasets Support Vector Machine Completed. ROC: " + auROC_svm)
   }
 
 }
