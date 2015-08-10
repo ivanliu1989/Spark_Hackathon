@@ -280,7 +280,8 @@ object StreamingMachineLearning {
 
     // 3.8 Logistic Regression
     // fixed hyperparameters
-    val numIters = 300
+//    val numIters = 300
+    val numIters = 30
     val stepSize = 0.85
     val regParam = 1e-3
     val regType = "l2"
@@ -320,7 +321,8 @@ object StreamingMachineLearning {
     val svmAlg = new SVMWithSGD()
     val reg_svm = 0.1
     svmAlg.optimizer.
-      setNumIterations(200).
+//      setNumIterations(200).
+      setNumIterations(20).
       setRegParam(reg_svm).
       setUpdater(new L1Updater)
     val svmModelL1 = svmAlg.run(train)
