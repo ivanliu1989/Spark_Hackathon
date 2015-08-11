@@ -25,7 +25,7 @@ object StreamingMachineLearning {
     val offers_df = sc.textFile("../data/offers").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val testHist_df = sc.textFile("../data/testHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val trainHist_df = sc.textFile("../data/trainHistory").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    //val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
+//    val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val transactions_df = sc.textFile("../data/transactions").mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
 
     // 1.3 Get all categories and comps on offer in a dict
@@ -280,7 +280,6 @@ object StreamingMachineLearning {
 
     // 3.8 Logistic Regression
     // fixed hyperparameters
-//    val numIters = 300
     val numIters = 30
     val stepSize = 0.85
     val regParam = 1e-3
@@ -321,7 +320,6 @@ object StreamingMachineLearning {
     val svmAlg = new SVMWithSGD()
     val reg_svm = 0.1
     svmAlg.optimizer.
-//      setNumIterations(200).
       setNumIterations(20).
       setRegParam(reg_svm).
       setUpdater(new L1Updater)
