@@ -1,17 +1,8 @@
 package utilClasses
 
-import org.apache.spark.{ SparkConf, SparkContext }
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.functions._
+import org.apache.spark.SparkConf
 import org.apache.spark.mllib.regression.LabeledPoint
-import org.apache.spark.mllib.linalg.Vectors
-import org.apache.spark.mllib.classification.{ SVMModel, SVMWithSGD, LogisticRegressionWithSGD }
-import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics
-import org.apache.spark.mllib.util.MLUtils
-import java.util.Calendar
-import java.text.SimpleDateFormat
-import org.apache.spark.mllib.optimization.L1Updater
-import org.apache.spark.streaming.{ Seconds, StreamingContext }
+import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 /**
  * @author ivanliu
@@ -38,8 +29,10 @@ object StreamingStructure_2 {
     val testData = ssc.textFileStream(args(1)).map(LabeledPoint.parse)
     val lgModel, svmModel = if (train_trigger) {
       //train model
+      println("Start to retrain models...")
     } else {
       //read model from disk
+      println("Predicting new customers...")
     }
     /*
     // 3. Streaming Inner Loop
@@ -53,7 +46,7 @@ object StreamingStructure_2 {
     }
 
     // 4. Ensemble Predictions
-    val ensemble_pred = predict_lg.join(predict_svm).mapValues(r => if ((r(0) + r(1)) / 2 > 0.5) 1 else 0)
+    val ensemble_pred = predict_lg.join(predict_svm).mapValues(r => if ((r(0) + r(1)) /  > 0.5) 1 else 0)
 
     // 5. Save data
 */
