@@ -47,8 +47,8 @@
       <file leaf-file-name="StreamingStructure_2.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/StreamingStructure_2.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.65328467">
-              <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.72627735">
+              <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
               <folding>
                 <element signature="e#21#54#0" expanded="true" />
               </folding>
@@ -187,9 +187,23 @@
     <property name="dynamic.classpath" value="false" />
     <property name="FullScreen" value="false" />
   </component>
-  <component name="RunManager" selected="Application.StreamingMachineLearning">
+  <component name="RunManager" selected="Application.StreamingStructure_2">
     <configuration default="false" name="StreamingMachineLearning" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="utilClasses.StreamingMachineLearning" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="spark_hackathon" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="StreamingStructure_2" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="utilClasses.StreamingStructure_2" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -319,12 +333,14 @@
       <envs />
       <method />
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.StreamingMachineLearning" />
+      <item index="1" class="java.lang.String" itemvalue="Application.StreamingStructure_2" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.StreamingMachineLearning" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Application.StreamingStructure_2" />
+        <item index="1" class="java.lang.String" itemvalue="Application.StreamingMachineLearning" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
@@ -379,7 +395,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1345" height="1359" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -502,8 +518,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/StreamingStructure_2.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65328467">
-          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.72627735">
+          <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
           <folding>
             <element signature="e#21#54#0" expanded="true" />
           </folding>

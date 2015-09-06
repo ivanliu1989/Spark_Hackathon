@@ -11,11 +11,11 @@ object StreamingStructure_2 {
 
   def main(args: Array[String]) {
 
-    if (args.length != 4) {
-      System.err.println(
-        "Usage: StreamingLogisticRegression <trainingDir> <testDir> <predBatchDuration> <trainBatchDuration>")
-      System.exit(1)
-    }
+//    if (args.length != 4) {
+//      System.err.println(
+//        "Usage: StreamingLogisticRegression <trainingDir> <testDir> <predBatchDuration> <trainBatchDuration>")
+//      System.exit(1)
+//    }
     // 1. Setup Parameters
     val sparkConf = new SparkConf().setMaster("local[2]").setAppName("StreamingLogisticRegression")
     val sc = new StreamingContext(sparkConf, Seconds(args(2).toLong))
