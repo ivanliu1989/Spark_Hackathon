@@ -24,23 +24,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="StreamingMachineLearning.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StreamingMachineLearning.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/StreamingMachineLearning.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.3467153">
-              <caret line="397" column="36" selection-start-line="397" selection-start-column="36" selection-end-line="397" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StreamingStructure_2.scala" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StreamingStructure_2.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/StreamingStructure_2.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.8759124">
+              <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding>
-                <element signature="e#21#70#0" expanded="true" />
+                <element signature="e#21#105#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -56,8 +56,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/scala/StreamingStructure_2.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/StreamingMachineLearning.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/StreamingStructure_2.scala" />
       </list>
     </option>
   </component>
@@ -177,7 +177,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="FullScreen" value="false" />
   </component>
-  <component name="RunManager" selected="Application.StreamingMachineLearning">
+  <component name="RunManager" selected="Application.StreamingStructure_2">
     <configuration default="false" name="StreamingMachineLearning" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="utilClasses.StreamingMachineLearning" />
       <option name="VM_PARAMETERS" />
@@ -329,8 +329,8 @@
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Application.StreamingMachineLearning" />
-        <item index="1" class="java.lang.String" itemvalue="Application.StreamingStructure_2" />
+        <item index="0" class="java.lang.String" itemvalue="Application.StreamingStructure_2" />
+        <item index="1" class="java.lang.String" itemvalue="Application.StreamingMachineLearning" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
@@ -385,7 +385,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="2211" height="1359" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -461,7 +461,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
           <folding>
-            <element signature="e#21#70#0" expanded="true" />
+            <element signature="e#21#105#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -498,21 +498,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/StreamingStructure_2.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/StreamingMachineLearning.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
-          <folding>
-            <element signature="e#21#70#0" expanded="true" />
-          </folding>
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/StreamingMachineLearning.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/StreamingStructure_2.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3467153">
-          <caret line="397" column="36" selection-start-line="397" selection-start-column="36" selection-end-line="397" selection-end-column="36" />
-          <folding />
+        <state vertical-scroll-proportion="0.8759124">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding>
+            <element signature="e#21#105#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
