@@ -36,8 +36,7 @@ object StreamingStructure_2 {
       println("Reading models...")
       val sparkConf = new SparkConf().setAppName("StreamingMachineLearning").setMaster("local[2]")
       val sc = new SparkContext(sparkConf)
-      val readModel = SVMModel.load(sc, "svmModelPath")
-      return readModel
+      SVMModel.load(sc, "svmModelPath")
     }
 
     // 3. Streaming Inner Loop
@@ -45,15 +44,16 @@ object StreamingStructure_2 {
 //      val score = lgModel.predict(point.features)
 //      (point.label, score)
 //    }
-    val predict_svm = testData.map { point =>
-      val score = svmModel.predict(point.features)
-      (point.label, score)
-    }
+//    val predict_svm = testData.map { point =>
+//      val score = svmModel.predict(point.features)
+//      (point.label, score)
+//    }
 
     // 4. Ensemble Predictions
-    val ensemble_pred = predict_lg.join(predict_svm).mapValues(r => if ((r(0) + r(1)) /  > 0.5) 1 else 0)
+//    val ensemble_pred = predict_lg.join(predict_svm).mapValues(r => if ((r(0) + r(1)) /  > 0.5) 1 else 0)
 
     // 5. Save data
+//    println(predict_svm)
 
     ssc.start()
     ssc.awaitTermination()

@@ -374,6 +374,8 @@ object StreamingMachineLearning {
     println("Final Model Selected for SVM - (Reg:" + reg_svm + "). Model Score (ROC): " + auROC_svm) //auROC: 0.6423827158596562
     println("Start Training Selected Model Based on Full Datasets ...")
     println("Full Datasets Support Vector Machine Completed. ROC: " + auROC_svm)
+
+    scoreAndLabels.foreach(println)
   }
 
 }
