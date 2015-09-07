@@ -383,12 +383,15 @@ object StreamingStructure_2 {
     // svmModelL1.save(sc, "svmModelPath")
     // val sameModel = SVMModel.load(sc, "svmModelPath")
     println("Final Model Selected for Logistic Regression - (Reg:" + regParam + "). Model Score (ROC): " + auROC_lg) //auROC: 0.6423827158596562
-    println("Start Training Logistic Regression Model Based on Full Datasets ...")
+    println("Start Training Logistic Regressßion Model Based on Full Datasets ...")
     println("Full Datasets Logistics Regression Completed. ROC: " + auROC_lg)
 
     println("Final Model Selected for SVM - (Reg:" + reg_svm + "). Model Score (ROC): " + auROC_svm) //auROC: 0.6423827158596562
     println("Start Training Selected Model Based on Full Datasets ...")
     println("Full Datasets Support Vector Machine Completed. ROC: " + auROC_svm)
+
+    scoreAndLabels.foreach(println)
+    print(scoreAndLabels)
 /* End Training */
 
     /*    val svmModel = if (train_trigger) {
