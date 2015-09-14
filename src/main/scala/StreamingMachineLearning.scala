@@ -7,7 +7,7 @@ import org.apache.spark.mllib.optimization.L1Updater
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
-
+import utilClasses.utility.diff_days
 /**
  * @author ivanliu
  */
@@ -18,7 +18,7 @@ object StreamingMachineLearning {
     // 1.Define Spark Context
     val sparkConf = new SparkConf().setAppName("StreamingMachineLearning").setMaster("local[2]")
     val sc = new SparkContext(sparkConf)
-    val sqlContext = new SQLContext(sc)
+//    val sqlContext = new SQLContext(sc)
     // 1.1 Importing the SQL context gives access to all the SQL functions and implicit conversions.
 
     // 1.2 Load and Check the data
@@ -56,13 +56,13 @@ object StreamingMachineLearning {
     // 3.3 Filter transactions happened after offers
     val date_format = new java.text.SimpleDateFormat("yyyy-MM-dd")
     val date_unit = 1.15741e-8
-    def diff_days(s1: String, s2: String) = {
-      val date1 = date_format.parse(s1)
-      val date2 = date_format.parse(s2)
-      val delta: Long = date1.getTime() - date2.getTime()
-      (delta * date_unit).toInt
-    }
-    val main_data_filter = main_data.filter(r => { diff_days(r(6), r(16)) > 0 })
+//    def diff_days(s1: String, s2: String) = {
+//      val date1 = date_format.parse(s1)
+//      val date2 = date_format.parse(s2)
+//      val delta: Long = date1.getTime() - date2.getTime()
+//      (delta * date_unit).toInt
+//    }
+    val main_data_filter = main_data.filter(r => { utility.diff_days(r(6), r(16)) > 0 })
 
     // 3.4 Generate 90 new features
 
