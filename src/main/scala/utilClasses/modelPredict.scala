@@ -18,6 +18,9 @@ object modelPredict {
     val sparkConf = new SparkConf().setAppName("StreamingMachineLearning").setMaster("local[2]")
     sparkConf.set("spark.driver.allowMultipleContexts","true")
     val sc = new SparkContext(sparkConf)
+    
+    println("Start Loading Model ...")
+    val lgModelL1 = LogisticRegressionModel.load(sc, model_path)
     println("Start Loading Datasets ...")
     
     // 1.2 Load and Check the data
@@ -267,9 +270,7 @@ object modelPredict {
 
     // 3.8 Logistic Regression
     // fixed hyperparameters
-    
     // Compute raw scores on the test set.
-    val lgModelL1 = LogisticRegressionModel.load(sc, model_path)
     val scoreAndLabels_lg = testing.map { point =>
       val score = lgModelL1.predict(point.features)
       (score, point.label)

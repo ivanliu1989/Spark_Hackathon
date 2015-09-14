@@ -1,14 +1,8 @@
 package utilClasses
 
-import org.apache.spark.mllib.classification.{LogisticRegressionWithSGD, SVMWithSGD}
-import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics
-import org.apache.spark.mllib.linalg.Vectors
-import org.apache.spark.mllib.optimization.L1Updater
-import org.apache.spark.mllib.regression.LabeledPoint
+import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import org.apache.spark.{SparkConf, SparkContext}
-import utilClasses.modelTraining.{train}
-import utilClasses.modelPredict.{predict}
+import utilClasses.modelTraining.train
 
 
 /**
@@ -41,9 +35,9 @@ object StreamingMachineLearning_Main {
     val train_path = "../data/trainHistory"
     val test_path = "../data/testHistory"
     val transaction_path = "../data/transactions"
-    val model_path = "lgModelPath"//"/models/logistic/lgModel"
-//    val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path)
-    val pred_lg = predict(offer_path, test_path, transaction_path,model_path)
+    val model_path = "models/logistic/lgModel1"
+    val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path)
+//    val pred_lg = predict(offer_path, test_path, transaction_path,model_path)
     
 
     ssc.start()
