@@ -11,7 +11,7 @@ import utilClasses.utility.diff_days
 /**
  * @author ivanliu
  */
-object StreamingMachineLearning {
+object MachineLearning_Lg_SVM {
 
   def main(args: Array[String]) {
 

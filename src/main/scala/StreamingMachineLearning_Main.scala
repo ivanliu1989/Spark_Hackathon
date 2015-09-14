@@ -10,11 +10,11 @@ import org.apache.spark.{SparkConf, SparkContext}
 import utilClasses.modelTraining.{train}
 import utilClasses.modelPredict.{predict}
 
+
 /**
  * @author ivanliu
  */
-object StreamingStructure_2 {
-
+object StreamingMachineLearning_Main {
   def main(args: Array[String]) {
 
 //    if (args.length != 4) {
