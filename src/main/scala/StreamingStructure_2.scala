@@ -41,9 +41,9 @@ object StreamingStructure_2 {
     val train_path = "../data/trainHistory"
     val test_path = "../data/testHistory"
     val transaction_path = "../data/transactions"
-    val model_path = "/models/logistic/lgModel"
-    val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path)
-//    val pred_lg = predict(offer_path, test_path, transaction_path,model_path)
+    val model_path = "lgModelPath"//"/models/logistic/lgModel"
+//    val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path)
+    val pred_lg = predict(offer_path, test_path, transaction_path,model_path)
     
 
     ssc.start()

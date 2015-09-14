@@ -372,7 +372,7 @@ object modelTraining {
 //    scoreAndLabels.foreach(println)
 //    (svmModelL1,lgModelL1)
     val lgModelPath = "/models/logistic/lgModel"
-    lgModelL1.save(sc, lgModelPath)
+    lgModelL1.save(sc, "lgModelPath")
     (1,lgModelL1)
   }
 
