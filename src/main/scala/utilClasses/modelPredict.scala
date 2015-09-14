@@ -1,6 +1,6 @@
 package utilClasses
 
-import org.apache.spark.mllib.classification.{LogisticRegressionWithSGD, SVMWithSGD}
+import org.apache.spark.mllib.classification.{LogisticRegressionModel}
 import org.apache.spark.mllib.evaluation.BinaryClassificationMetrics
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.optimization.L1Updater
@@ -12,22 +12,19 @@ import utilClasses.utility.diff_days
 /**
  * @author ivanliu
  */
-object modelTraining {
-  
-  def train(offers_path: String, train_path: String, test_path: String, transaction_path: String ) {
-
+object modelPredict {
+  def predict(offers_path: String, test_path: String, transaction_path: String, model_path: String ) {
     // 1.Define Spark Context
     val sparkConf = new SparkConf().setAppName("StreamingMachineLearning").setMaster("local[2]")
     sparkConf.set("spark.driver.allowMultipleContexts","true")
     val sc = new SparkContext(sparkConf)
-//    val sqlContext = new SQLContext(sc)
     println("Start Loading Datasets ...")
+    
     // 1.2 Load and Check the data
     val offers_df = sc.textFile(offers_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-//    val testHist_df = sc.textFile(test_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    val trainHist_df = sc.textFile(train_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
+    val testHist_df = sc.textFile(test_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
 //    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.0001, seed = 123)
+    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
 
     // 1.3 Get all categories and comps on offer in a dict
     val offer_cat = offers_df.map(r => r(1)).collect()
@@ -41,12 +38,12 @@ object modelTraining {
     val offers_dict = offers_df.map(r => (r(0), r))
     // 3.2 keep two dictionaries with the shopper id's from test and train
     // val testHist_dict = testHist_df.map(r => ((r(0),r(1)),r))
-    val trainHist_dict = trainHist_df.map(r => (r(2), r))
+    val testHist_dict = testHist_df.map(r => (r(2), r))
     val transactions_dict = transactions_df_filtered.map(r => ((r(0), r(1)), r)) //,r(3),r(4),r(5)
     // Features: 0.id, 1.chain, 2.dept, 3.category, 4.company, 5.brand, 6.date, 7.productsize, 8.productmeasure, 9.purchasequantity, 10.purchaseamount
-    val train_offer = trainHist_dict.join(offers_dict).values.map(v => v._1 ++ v._2).map(r => ((r(0), r(1)), Array(r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(8), r(9), r(10), r(11), r(12)))) //,r(8),r(10),r(12)
+    val test_offer = testHist_dict.join(offers_dict).values.map(v => v._1 ++ v._2).map(r => ((r(0), r(1)), Array(r(0), r(1), r(2), r(3), r(4), r(5), r(6), r(8), r(9), r(10), r(11), r(12)))) //,r(8),r(10),r(12)
     // Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.category, 8.quantity, 9.company, 10.offervalue, 11.brand
-    val main_data = train_offer.fullOuterJoin(transactions_dict).values.filter(v => (!v._1.isEmpty && !v._2.isEmpty)).map(r => {
+    val main_data = test_offer.fullOuterJoin(transactions_dict).values.filter(v => (!v._1.isEmpty && !v._2.isEmpty)).map(r => {
       val a = r._1.toArray
       val b = r._2.toArray
       a(0) ++ b(0)
@@ -262,147 +259,23 @@ object modelTraining {
       x(80) + y(80), x(81) + y(81), x(82) + y(82), x(83) + y(83), x(84) + y(84), x(85) + y(85), x(86) + y(86), x(87) + y(87), x(88) + y(88), x(89) + y(89)))
 
     // 3.6 Label Point
-    val training = main_data_agg.map(r => (r._1._6, Array(r._1._5, r._1._7, r._1._8) ++ r._2)).map(r => LabeledPoint(r._1, Vectors.dense(r._2))).cache()
+    val testing = main_data_agg.map(r => (r._1._6, Array(r._1._5, r._1._7, r._1._8) ++ r._2)).map(r => LabeledPoint(r._1, Vectors.dense(r._2))).cache()
     /* Target: 0.repeater,     
        Features: 1.repeattrips, 2.quantity, 3.offervalue, 4~86.(72 features)   
      */
 
-    // 3.7 Split data into train and test
-    val splits = training.randomSplit(Array(0.8, 0.2), seed = 1234)
-    val train = splits(0).cache() //.zipWithIndex().collectAsMap()
-    val test = splits(1).cache()
 
     // 3.8 Logistic Regression
     // fixed hyperparameters
-    val numIters = 1 //30
-    val stepSize = 0.85
-    val regParam = 1e-3
-    val regType = "l2"
-    val includeIntercept = true
-
-    val lgSGD = new LogisticRegressionWithSGD()
-    lgSGD.optimizer.
-      setNumIterations(numIters).
-      setStepSize(stepSize).
-      setRegParam(regParam).
-      setUpdater(new L1Updater)
-    val lgModelL1 = lgSGD.run(train)
+    
     // Compute raw scores on the test set.
-    val scoreAndLabels_lg = test.map { point =>
+    val lgModelL1 = LogisticRegressionModel.load(sc, model_path)
+    val scoreAndLabels_lg = testing.map { point =>
       val score = lgModelL1.predict(point.features)
       (score, point.label)
     }
-    // Get evaluation metrics.
-    val metrics_lg = new BinaryClassificationMetrics(scoreAndLabels_lg)
-    val auROC_lg = metrics_lg.areaUnderROC()
-    println("Final Model Selected for Logistic Regression - (Reg:" + regParam + "). Model Score (ROC): " + auROC_lg) //auROC: 0.6423827158596562
-    println("Start Training Logistic Regression Model Based on Full Datasets ...")
-//    val lgModelL1_full = lgSGD.run(training)
-    println("Full Datasets Logistics Regression Completed. ROC: " + auROC_lg)
-    // Save and load model
-    // val today = Calendar.getInstance().getTime()
-    // val lgModelPath = "/models/logisticRegressionModel_" + date_format.format(today)
-/*
-    // 3.9 SVM
-    // Run training algorithm to build the model
-    /* 
-     * val numIterations = 100
-     * val svmModel = SVMWithSGD.train(train, numIterations) 
-     * auROC = 0.5614841451376602
-     */
-    println("### Start Training Support Vector Machine Model ... ") //auROC: 0.6423827158596562
-    val svmAlg = new SVMWithSGD()
-    val reg_svm = 0.1
-    svmAlg.optimizer.
-      setNumIterations(1). //20
-      setRegParam(reg_svm).
-      setUpdater(new L1Updater)
-    val svmModelL1 = svmAlg.run(train)
-    // Clear the default threshold.
-    svmModelL1.clearThreshold()
-    // Compute raw scores on the test set.
-    val scoreAndLabels = test.map { point =>
-      val score = svmModelL1.predict(point.features)
-      (score, point.label)
-    }
-    // Get evaluation metrics.
-    val metrics = new BinaryClassificationMetrics(scoreAndLabels)
-    val auROC_svm = metrics.areaUnderROC()
 
-    // Grid Search
-    /*    for (reg <- Array(0.01, 0.1)) {
-      svmAlg.optimizer.
-        setNumIterations(200).
-        setRegParam(reg).
-        setUpdater(new L1Updater)
-      val svmModelL1 = svmAlg.run(train)
-      // Clear the default threshold.
-      svmModelL1.clearThreshold()
-      // Compute raw scores on the test set.
-      val scoreAndLabels = test.map { point =>
-        val score = svmModelL1.predict(point.features)
-        (score, point.label)
-      }
-      // Get evaluation metrics.
-      val metrics = new BinaryClassificationMetrics(scoreAndLabels)
-      val auROC = metrics.areaUnderROC()
-      println("Regularization: " + reg + ". Area under ROC = " + auROC)
-      if (auROC_svm < auROC) {
-        val auROC_svm = auROC
-        val reg_svm = reg
-      }
-    } */
-    println("Final Model Selected for SVM - (Reg:" + reg_svm + "). Model Score (ROC): " + auROC_svm) //auROC: 0.6423827158596562
-
-    println("Start Training Selected Model Based on Full Datasets ...")
-//    val svmModelL1_full = svmAlg.run(training)
-    println("Full Datasets Support Vector Machine Completed. ROC: " + auROC_svm)
-    // Save and load model
-    // val svmModelPath = "/models/svmModel_" + date_format.format(today)
-    // svmModelL1.save(sc, "svmModelPath")
-    // val sameModel = SVMModel.load(sc, "svmModelPath")
-    println("Final Model Selected for Logistic Regression - (Reg:" + regParam + "). Model Score (ROC): " + auROC_lg) //auROC: 0.6423827158596562
-    println("Start Training Logistic Regression Model Based on Full Datasets ...")
-    println("Full Datasets Logistics Regression Completed. ROC: " + auROC_lg)
-
-    println("Final Model Selected for SVM - (Reg:" + reg_svm + "). Model Score (ROC): " + auROC_svm) //auROC: 0.6423827158596562
-    println("Start Training Selected Model Based on Full Datasets ...")
-    println("Full Datasets Support Vector Machine Completed. ROC: " + auROC_svm)
-*/
-//    scoreAndLabels.foreach(println)
-//    (svmModelL1,lgModelL1)
-    val lgModelPath = "/models/logistic/lgModel"
-    lgModelL1.save(sc, lgModelPath)
-    (1,lgModelL1)
-  }
-
-}
-
-
-    // SQL Table offers
-//    case class offers(offer: String, category: String, quantity: Int, Company: String, offervalue: Double, brand: String)
-//    val offers_data = offers_df.map(r => offers(r(0), r(1), r(2).toInt, r(3), r(4).toDouble, r(5))).toDF()
-//    
-//    offers_data.registerTempTable("offers_table")
-
-    // SQL Table testHist
-//    case class testHist(id: String, chain: Int, offer: String, market: String, offerdate: String)
-//    val testHist_data = testHist_dfmap(r => testHist(r(0), r(1).toInt, r(2), r(3), r(4))).toDF()
-//
-//    testHist_data.registerTempTable("testHist_table")
-
-    // SQL Table trainHist
-//    case class trainHist(id: String, chain: Int, offer: String, market: String, repeattrips: Int, repeater: String, offerdate: String)
-//    val trainHist_data = trainHist_df.map(r => trainHist(r(0), r(1).toInt, r(2), r(3), r(4).toInt, r(5), r(6))).toDF()
-//
-//    trainHist_data.registerTempTable("trainHist_table")
-
-    // SQL Table transactions
-//    case class transactions(id: String, chain: Int, dept: String, category: String, company: String, brand: String, date: String, productsize: String, productmeasure: String, purchasequantity: Int, purchaseamount: Double)
-//    val transactions_data = transactions_df.map(r => transactions(r(0), r(1).toInt, r(2), r(3), r(4), r(5), r(6), r(6), r(7), r(8), r(9).toInt, r(10).toDouble)).toDF()
-//
-//    transactions_data.registerTempTable("transactions_table")
-
-    // SQL Query
-    // sqlContext.sql("select offerdate from offers_table").collect().foreach(println)
+    scoreAndLabels_lg.foreach(println)
     
+  }
+}

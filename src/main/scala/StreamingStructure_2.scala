@@ -7,7 +7,8 @@ import org.apache.spark.mllib.optimization.L1Updater
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
-import utilClasses.modelTraining.train
+import utilClasses.modelTraining.{train}
+import utilClasses.modelPredict.{predict}
 
 /**
  * @author ivanliu
@@ -24,7 +25,7 @@ object StreamingStructure_2 {
     // 1. Setup Parameters
 //    val sparkConf = new SparkConf().setMaster("local[2]").setAppName("StreamingLogisticRegression")
 //    val sc = new StreamingContext(sparkConf, Seconds(args(2).toLong))
-
+    val i = 0
     val conf = new SparkConf().setMaster("local").setAppName("StreamingLogisticRegression")
     conf.set("spark.driver.allowMultipleContexts","true")
 //    val ssc = new StreamingContext(conf, Seconds(args(2).toLong))
@@ -40,10 +41,9 @@ object StreamingStructure_2 {
     val train_path = "../data/trainHistory"
     val test_path = "../data/testHistory"
     val transaction_path = "../data/transactions"
+    val model_path = "/models/logistic/lgModel"
     val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path)
-    
-    println(svmModel)
-    println(lgModel)
+//    val pred_lg = predict(offer_path, test_path, transaction_path,model_path)
     
 
     ssc.start()
