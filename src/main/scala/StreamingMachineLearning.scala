@@ -56,16 +56,9 @@ object StreamingMachineLearning {
     // 3.3 Filter transactions happened after offers
     val date_format = new java.text.SimpleDateFormat("yyyy-MM-dd")
     val date_unit = 1.15741e-8
-//    def diff_days(s1: String, s2: String) = {
-//      val date1 = date_format.parse(s1)
-//      val date2 = date_format.parse(s2)
-//      val delta: Long = date1.getTime() - date2.getTime()
-//      (delta * date_unit).toInt
-//    }
     val main_data_filter = main_data.filter(r => { utility.diff_days(r(6), r(16)) > 0 })
 
     // 3.4 Generate 90 new features
-
     val main_data_nFeat = main_data_filter.map(r => Array(r(0).toDouble, r(1).toDouble, r(2).toDouble, r(3).toDouble, r(4).toDouble, if (r(5) == "t") 1.0 else 0.0, r(8).toDouble, r(10).toDouble) ++ {
       val h_company = r(9)
       val h_category = r(7)
