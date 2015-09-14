@@ -19,6 +19,7 @@ object modelTraining {
 
     // 1.Define Spark Context
     val sparkConf = new SparkConf().setAppName("StreamingMachineLearning").setMaster("local[2]")
+    sparkConf.set("spark.driver.allowMultipleContexts","true")
     val sc = new SparkContext(sparkConf)
 //    val sqlContext = new SQLContext(sc)
 
