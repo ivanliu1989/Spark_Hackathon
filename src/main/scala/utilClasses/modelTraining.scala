@@ -28,7 +28,7 @@ object modelTraining {
     val testHist_df = sc.textFile(test_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val trainHist_df = sc.textFile(train_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
 //    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
+    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.0001, seed = 123)
 
     // 1.3 Get all categories and comps on offer in a dict
     val offer_cat = offers_df.map(r => r(1)).collect()
@@ -275,7 +275,7 @@ object modelTraining {
 
     // 3.8 Logistic Regression
     // fixed hyperparameters
-    val numIters = 30
+    val numIters = 1 //30
     val stepSize = 0.85
     val regParam = 1e-3
     val regType = "l2"
@@ -315,7 +315,7 @@ object modelTraining {
     val svmAlg = new SVMWithSGD()
     val reg_svm = 0.1
     svmAlg.optimizer.
-      setNumIterations(20).
+      setNumIterations(1). //20
       setRegParam(reg_svm).
       setUpdater(new L1Updater)
     val svmModelL1 = svmAlg.run(train)
