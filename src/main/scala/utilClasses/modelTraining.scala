@@ -14,7 +14,7 @@ import utilClasses.utility.diff_days
  */
 object modelTraining {
   
-  def train(offers_path: String, train_path: String, test_path: String, transaction_path: String ) {
+  def train(offers_path: String, train_path: String, test_path: String, transaction_path: String, file_name: String ) {
 
     // 1.Define Spark Context
     val sparkConf = new SparkConf().setAppName("StreamingMachineLearning").setMaster("local[2]")
@@ -371,8 +371,8 @@ object modelTraining {
 */
 //    scoreAndLabels.foreach(println)
 //    (svmModelL1,lgModelL1)
-    val lgModelPath = "models/logistic/lgModel1"
-    lgModelL1.save(sc, lgModelPath)
+    
+    lgModelL1.save(sc, file_name)
     (1,lgModelL1)
   }
 

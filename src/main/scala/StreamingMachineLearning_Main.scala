@@ -1,9 +1,12 @@
 package utilClasses
 
+import java.text.SimpleDateFormat
+import java.util.Date
+
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
+import utilClasses.modelPredict.predict
 import utilClasses.modelTraining.train
-
 
 /**
  * @author ivanliu
@@ -19,27 +22,39 @@ object StreamingMachineLearning_Main {
     // 1. Setup Parameters
 //    val sparkConf = new SparkConf().setMaster("local[2]").setAppName("StreamingLogisticRegression")
 //    val sc = new StreamingContext(sparkConf, Seconds(args(2).toLong))
-    val i = 0
+    
     val conf = new SparkConf().setMaster("local").setAppName("StreamingLogisticRegression")
     conf.set("spark.driver.allowMultipleContexts","true")
 //    val ssc = new StreamingContext(conf, Seconds(args(2).toLong))
     val ssc = new StreamingContext(conf, Seconds(300))
 
     // 2. Streaming Outer Loop
-//    val train_trigger = if (args(3).toInt % (24 * 3600) == 0) true else false
-//    val trainingData = ssc.textFileStream(args(0))
-//    val testData = ssc.textFileStream(args(1))
-
+    val now = new Date   
+    val dateFormatter = new SimpleDateFormat("y-M-d")
+    val hourFormatter = new SimpleDateFormat("H")
+//    val df = getDateInstance(LONG, Locale.US)  
+    
+    val model_path = "models/logistic/lgModel_"
+    val file_name = model_path + dateFormatter.format(now)
+    val hour_trigger = hourFormatter.format(now).toInt
+    println(file_name)
+    println(hour_trigger)
+    
 /* Start to training data */
     val offer_path = "../data/offers"
     val train_path = "../data/trainHistory"
     val test_path = "../data/testHistory"
     val transaction_path = "../data/transactions"
-    val model_path = "models/logistic/lgModel1"
-    val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path)
-//    val pred_lg = predict(offer_path, test_path, transaction_path,model_path)
     
-
+    
+    //Training or Predicting
+    if (hour_trigger == 21){
+      val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path, file_name)
+    }
+    else{
+      val pred_lg = predict(offer_path, test_path, transaction_path,model_path)
+    }
+    
     ssc.start()
     ssc.awaitTermination()
 
