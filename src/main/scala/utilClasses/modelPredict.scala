@@ -27,8 +27,9 @@ object modelPredict {
     val offers_df = sc.textFile(offers_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val testHist_df = sc.textFile(test_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
 //    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.01, seed = 123)
-
+    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.00001, seed = 123)
+    val cstr_id = testHist_df.map(r => r(0))
+    
     // 1.3 Get all categories and comps on offer in a dict
     val offer_cat = offers_df.map(r => r(1)).collect()
     val offer_comp = offers_df.map(r => r(3)).collect()
@@ -273,10 +274,14 @@ object modelPredict {
     // Compute raw scores on the test set.
     val scoreAndLabels_lg = testing.map { point =>
       val score = lgModelL1.predict(point.features)
-      (score, point.label)
+      (point.label, score)
     }
 
-    scoreAndLabels_lg.foreach(println)
+    val cid = cstr_id.collect()
+    val pred = scoreAndLabels_lg.collect()
+    
+    println(cid(1) + ' ' + pred(1))
+//    scoreAndLabels_lg.foreach(println)
     
   }
 }

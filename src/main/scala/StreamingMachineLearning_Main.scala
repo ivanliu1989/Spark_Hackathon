@@ -20,13 +20,12 @@ object StreamingMachineLearning_Main {
 //      System.exit(1)
 //    }
     // 1. Setup Parameters
-//    val sparkConf = new SparkConf().setMaster("local[2]").setAppName("StreamingLogisticRegression")
-//    val sc = new StreamingContext(sparkConf, Seconds(args(2).toLong))
+//    val conf = new SparkConf().setMaster("local[2]").setAppName("StreamingLogisticRegression")
+//    val ssc = new StreamingContext(sparkConf, Seconds(args(2).toLong))
     
     val conf = new SparkConf().setMaster("local").setAppName("StreamingLogisticRegression")
     conf.set("spark.driver.allowMultipleContexts","true")
-//    val ssc = new StreamingContext(conf, Seconds(args(2).toLong))
-    val ssc = new StreamingContext(conf, Seconds(300))
+    val ssc = new StreamingContext(conf, Seconds(3600))
 
     // 2. Streaming Outer Loop
     val now = new Date   
@@ -48,11 +47,11 @@ object StreamingMachineLearning_Main {
     
     
     //Training or Predicting
-    if (hour_trigger == 21){
+    if (hour_trigger == 22){
       val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path, file_name)
     }
     else{
-      val pred_lg = predict(offer_path, test_path, transaction_path,model_path)
+      val pred_lg = predict(offer_path, test_path, transaction_path,file_name)
     }
     
     ssc.start()
