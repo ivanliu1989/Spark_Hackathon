@@ -274,13 +274,19 @@ object modelPredict {
     // Compute raw scores on the test set.
     val scoreAndLabels_lg = testing.map { point =>
       val score = lgModelL1.predict(point.features)
-      (point.label, score)
+       "Prediction: " + score
+      //(point.label, score)
     }
 
+    // 3.9 Print Results
     val cid = cstr_id.collect()
     val pred = scoreAndLabels_lg.collect()
     
-    println(cid(1) + ' ' + pred(1))
+    val r = 0
+    for (r <- 0 to cid.length){
+      println("Customer: " + cid(r) + " " + pred(r))
+    }
+    
 //    scoreAndLabels_lg.foreach(println)
     
   }

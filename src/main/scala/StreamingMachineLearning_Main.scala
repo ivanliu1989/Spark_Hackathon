@@ -25,7 +25,7 @@ object StreamingMachineLearning_Main {
     
     val conf = new SparkConf().setMaster("local").setAppName("StreamingLogisticRegression")
     conf.set("spark.driver.allowMultipleContexts","true")
-    val ssc = new StreamingContext(conf, Seconds(3600))
+    val ssc = new StreamingContext(conf, Seconds(300))
 
     // 2. Streaming Outer Loop
     val now = new Date   
@@ -47,7 +47,7 @@ object StreamingMachineLearning_Main {
     
     
     //Training or Predicting
-    if (hour_trigger == 22){
+    if (hour_trigger == 21){ //Time trigger of re-train the model
       val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path, file_name)
     }
     else{
