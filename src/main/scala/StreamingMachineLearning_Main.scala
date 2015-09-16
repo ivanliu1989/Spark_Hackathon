@@ -7,7 +7,7 @@ import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import utilClasses.modelPredict.predict
 import utilClasses.modelTraining.train
-
+import java.nio.file.{Paths, Files}
 /**
  * @author ivanliu
  */
@@ -15,18 +15,18 @@ object StreamingMachineLearning_Main {
   def main(args: Array[String]) {
 
     
-    if (args.length != 4) {
-      System.err.println(
-        "Usage: StreamingLogisticRegression <trainingDir> <testDir> <BatchDuration> <trainHour>")
-      System.exit(1)
-    }
+//    if (args.length != 4) {
+//      System.err.println(
+//        "Usage: StreamingLogisticRegression <trainingDir> <testDir> <BatchDuration> <trainHour>")
+//      System.exit(1)
+//    }
     
     
     /* 1. Setup Parameters */
     val conf = new SparkConf().setMaster("local").setAppName("StreamingLogisticRegression")
     conf.set("spark.driver.allowMultipleContexts","true")
-    // val ssc = new StreamingContext(conf, Seconds(300))
-    val ssc = new StreamingContext(conf, Seconds(args(2).toLong))
+     val ssc = new StreamingContext(conf, Seconds(300))
+//    val ssc = new StreamingContext(conf, Seconds(args(2).toLong))
 
     val now = new Date   
     val dateFormatter = new SimpleDateFormat("y-M-d")
@@ -42,15 +42,17 @@ object StreamingMachineLearning_Main {
     
     /* 2. Start to training data */
     val offer_path = "../data/offers"
-//    val train_path = "../data/trainHistory"
-    val train_path = args(0).toString
-//    val test_path = "../data/testHistory"
-    val test_path = args(1).toString
     val transaction_path = "../data/transactions"
-    val tHour = args(3).toInt
+//    val train_path = args(0).toString
+//    val test_path = args(1).toString
+//    val tHour = args(3).toInt
+    val train_path = "../data/trainHistory"
+    val test_path = "../data/testHistory"
+    val tHour = 21
+
     
     /* 2.1 Training or Predicting */
-    if (hour_trigger == tHour){ //Time trigger of re-train the model
+    if (hour_trigger == tHour || !Files.exists(Paths.get(file_name))){ //Time trigger to re-train the model OR no model has been found
       val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path, file_name)
     }
     else{
