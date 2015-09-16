@@ -16,17 +16,17 @@ object modelTraining {
   
   def train(offers_path: String, train_path: String, test_path: String, transaction_path: String, file_name: String ) {
 
-    // 1.Define Spark Context
+    // 1.1 Define Spark Context
     val sparkConf = new SparkConf().setAppName("StreamingMachineLearning").setMaster("local[2]")
     sparkConf.set("spark.driver.allowMultipleContexts","true")
     val sc = new SparkContext(sparkConf)
-//    val sqlContext = new SQLContext(sc)
+    // val sqlContext = new SQLContext(sc)
     println("Start Loading Datasets ...")
+    
     // 1.2 Load and Check the data
     val offers_df = sc.textFile(offers_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-//    val testHist_df = sc.textFile(test_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val trainHist_df = sc.textFile(train_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
-//    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
+    // val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.0001, seed = 123)
 
     // 1.3 Get all categories and comps on offer in a dict
