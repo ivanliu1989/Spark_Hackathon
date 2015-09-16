@@ -53,7 +53,7 @@ object StreamingMachineLearning_Main {
     
     /* 2.1 Training or Predicting */
     //Time trigger to re-train the model AND/OR no existing model has been found
-    if ((hour_trigger == tHour && !Files.exists(Paths.get(file_name))) || !Files.exists(Paths.get(file_name))){ 
+    if ((hour_trigger == tHour & !Files.exists(Paths.get(file_name))) || !Files.exists(Paths.get(file_name))){ 
       val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path, file_name)
     }
     else{

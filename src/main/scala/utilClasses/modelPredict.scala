@@ -8,7 +8,9 @@ import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
 import utilClasses.utility.diff_days
-
+import java.io._
+import java.text.SimpleDateFormat
+import java.util.Date
 /**
  * @author ivanliu
  */
@@ -284,11 +286,18 @@ object modelPredict {
     val cid = cstr_id.collect()
     val pred = scoreAndLabels_lg.collect()
     
-    val r = 0
-    for (r <- 0 to cid.length){
-      println("Customer: " + cid(r) + " " + pred(r))
-    }
+    val now = new Date   
+    val dateFormatter = new SimpleDateFormat("y-M-d-H-m-s")
     
+    val output_path = "../model/predictions/predictions_" + dateFormatter.format(now) + ".txt"
+    val pw = new PrintWriter(new File(output_path))
+    val r = 0
+    for (r <- 0 to cid.length-1){
+      println("Customer: " + cid(r) + " " + pred(r))
+      pw.write("Customer: " + cid(r) + " " + pred(r))
+    }
+    pw.close
+
 //    scoreAndLabels_lg.foreach(println)
     
   }
