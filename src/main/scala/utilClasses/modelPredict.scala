@@ -289,7 +289,7 @@ object modelPredict {
     val now = new Date   
     val dateFormatter = new SimpleDateFormat("y-M-d-H-m-s")
     
-    val output_path = "../model/predictions/predictions_" + dateFormatter.format(now) + ".txt"
+    val output_path = "models/predictions/predictions_" + dateFormatter.format(now) + ".txt"
     val pw = new PrintWriter(new File(output_path))
     val r = 0
     for (r <- 0 to cid.length-1){
