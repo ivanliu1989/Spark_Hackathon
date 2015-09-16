@@ -32,7 +32,7 @@ resolvers ++= Seq(
  )
 
 // set the main class for 'sbt run'
-mainClass in (Compile, run) := Some("StreamingMachineLearning_Main")
+mainClass in (Compile, run) := Some("utilClasses.StreamingMachineLearning_Main")
 
 
 

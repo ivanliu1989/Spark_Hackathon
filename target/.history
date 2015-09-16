@@ -59,3 +59,9 @@ ryb
 run StreamingMachineLearning
 run "run-main StreamingMachineLearning"
 sbt "StreamingMachineLearning" "run"
+~run
+quit
+~run
+~run-main utilClasses.StreamingMachineLearning_Main
+~run-main utilClasses.StreamingMachineLearning_Main target/scala-2.11/spark_hackathon_2.11-1.0.jar ../data/trainHistory ../data/testHistory 3600 22
+~run-main utilClasses.StreamingMachineLearning_Main "../data/trainHistory" "../data/testHistory" 3600 22
