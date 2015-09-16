@@ -60,6 +60,9 @@ object StreamingMachineLearning_Main {
       val pred_lg = predict(offer_path, test_path, transaction_path,file_name)
     }
     
+    val predictions = ssc.textFileStream("models/predictions/")
+    predictions.count.print
+    
     ssc.start()
     ssc.awaitTermination()
 
