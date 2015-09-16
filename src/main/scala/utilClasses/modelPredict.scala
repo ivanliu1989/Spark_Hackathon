@@ -14,7 +14,9 @@ import utilClasses.utility.diff_days
  */
 object modelPredict {
   def predict(offers_path: String, test_path: String, transaction_path: String, model_path: String ) {
-    // 1.Define Spark Context
+    
+    /* 1. Initializing */
+    /* 1.1 Define Spark Context */
     val sparkConf = new SparkConf().setAppName("StreamingMachineLearning").setMaster("local[2]")
     sparkConf.set("spark.driver.allowMultipleContexts","true")
     val sc = new SparkContext(sparkConf)
@@ -23,24 +25,24 @@ object modelPredict {
     val lgModelL1 = LogisticRegressionModel.load(sc, model_path)
     println("Start Loading Datasets ...")
     
-    // 1.2 Load and Check the data
+    /* 1.2 Load and Check the data */
     val offers_df = sc.textFile(offers_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val testHist_df = sc.textFile(test_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
 //    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(","))
     val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.00001, seed = 123)
     val cstr_id = testHist_df.map(r => r(0))
     
-    // 1.3 Get all categories and comps on offer in a dict
+    /* 1.3 Get all categories and comps on offer in a dict */
     val offer_cat = offers_df.map(r => r(1)).collect()
     val offer_comp = offers_df.map(r => r(3)).collect()
 
-    // 2. Reduce datasets - only write when if category in offers dict
+    /* 2. Reduce datasets - only write when if category in offers dict */
     val transactions_df_filtered = transactions_df.filter(r => { offer_cat.contains(r(3)) || offer_comp.contains(r(4)) }) //349655789 | 15349956 | 27764694 
 
-    // 3. Feature Generation/Engineering
-    // 3.1 keep a dictionary with the offerdata
+    /* 3. Feature Generation/Engineering */
+    /* 3.1 keep a dictionary with the offerdata */
     val offers_dict = offers_df.map(r => (r(0), r))
-    // 3.2 keep two dictionaries with the shopper id's from test and train
+    /* 3.2 keep two dictionaries with the shopper id's from test and train */
     // val testHist_dict = testHist_df.map(r => ((r(0),r(1)),r))
     val testHist_dict = testHist_df.map(r => (r(2), r))
     val transactions_dict = transactions_df_filtered.map(r => ((r(0), r(1)), r)) //,r(3),r(4),r(5)
@@ -55,12 +57,12 @@ object modelPredict {
     /* Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.offerdate, 7.o_category, 8.quantity, 9.o_company, 10.offervalue, 11.o_brand,   
        Features: 12.dept, 13.t_category, 14.t_company, 15.t_brand, 16.date, 17.productsize, 18.productmeasure, 19.purchasequantity, 20.purchaseamount */
 
-    // 3.3 Filter transactions happened after offers
+    /* 3.3 Filter transactions happened after offers */
     val date_format = new java.text.SimpleDateFormat("yyyy-MM-dd")
     val date_unit = 1.15741e-8
     val main_data_filter = main_data.filter(r => { utility.diff_days(r(6), r(16)) > 0 })
 
-    // 3.4 Generate 90 new features
+    /* 3.4 Generate 90 new features */
     val main_data_nFeat = main_data_filter.map(r => Array(r(0).toDouble, r(1).toDouble, r(2).toDouble, r(3).toDouble, r(4).toDouble, if (r(5) == "t") 1.0 else 0.0, r(8).toDouble, r(10).toDouble) ++ {
       val h_company = r(9)
       val h_category = r(7)
@@ -230,7 +232,7 @@ object modelPredict {
         has_bought_brand_company_180, has_bought_brand_company_q_180, has_bought_brand_company_a_180)
     })
 
-    // 3.5 Aggregate Transactions and generate new features
+    /* 3.5 Aggregate Transactions and generate new features */
     // reduceByKey => Key(trainHist-2~11) Attributes(Transactions-12~20)
     /* Features: 0.id, 1.chain, 2.offer, 3.market, 4.repeattrips, 5.repeater, 6.quantity, 7.offervalue    
        Features: 8~98.(72 features) 
@@ -262,14 +264,14 @@ object modelPredict {
       x(70) + y(70), x(71) + y(71), x(72) + y(72), x(73) + y(73), x(74) + y(74), x(75) + y(75), x(76) + y(76), x(77) + y(77), x(78) + y(78), x(79) + y(79),
       x(80) + y(80), x(81) + y(81), x(82) + y(82), x(83) + y(83), x(84) + y(84), x(85) + y(85), x(86) + y(86), x(87) + y(87), x(88) + y(88), x(89) + y(89)))
 
-    // 3.6 Label Point
+    /* 3.6 Label Point */
     val testing = main_data_agg.map(r => (r._1._6, Array(r._1._5, r._1._7, r._1._8) ++ r._2)).map(r => LabeledPoint(r._1, Vectors.dense(r._2))).cache()
     /* Target: 0.repeater,     
        Features: 1.repeattrips, 2.quantity, 3.offervalue, 4~86.(72 features)   
      */
 
 
-    // 3.8 Logistic Regression
+    /* 3.7 Logistic Regression */
     // fixed hyperparameters
     // Compute raw scores on the test set.
     val scoreAndLabels_lg = testing.map { point =>
@@ -278,7 +280,7 @@ object modelPredict {
       //(point.label, score)
     }
 
-    // 3.9 Print Results
+    /* 3.8 Print Results */
     val cid = cstr_id.collect()
     val pred = scoreAndLabels_lg.collect()
     
