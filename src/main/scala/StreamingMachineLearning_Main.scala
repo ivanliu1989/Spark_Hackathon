@@ -14,13 +14,11 @@ import java.nio.file.{Paths, Files}
 object StreamingMachineLearning_Main {
   def main(args: Array[String]) {
 
-    
     if (args.length != 4) {
       System.err.println(
         "Usage: StreamingLogisticRegression <trainingDir> <testDir> <BatchDuration> <trainHour>")
       System.exit(1)
     }
-    
     
     /* 1. Setup Parameters */
     val conf = new SparkConf().setMaster("local").setAppName("StreamingLogisticRegression")
@@ -60,6 +58,7 @@ object StreamingMachineLearning_Main {
       val pred_lg = predict(offer_path, test_path, transaction_path,file_name)
     }
     
+    /* 3. Update number of predictions */
     val predictions = ssc.textFileStream("models/predictions/")
     predictions.count.print
     
