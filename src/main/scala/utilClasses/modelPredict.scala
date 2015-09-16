@@ -288,13 +288,14 @@ object modelPredict {
     
     val now = new Date   
     val dateFormatter = new SimpleDateFormat("y-M-d-H-m-s")
-    
     val output_path = "models/predictions/predictions_" + dateFormatter.format(now) + ".txt"
-    val pw = new PrintWriter(new File(output_path))
+    
     val r = 0
-    for (r <- 0 to cid.length-1){
+    val pw = new PrintWriter(new File(output_path))
+    for (r <- 0 to (pred.length-1)){
       println("Customer: " + cid(r) + " " + pred(r))
-      pw.write("Customer: " + cid(r) + " " + pred(r))
+//      pw.write("Customer: " + cid(r) + " " + pred(r))
+      pw.println("Customer: " + cid(r) + " " + pred(r))
     }
     pw.close
 
