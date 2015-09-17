@@ -60,10 +60,6 @@ object StreamingMachineLearning_Main {
       val pred_lg = predict(offer_path, test_path, transaction_path,file_name)
     })
     
-    
-    /* 3. Update number of predictions */
-    // predictions.print
-    
     ssc.start()
     ssc.awaitTermination()
 
