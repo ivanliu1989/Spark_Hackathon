@@ -22,6 +22,7 @@ object modelTraining {
     sparkConf.set("spark.driver.allowMultipleContexts","true")
     val sc = new SparkContext(sparkConf)
     // val sqlContext = new SQLContext(sc)
+    println("Model Training Step ...")
     println("Start Loading Datasets ...")
     
     /* 1.2 Load and Check the data */

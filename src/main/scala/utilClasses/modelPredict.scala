@@ -25,6 +25,7 @@ object modelPredict {
     
     println("Start Loading Model ...")
     val lgModelL1 = LogisticRegressionModel.load(sc, model_path)
+    println("Predicting Step ...")
     println("Start Loading Datasets ...")
     
     /* 1.2 Load and Check the data */
