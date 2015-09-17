@@ -373,7 +373,8 @@ object modelTraining {
 //    (svmModelL1,lgModelL1)
     
     lgModelL1.save(sc, file_name)
-    (1,lgModelL1)
+//    (1,lgModelL1)
+    1
   }
 
 }

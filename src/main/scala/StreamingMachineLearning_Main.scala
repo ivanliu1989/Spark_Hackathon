@@ -26,6 +26,8 @@ object StreamingMachineLearning_Main {
 //     val ssc = new StreamingContext(conf, Seconds(300))
     val ssc = new StreamingContext(conf, Seconds(args(2).toLong))
 
+    val predictions = ssc.textFileStream("models/predictions/")
+    
     val now = new Date   
     val dateFormatter = new SimpleDateFormat("y-M-d")
     val hourFormatter = new SimpleDateFormat("H")
@@ -48,19 +50,19 @@ object StreamingMachineLearning_Main {
 //    val test_path = "../data/testHistory"
 //    val tHour = 21
 
-    
+
     /* 2.1 Training or Predicting */
     //Time trigger to re-train the model AND/OR no existing model has been found
-    if ((hour_trigger == tHour & !Files.exists(Paths.get(file_name))) || !Files.exists(Paths.get(file_name))){ 
+    predictions.foreachRDD(r => if ((hour_trigger == tHour & !Files.exists(Paths.get(file_name))) || !Files.exists(Paths.get(file_name))){ 
       val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path, file_name)
     }
     else{
       val pred_lg = predict(offer_path, test_path, transaction_path,file_name)
-    }
+    })
+    
     
     /* 3. Update number of predictions */
-    val predictions = ssc.textFileStream("models/predictions/")
-    predictions.count.print
+    // predictions.print
     
     ssc.start()
     ssc.awaitTermination()

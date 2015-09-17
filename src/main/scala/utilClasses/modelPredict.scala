@@ -300,6 +300,7 @@ object modelPredict {
     pw.close
 
 //    scoreAndLabels_lg.foreach(println)
+    1
     
   }
 }
