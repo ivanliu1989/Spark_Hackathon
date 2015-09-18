@@ -41,8 +41,8 @@ object StreamingMachineLearning_Main {
     
     
     /* 2. Start to training data */
-    val offer_path = "../data/offers"
-    val transaction_path = "../data/transactions"
+    val offer_path = "data/offers"
+    val transaction_path = "data/transactions_sample/"
     val train_path = args(0).toString
     val test_path = args(1).toString
     val tHour = args(3).toInt
@@ -54,7 +54,8 @@ object StreamingMachineLearning_Main {
     /* 2.1 Training or Predicting */
     //Time trigger to re-train the model AND/OR no existing model has been found
     predictions.foreachRDD(r => if ((hour_trigger == tHour & !Files.exists(Paths.get(file_name))) || !Files.exists(Paths.get(file_name))){ 
-      val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path, file_name)
+//      val svmModel, lgModel = train(offer_path, train_path, test_path, transaction_path, file_name)
+      val lgModel = train(offer_path, train_path, test_path, transaction_path, file_name)
     }
     else{
       val pred_lg = predict(offer_path, test_path, transaction_path,file_name)
