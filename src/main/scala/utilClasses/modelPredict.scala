@@ -34,6 +34,7 @@ object modelPredict {
     val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter else iter }.map(_.split(","))
 //    val transactions_df = sc.textFile(transaction_path).mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }.map(_.split(",")).sample(false, fraction = 0.00001, seed = 123)
     val cstr_id = testHist_df.map(r => r(0))
+    val offer_id = testHist_df.map(r => r(2))
     
     /* 1.3 Get all categories and comps on offer in a dict */
     val offer_cat = offers_df.map(r => r(1)).collect()
@@ -286,6 +287,7 @@ object modelPredict {
     /* 3.8 Print Results */
     val cid = cstr_id.collect()
     val pred = scoreAndLabels_lg.collect()
+    val offerid = offer_id.collect()
     
     val now = new Date   
     val dateFormatter = new SimpleDateFormat("y-M-d-H-m-s")
@@ -294,9 +296,9 @@ object modelPredict {
     val r = 0
     val pw = new PrintWriter(new File(output_path))
     for (r <- 0 to (pred.length-1)){
-      println("Customer: " + cid(r) + " " + pred(r))
+      println("Customer: " + cid(r) + " " + "Offer: " + offerid(r) + " " + pred(r))
 //      pw.write("Customer: " + cid(r) + " " + pred(r))
-      pw.println("Customer: " + cid(r) + " " + pred(r))
+      pw.println("Customer: " + cid(r) + " " + "Offer: " + offerid(r) + " " + pred(r))
     }
     pw.close
 

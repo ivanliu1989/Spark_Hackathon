@@ -163,6 +163,47 @@
 [0m[[0mdebug[0m] [0m	/Users/ivanliu/.ivy2/cache/org.joda/joda-convert/jars/joda-convert-1.7.jar[0m
 [0m[[0mdebug[0m] [0m	/Users/ivanliu/.ivy2/cache/com.github.scopt/scopt_2.11/jars/scopt_2.11-3.3.0.jar[0m
 [0m[[0mdebug[0m] [0mWaiting for thread run-main-0 to terminate.[0m
+[0m[[31merror[0m] [0m(pool-20-thread-1) java.lang.Error: java.lang.InterruptedException[0m
+java.lang.Error: java.lang.InterruptedException
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1148)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:502)
+	at org.apache.spark.scheduler.JobWaiter.awaitResult(JobWaiter.scala:73)
+	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:530)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:1732)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:1750)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:1765)
+	at org.apache.spark.SparkContext.runJob(SparkContext.scala:1779)
+	at org.apache.spark.rdd.RDD$$anonfun$collect$1.apply(RDD.scala:885)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:148)
+	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:109)
+	at org.apache.spark.rdd.RDD.withScope(RDD.scala:286)
+	at org.apache.spark.rdd.RDD.collect(RDD.scala:884)
+	at utilClasses.modelPredict$.predict(modelPredict.scala:289)
+	at utilClasses.StreamingMachineLearning_Main$$anonfun$main$1.apply(StreamingMachineLearning_Main.scala:61)
+	at utilClasses.StreamingMachineLearning_Main$$anonfun$main$1.apply(StreamingMachineLearning_Main.scala:56)
+	at org.apache.spark.streaming.dstream.DStream$$anonfun$foreachRDD$1$$anonfun$apply$mcV$sp$3.apply(DStream.scala:631)
+	at org.apache.spark.streaming.dstream.DStream$$anonfun$foreachRDD$1$$anonfun$apply$mcV$sp$3.apply(DStream.scala:631)
+	at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1$$anonfun$apply$mcV$sp$1.apply$mcV$sp(ForEachDStream.scala:42)
+	at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1$$anonfun$apply$mcV$sp$1.apply(ForEachDStream.scala:40)
+	at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1$$anonfun$apply$mcV$sp$1.apply(ForEachDStream.scala:40)
+	at org.apache.spark.streaming.dstream.DStream.createRDDWithLocalProperties(DStream.scala:399)
+	at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1.apply$mcV$sp(ForEachDStream.scala:40)
+	at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1.apply(ForEachDStream.scala:40)
+	at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1.apply(ForEachDStream.scala:40)
+	at scala.util.Try$.apply(Try.scala:192)
+	at org.apache.spark.streaming.scheduler.Job.run(Job.scala:34)
+	at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler$$anonfun$run$1.apply$mcV$sp(JobScheduler.scala:193)
+	at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler$$anonfun$run$1.apply(JobScheduler.scala:193)
+	at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler$$anonfun$run$1.apply(JobScheduler.scala:193)
+	at scala.util.DynamicVariable.withValue(DynamicVariable.scala:58)
+	at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler.run(JobScheduler.scala:192)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
 [0m[[0mdebug[0m] [0m	Thread run-main-0 exited.[0m
 [0m[[0mdebug[0m] [0mWaiting for thread Thread-1 to terminate.[0m
 [0m[[0mdebug[0m] [0m	Thread Thread-1 exited.[0m
