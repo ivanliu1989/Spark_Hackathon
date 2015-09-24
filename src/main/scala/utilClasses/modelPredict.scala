@@ -7,7 +7,7 @@ import org.apache.spark.mllib.optimization.L1Updater
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
-import utilClasses.utility.diff_days
+import utilClasses.utility.{diff_days, moveFile}
 import java.io._
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -303,7 +303,7 @@ object modelPredict {
     pw.close
 
 //    scoreAndLabels_lg.foreach(println)
-    1
+    val move = moveFile(test_path, "data/archived/testFile" + dateFormatter.format(now))
     
   }
 }

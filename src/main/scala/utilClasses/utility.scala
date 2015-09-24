@@ -1,4 +1,5 @@
 package utilClasses
+import java.io.{File,FileInputStream,FileOutputStream}
 
 /**
  * @author ivanliu
@@ -14,5 +15,13 @@ object utility {
     val delta: Long = date1.getTime() - date2.getTime()
     (delta * date_unit).toInt
   }
-
+  
+  // 2. Move predicted file
+  def moveFile(srcPath: String, destPath: String)={
+    val src = new File(srcPath)
+    val dest = new File(destPath)
+    new FileOutputStream(dest) getChannel() transferFrom(
+    new FileInputStream(src) getChannel, 0, Long.MaxValue )
+  }
+  
 }
